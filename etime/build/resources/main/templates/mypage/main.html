@@ -1,0 +1,12 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+    <h1>마이페이지</h1>
+    아이디 : <a th:text="${session.loginId}"></a>
+    <p> 비밀번호 : <a th:text="${session.loginPwd}"></a> </p>
+    <p> <a href="/mypage/update">내 정보 수정</a> </p>
+    <p> <a href="/mypage/logout">로그아웃</a> </p>
+</body>
+
+</html>

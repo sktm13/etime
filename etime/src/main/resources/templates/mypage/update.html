@@ -1,0 +1,13 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+    <h1>정보 수정</h1>
+    <form action="/mypage/update" method="POST">
+        <input type="hidden" th:value="${updateMember.id}" name="id"><br>
+        비밀번호 : <input type="text" th:value="${updateMember.Pwd}" name="pwd"><br>
+        <input type="submit" value="정보수정">
+    </form>
+</body>
+
+</html>
