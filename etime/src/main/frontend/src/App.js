@@ -9,6 +9,7 @@ import Navibar from "./common/Navibar"
 import Sidebar from "./common/Sidebar"
 import Contents from "./pages/Contents"
 import Post from "./pages/Post"
+import Mypage from "./pages/Mypage"
 
 
 function App() {
@@ -28,7 +29,8 @@ function App() {
                 {/* 컨텐츠 */}
                 <Routes>
                     <Route path="/" element={<Contents />} />
-                    <Route path="/post" element={<Post />} />
+                    <Route path="/pages/post" element={<Post />} />
+                    <Route path="/pages/Mypage" element={<Mypage />} />
                 </Routes>
             </Row>
         </Container>

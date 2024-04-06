@@ -1,10 +1,11 @@
-import '../style/App.css'
-import React from 'react'
+// Post.js
+import React from 'react';
+import { Col } from 'react-bootstrap';
 
 function Post() {
-    return (
-        <h4>awefawefawe</h4>
-    );
+  return (
+    null
+  );
 }
 
 export default Post;

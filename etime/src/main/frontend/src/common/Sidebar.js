@@ -2,7 +2,7 @@
 import React from 'react';
 import { Col, Row, Tab, ListGroup } from 'react-bootstrap';
 
-function Contents() {
+function Sidebar() {
   return (
     <Col className='Sidebar' xs={2}>
         <Tab.Container defaultActiveKey="#link1">
@@ -18,4 +18,4 @@ function Contents() {
   );
 }
 
-export default Contents;
+export default Sidebar;
