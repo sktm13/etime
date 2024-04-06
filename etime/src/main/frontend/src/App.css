@@ -1,38 +1,42 @@
 .App {
-  text-align: center;
+	text-align: center;
+	/* max-width: 1200px; */
+	margin: auto;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body {
+	margin: 0;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+div {
+	box-sizing: border-box;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+/* Navbar */
+.navbar {
+	box-shadow: 0px 0px 5px #444;
 }
 
-.App-link {
-  color: #61dafb;
+
+/* Sidebar */
+.list-group {
+	box-shadow: 0px 0px 5px #444;
+	min-width: 150px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+
+/* Main */
+.card {
+	margin: 1rem;
+}
+
+.Content {
+	margin: 1rem;
+}
+
+
+
+/* 기능별 */
+.float-right {
+	float: right;
 }
