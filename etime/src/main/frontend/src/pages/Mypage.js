@@ -1,20 +1,23 @@
 // Home.js
 import React from 'react';
-import { Container, Row, Col, Image, MdGrade, Card } from 'react-bootstrap';
+import { Container, Row, Col, Image, Card } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 
 
-const posts = [
-	{ id: 1, title: "Post 1", content: "This is the first post." },
-	{ id: 2, title: "Post 2", content: "This is the second post." },
-	{ id: 3, title: "Post 3", content: "This is the third post." },
-  ];
+const title = "Title";
+const text = "Text";
+const link = "#";
+const img = "http://via.placeholder.com/320x180";
 
 
 function MyPage() {
+
+	const navigate = useNavigate();
+
 	return (
 	  <Container>
 		<Row className="my-3 align-items-center">
-			<Col xs={1}>
+			<Col xs={2}>
 			</Col>
 			<Col xs={1}>
 				<Image src="http://via.placeholder.com/150" roundedCircle />
@@ -22,8 +25,32 @@ function MyPage() {
 					<h4>Username</h4>
 				</Row>
 			</Col>
-			<Col xs={1}>
+			<Col xs={2}>
 				<Image src="http://via.placeholder.com/50" size="2em" />
+			</Col>
+			<Col>
+				<Row>설정설정설정설정설정설정설정설정설정설정설정설정</Row>
+				<Row>설정설정설정설정설정설정설정설정설정설정설정설정</Row>
+				<Row>설정설정설정설정설정설정설정설정설정설정설정설정</Row>
+				<Row>설정설정설정설정설정설정설정설정설정설정설정설정</Row>
+				<Row>설정설정설정설정설정설정설정설정설정설정설정설정</Row>
+				<Row>설정설정설정설정설정설정설정설정설정설정설정설정</Row>
+				<Row>설정설정설정설정설정설정설정설정설정설정설정설정</Row>
+				<Row>설정설정설정설정설정설정설정설정설정설정설정설정</Row>
+				<Row>설정설정설정설정설정설정설정설정설정설정설정설정</Row>
+				<Row>설정설정설정설정설정설정설정설정설정설정설정설정</Row>
+				<Row>설정설정설정설정설정설정설정설정설정설정설정설정</Row>
+				<Row>설정설정설정설정설정설정설정설정설정설정설정설정</Row>
+				<Row>설정설정설정설정설정설정설정설정설정설정설정설정</Row>
+				<Row>설정설정설정설정설정설정설정설정설정설정설정설정</Row>
+				<Row>설정설정설정설정설정설정설정설정설정설정설정설정</Row>
+				<Row>설정설정설정설정설정설정설정설정설정설정설정설정</Row>
+				<Row>설정설정설정설정설정설정설정설정설정설정설정설정</Row>
+				<Row>설정설정설정설정설정설정설정설정설정설정설정설정</Row>
+				<Row>설정설정설정설정설정설정설정설정설정설정설정설정</Row>
+				<Row>설정설정설정설정설정설정설정설정설정설정설정설정</Row>
+				<Row>설정설정설정설정설정설정설정설정설정설정설정설정</Row>
+				<Row>설정설정설정설정설정설정설정설정설정설정설정설정</Row>
 			</Col>
 		
 		</Row>
@@ -32,31 +59,34 @@ function MyPage() {
 		<h5>내 글</h5>
 		<Row>
 			<Card>
-			<Card.Link href='/post'>
-				<Card.Img variant="top" src='http://via.placeholder.com/320x180' />
-				<Card.Body>
-				<Card.Title>Title</Card.Title>
-				<Card.Text>Text</Card.Text>
-				</Card.Body>
-			</Card.Link>
+				<Card.Link href={link}
+					onClick={() => {navigate('/pages/Post');}}>
+					<Card.Img variant="top" src={img} />
+					<Card.Body>
+						<Card.Title>{title}</Card.Title>
+						<Card.Text>{text}</Card.Text>
+					</Card.Body>
+				</Card.Link>
 			</Card>
 			<Card>
-			<Card.Link href='/post'>
-				<Card.Img variant="top" src='http://via.placeholder.com/320x180' />
-				<Card.Body>
-				<Card.Title>Title</Card.Title>
-				<Card.Text>Text</Card.Text>
-				</Card.Body>
-			</Card.Link>
+				<Card.Link href={link}
+					onClick={() => {navigate('/pages/Post');}}>
+					<Card.Img variant="top" src={img} />
+					<Card.Body>
+						<Card.Title>{title}</Card.Title>
+						<Card.Text>{text}</Card.Text>
+					</Card.Body>
+				</Card.Link>
 			</Card>
 			<Card>
-			<Card.Link href='/post'>
-				<Card.Img variant="top" src='http://via.placeholder.com/320x180' />
-				<Card.Body>
-				<Card.Title>Title</Card.Title>
-				<Card.Text>Text</Card.Text>
-				</Card.Body>
-			</Card.Link>
+				<Card.Link href={link}
+					onClick={() => {navigate('/pages/Post');}}>
+					<Card.Img variant="top" src={img} />
+					<Card.Body>
+						<Card.Title>{title}</Card.Title>
+						<Card.Text>{text}</Card.Text>
+					</Card.Body>
+				</Card.Link>
 			</Card>
 		</Row>
 		<br />
@@ -64,32 +94,36 @@ function MyPage() {
 		<h5>최근 본 글</h5>
 		<Row>
 			<Card>
-			<Card.Link href='/post'>
-				<Card.Img variant="top" src='http://via.placeholder.com/320x180' />
-				<Card.Body>
-				<Card.Title>Title</Card.Title>
-				<Card.Text>Text</Card.Text>
-				</Card.Body>
-			</Card.Link>
+				<Card.Link href={link}
+					onClick={() => {navigate('/pages/Post');}}>
+					<Card.Img variant="top" src={img} />
+					<Card.Body>
+						<Card.Title>{title}</Card.Title>
+						<Card.Text>{text}</Card.Text>
+					</Card.Body>
+				</Card.Link>
 			</Card>
 			<Card>
-			<Card.Link href='/post'>
-				<Card.Img variant="top" src='http://via.placeholder.com/320x180' />
-				<Card.Body>
-				<Card.Title>Title</Card.Title>
-				<Card.Text>Text</Card.Text>
-				</Card.Body>
-			</Card.Link>
+				<Card.Link href={link}
+					onClick={() => {navigate('/pages/Post');}}>
+					<Card.Img variant="top" src={img} />
+					<Card.Body>
+						<Card.Title>{title}</Card.Title>
+						<Card.Text>{text}</Card.Text>
+					</Card.Body>
+				</Card.Link>
 			</Card>
 			<Card>
-			<Card.Link href='/post'>
-				<Card.Img variant="top" src='http://via.placeholder.com/320x180' />
-				<Card.Body>
-				<Card.Title>Title</Card.Title>
-				<Card.Text>Text</Card.Text>
-				</Card.Body>
-			</Card.Link>
+				<Card.Link href={link}
+					onClick={() => {navigate('/pages/Post');}}>
+					<Card.Img variant="top" src={img} />
+					<Card.Body>
+						<Card.Title>{title}</Card.Title>
+						<Card.Text>{text}</Card.Text>
+					</Card.Body>
+				</Card.Link>
 			</Card>
+			
 		</Row>
 	  </Container>
 	);

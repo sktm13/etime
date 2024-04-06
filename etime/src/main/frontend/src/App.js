@@ -30,7 +30,7 @@ function App() {
                 <Routes>
                     <Route path="/" element={<Contents />} />
                     <Route path="/pages/post" element={<Post />} />
-                    <Route path="/pages/Mypage" element={<Mypage />} />
+                    <Route path="/pages/mypage" element={<Mypage />} />
                 </Routes>
             </Row>
         </Container>
