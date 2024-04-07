@@ -2,18 +2,14 @@
 import React from 'react';
 import { Container, Row, Col, Image, Card } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import { MakeCard } from '../common/Components';
 
-
-const title = "Title";
-const text = "Text";
-const link = "#";
-const img = "http://via.placeholder.com/320x180";
+// 테스트용 임시 데이터입니다 나중에 삭제하세요
+// This is temporary test data. Please delete it later
+import { userPostData } from "./data";
 
 
 function MyPage() {
-
-	const navigate = useNavigate();
-
 	return (
 	  <Container>
 		<Row className="my-3 align-items-center">
@@ -58,75 +54,23 @@ function MyPage() {
 		<hr />
 		<h5>내 글</h5>
 		<Row>
-			<Card>
-				<Card.Link href={link}
-					onClick={() => {navigate('/pages/Post');}}>
-					<Card.Img variant="top" src={img} />
-					<Card.Body>
-						<Card.Title>{title}</Card.Title>
-						<Card.Text>{text}</Card.Text>
-					</Card.Body>
-				</Card.Link>
-			</Card>
-			<Card>
-				<Card.Link href={link}
-					onClick={() => {navigate('/pages/Post');}}>
-					<Card.Img variant="top" src={img} />
-					<Card.Body>
-						<Card.Title>{title}</Card.Title>
-						<Card.Text>{text}</Card.Text>
-					</Card.Body>
-				</Card.Link>
-			</Card>
-			<Card>
-				<Card.Link href={link}
-					onClick={() => {navigate('/pages/Post');}}>
-					<Card.Img variant="top" src={img} />
-					<Card.Body>
-						<Card.Title>{title}</Card.Title>
-						<Card.Text>{text}</Card.Text>
-					</Card.Body>
-				</Card.Link>
-			</Card>
+			{
+				userPostData.map((a, i) => {
+				return (<MakeCard userPostData={userPostData[i]} />)})
+			}
 		</Row>
 		<br />
 		<hr />
 		<h5>최근 본 글</h5>
 		<Row>
-			<Card>
-				<Card.Link href={link}
-					onClick={() => {navigate('/pages/Post');}}>
-					<Card.Img variant="top" src={img} />
-					<Card.Body>
-						<Card.Title>{title}</Card.Title>
-						<Card.Text>{text}</Card.Text>
-					</Card.Body>
-				</Card.Link>
-			</Card>
-			<Card>
-				<Card.Link href={link}
-					onClick={() => {navigate('/pages/Post');}}>
-					<Card.Img variant="top" src={img} />
-					<Card.Body>
-						<Card.Title>{title}</Card.Title>
-						<Card.Text>{text}</Card.Text>
-					</Card.Body>
-				</Card.Link>
-			</Card>
-			<Card>
-				<Card.Link href={link}
-					onClick={() => {navigate('/pages/Post');}}>
-					<Card.Img variant="top" src={img} />
-					<Card.Body>
-						<Card.Title>{title}</Card.Title>
-						<Card.Text>{text}</Card.Text>
-					</Card.Body>
-				</Card.Link>
-			</Card>
-			
+			{
+				userPostData.map((a, i) => {
+				return (<MakeCard userPostData={userPostData[i]} />)})
+			}
 		</Row>
 	  </Container>
 	);
-  }
+}
+
 
 export default MyPage;

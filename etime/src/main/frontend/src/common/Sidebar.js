@@ -1,5 +1,6 @@
 // Sidebar.js
 import { Col, Row, Tab, ListGroup } from 'react-bootstrap';
+import { MakeCategoryList  } from './Components';
 
 // 테스트용 임시 데이터입니다 나중에 삭제하세요
 // This is temporary test data. Please delete it later
@@ -19,16 +20,6 @@ function Sidebar() {
 				</Row>
 			</Tab.Container>
 		</Col>
-	);
-}
-
-
-function MakeCategoryList(props) {
-	
-	return (
-		<ListGroup.Item action onClick={null}>
-			{props.categoryData.name}
-		</ListGroup.Item>
 	);
 }
 
