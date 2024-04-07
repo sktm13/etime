@@ -14,28 +14,25 @@ import Mypage from "./pages/Mypage"
 
 function App() {
     return (
-<>
-    <BrowserRouter>
-        {/* 라우터 경로 설정 */}
-        <Container fluid>
-            {/* 네비게이션 바 */}
-            <Navibar />
-            <Row className='Main'>
-                {/* 사이드 바 */}
-                <Routes>
-                    <Route path='/' element={<Sidebar />} />
-                </Routes>
-                
-                {/* 컨텐츠 */}
-                <Routes>
-                    <Route path="/" element={<Contents />} />
-                    <Route path="/pages/post" element={<Post />} />
-                    <Route path="/pages/mypage" element={<Mypage />} />
-                </Routes>
-            </Row>
-        </Container>
-    </BrowserRouter>
-</>
+<BrowserRouter>
+    <Container fluid>
+        {/* 네비게이션 바 */}
+        <Navibar />
+        <Row className='Main'>
+            {/* 사이드 바 */}
+            <Routes>
+                <Route path='/' element={<Sidebar />} />
+            </Routes>
+            
+            {/* 컨텐츠 */}
+            <Routes>
+                <Route path="/" element={<Contents />} />
+                <Route path="/pages/post" element={<Post />} />
+                <Route path="/pages/mypage" element={<Mypage />} />
+            </Routes>
+        </Row>
+    </Container>
+</BrowserRouter>
     );
 }
 
