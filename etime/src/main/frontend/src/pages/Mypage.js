@@ -1,7 +1,6 @@
 // Home.js
 import React from 'react';
 import { Container, Row, Col, Image, Card } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
 import { MakeCard } from '../common/Components';
 
 // 테스트용 임시 데이터입니다 나중에 삭제하세요
