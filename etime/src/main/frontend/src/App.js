@@ -1,5 +1,5 @@
 import './style/App.css'
-import React from "react"
+import { useState } from 'react';
 import { Container, Row } from 'react-bootstrap';
 import { Routes, Route } from "react-router-dom";
 
@@ -17,18 +17,21 @@ import { postData, categoryData, userData, userPostData } from "./pages/data.js"
 
 function App() {
 
+    const [currentCategory, setCurrentCategory] = useState(0);
+
     return (
 <Container fluid>
     {/* 네비게이션 바 */}
     <Navibar />
+    
     <Row className='Main'>
         {/* 사이드 바 */}
         <Routes>
-            <Route path='/' element={<Sidebar categoryData={categoryData}/>} />
+            <Route path='/' element={<Sidebar categoryData={categoryData} currentCategory={currentCategory} setCurrentCategory={setCurrentCategory}/>} />
         </Routes>
         {/* 컨텐츠 */}
         <Routes>
-            <Route path="/" element={<Contents postData={postData} userData={userData} />} />
+            <Route path="/" element={<Contents postData={postData} userData={userData} currentCategory={currentCategory}/>} />
             <Route path="/pages/post/:postId" element={<Post postData={postData} userData={userData} />} />
             <Route path="/pages/mypage" element={<Mypage postData={userPostData} userData={userData}/>} />
             <Route path="*" element={<Err404 />} />

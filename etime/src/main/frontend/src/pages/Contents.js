@@ -1,19 +1,24 @@
 // Contents.js
 import { Col, Row } from 'react-bootstrap';
-import { useParams } from 'react-router-dom';
 import { MakeCard } from '../common/MakeCard';
 
 
 function Contents(props) {
 
-    const params = useParams();
-
     return (
 <Col className="Content">
     <Row>
-        {
+        {   
             props.postData.map((a, i) => {
-                return (<MakeCard postData={props.postData[i]} userData={props.userData[i]} />)})
+                if (props.currentCategory === 0)
+                    return (<MakeCard postData={props.postData[i]} 
+                        userData={props.userData[i]} />)
+                else if (props.currentCategory === props.postData[i].categoryId )
+                    return (<MakeCard postData={props.postData[i]} 
+                        userData={props.userData[i]} />)
+                else
+                    return null   
+            })
         }
     </Row>
 </Col>

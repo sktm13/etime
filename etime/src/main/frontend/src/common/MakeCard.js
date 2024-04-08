@@ -6,7 +6,7 @@ function MakeCard(props) {
 
     return (
     <Card>
-        <Card.Link onClick={() => {navigate("./pages/post/" + (props.postData.id + 1))}}>
+        <Card.Link onClick={() => {navigate("./pages/post/" + (props.postData.id))}}>
             <Card.Img variant="top" src={props.postData.thumnail} />
             <Card.Body>
                 <Card.Title>{props.postData.title}</Card.Title>
