@@ -27,7 +27,7 @@ function Navibar() {
                 </Col>
                 <Col className='d-flex justify-content-end'>
                     <Button variant="light" type="submit" onClick={() => {
-                        navigate('/pages/Mypage')}}>
+                        navigate('/pages/mypage')}}>
                         Mypage
                     </Button>
                 </Col>

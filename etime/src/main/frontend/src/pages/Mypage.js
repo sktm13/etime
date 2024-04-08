@@ -1,14 +1,11 @@
 // Home.js
 import React from 'react';
-import { Container, Row, Col, Image, Card } from 'react-bootstrap';
-import { MakeCard } from '../common/Components';
-
-// 테스트용 임시 데이터입니다 나중에 삭제하세요
-// This is temporary test data. Please delete it later
-import { userPostData } from "./data";
+import { Container, Row, Col, Image } from 'react-bootstrap';
+import { MakeCard } from '../common/MakeCard';
 
 
-function MyPage() {
+function MyPage(props) {
+
 	return (
 	  <Container>
 		<Row className="my-3 align-items-center">
@@ -28,24 +25,6 @@ function MyPage() {
 				<Row>설정설정설정설정설정설정설정설정설정설정설정설정</Row>
 				<Row>설정설정설정설정설정설정설정설정설정설정설정설정</Row>
 				<Row>설정설정설정설정설정설정설정설정설정설정설정설정</Row>
-				<Row>설정설정설정설정설정설정설정설정설정설정설정설정</Row>
-				<Row>설정설정설정설정설정설정설정설정설정설정설정설정</Row>
-				<Row>설정설정설정설정설정설정설정설정설정설정설정설정</Row>
-				<Row>설정설정설정설정설정설정설정설정설정설정설정설정</Row>
-				<Row>설정설정설정설정설정설정설정설정설정설정설정설정</Row>
-				<Row>설정설정설정설정설정설정설정설정설정설정설정설정</Row>
-				<Row>설정설정설정설정설정설정설정설정설정설정설정설정</Row>
-				<Row>설정설정설정설정설정설정설정설정설정설정설정설정</Row>
-				<Row>설정설정설정설정설정설정설정설정설정설정설정설정</Row>
-				<Row>설정설정설정설정설정설정설정설정설정설정설정설정</Row>
-				<Row>설정설정설정설정설정설정설정설정설정설정설정설정</Row>
-				<Row>설정설정설정설정설정설정설정설정설정설정설정설정</Row>
-				<Row>설정설정설정설정설정설정설정설정설정설정설정설정</Row>
-				<Row>설정설정설정설정설정설정설정설정설정설정설정설정</Row>
-				<Row>설정설정설정설정설정설정설정설정설정설정설정설정</Row>
-				<Row>설정설정설정설정설정설정설정설정설정설정설정설정</Row>
-				<Row>설정설정설정설정설정설정설정설정설정설정설정설정</Row>
-				<Row>설정설정설정설정설정설정설정설정설정설정설정설정</Row>
 			</Col>
 		
 		</Row>
@@ -54,8 +33,8 @@ function MyPage() {
 		<h5>내 글</h5>
 		<Row>
 			{
-				userPostData.map((a, i) => {
-				return (<MakeCard userPostData={userPostData[i]} />)})
+				props.postData.map((a, i) => {
+					return (<MakeCard postData={props.postData[i]} userData={props.userData[i]} />)})
 			}
 		</Row>
 		<br />
@@ -63,8 +42,8 @@ function MyPage() {
 		<h5>최근 본 글</h5>
 		<Row>
 			{
-				userPostData.map((a, i) => {
-				return (<MakeCard userPostData={userPostData[i]} />)})
+				props.postData.map((a, i) => {
+					return (<MakeCard postData={props.postData[i]} userData={props.userData[i]} />)})
 			}
 		</Row>
 	  </Container>
