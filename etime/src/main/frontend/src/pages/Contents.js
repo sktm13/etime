@@ -1,4 +1,5 @@
 // Contents.js
+// 메인 콘텐츠
 import { Col, Row } from 'react-bootstrap';
 import { MakeCard } from '../common/MakeCard';
 

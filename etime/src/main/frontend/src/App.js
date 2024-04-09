@@ -8,16 +8,19 @@ import Sidebar from "./common/Sidebar"
 import Contents from "./pages/Contents"
 import Post from "./pages/Post"
 import Mypage from "./pages/Mypage"
+import Login from "./pages/Login"
 import Err404 from "./pages/Err404"
 
 // 테스트용 임시 데이터입니다 나중에 삭제하세요
 // This is temporary test data. Please delete it later
 import { postData, categoryData, userData, userPostData } from "./pages/data.js";
 
-
 function App() {
 
     const [currentCategory, setCurrentCategory] = useState(0);
+    const [idInput, setIdInput] = useState(' ');
+    const [passwordInput, setPasswordInput] = useState(' ');
+
 
     return (
 <Container fluid>
@@ -34,6 +37,9 @@ function App() {
             <Route path="/" element={<Contents postData={postData} userData={userData} currentCategory={currentCategory}/>} />
             <Route path="/pages/post/:postId" element={<Post postData={postData} userData={userData} />} />
             <Route path="/pages/mypage" element={<Mypage postData={userPostData} userData={userData}/>} />
+            <Route path="/pages/login" element={<Login 
+                idInput={idInput} setIdInput={setIdInput} 
+                passwordInput={passwordInput} setPasswordInput={setPasswordInput} />}/>
             <Route path="*" element={<Err404 />} />
         </Routes>
     </Row>

@@ -1,4 +1,5 @@
 // Navbar.js
+// 상단 네비게이션 바
 import React from 'react';
 import { Col, Row, Navbar, Form, Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom'

@@ -1,4 +1,5 @@
 // Sidebar.js
+// 좌측 카테고리 바
 import { Col, Row, ListGroup } from 'react-bootstrap';
 import { MakeCategoryList  } from './MakeCategoryList';
 

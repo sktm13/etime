@@ -1,4 +1,5 @@
-// Home.js
+// Mypage.js
+// 마이페이지
 import React from 'react';
 import { Container, Row, Col, Image } from 'react-bootstrap';
 import { MakeCard } from '../common/MakeCard';

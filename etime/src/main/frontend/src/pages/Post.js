@@ -1,4 +1,5 @@
 // Post.js
+// 글 선택시 진입
 import { Container, Row, Col, Image } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 
@@ -10,12 +11,12 @@ function Post(props) {
     return (
         <Container>
             <Row className="justify-content-center mt-3">
-                <Col md={8}>
+                <Col xs={8}>
                     <Image src={props.postData[params.postId].thumnail} fluid />
                 </Col>
             </Row>
             <Row className="justify-content-center mt-3">
-                <Col md={8}>
+                <Col xs={8}>
                     <h2>{props.postData[params.postId].title}</h2>
                     <Row className="align-items-center">
                         <Col xs="auto">

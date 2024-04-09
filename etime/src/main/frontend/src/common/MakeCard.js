@@ -1,3 +1,5 @@
+// MakeCard.js
+// Content.js, Mypage.js에서 카드를 생성하는 컴포넌트
 import { useNavigate } from 'react-router-dom';
 import { Card } from 'react-bootstrap';
 
