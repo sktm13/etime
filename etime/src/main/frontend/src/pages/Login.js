@@ -1,6 +1,6 @@
 // Login.js
 // 로그인 페이지
-import { Container, Form, Button, Alert } from 'react-bootstrap'
+import { Container, Form, Button } from 'react-bootstrap'
 
 
 function Login(props) {

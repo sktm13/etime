@@ -3,13 +3,15 @@ import { useState } from 'react';
 import { Container, Row } from 'react-bootstrap';
 import { Routes, Route } from "react-router-dom";
 
-import Navibar from "./common/Navibar"
-import Sidebar from "./common/Sidebar"
-import Contents from "./pages/Contents"
-import Post from "./pages/Post"
-import Mypage from "./pages/Mypage"
-import Login from "./pages/Login"
-import Err404 from "./pages/Err404"
+import Navibar from "./common/Navibar";
+import Sidebar from "./common/Sidebar";
+import Contents from "./pages/Contents";
+import Post from "./pages/Post";
+import Mypage from "./pages/Mypage";
+import Login from "./pages/Login";
+import Donate from "./pages/Donate";
+import Payment from "./pages/Payment";
+import Err404 from "./pages/Err404";
 
 // 테스트용 임시 데이터입니다 나중에 삭제하세요
 // This is temporary test data. Please delete it later
@@ -40,6 +42,8 @@ function App() {
             <Route path="/pages/login" element={<Login 
                 idInput={idInput} setIdInput={setIdInput} 
                 passwordInput={passwordInput} setPasswordInput={setPasswordInput} />}/>
+            <Route path="/pages/donate" element={<Donate />}/>
+            <Route path="/pages/payment" element={<Payment />}/>
             <Route path="*" element={<Err404 />} />
         </Routes>
     </Row>
