@@ -1,7 +1,8 @@
 import './style/App.css'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Container, Row } from 'react-bootstrap';
 import { Routes, Route } from "react-router-dom";
+import axios from 'axios';
 
 import Navibar from "./common/Navibar";
 import Sidebar from "./common/Sidebar";
@@ -17,15 +18,30 @@ import Err404 from "./pages/Err404";
 // This is temporary test data. Please delete it later
 import { postData, categoryData, userData, userPostData } from "./pages/data.js";
 
+
 function App() {
 
     const [currentCategory, setCurrentCategory] = useState(0);
     const [idInput, setIdInput] = useState(' ');
     const [passwordInput, setPasswordInput] = useState(' ');
 
+    //서버 연동 테스트입니다
+    const [hello, setHello] = useState('sds');
+    useEffect(() => {
+        axios.get("http://localhost:8080/api/post")
+            .then((res) => {
+                setHello(res.data);
+            })
+            .catch(() => {
+                setHello('통신 실패');
+            })
+    })
+
 
     return (
 <Container fluid>
+    <p>{hello}</p>
+
     {/* 네비게이션 바 */}
     <Navibar />
     

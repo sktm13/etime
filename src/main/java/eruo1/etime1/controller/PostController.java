@@ -1,11 +1,14 @@
 package eruo1.etime1.controller;
 
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import lombok.RequiredArgsConstructor;
-
-@Controller
-@RequiredArgsConstructor
+@RestController
 public class PostController {
-    
+
+
+    @GetMapping("/api/post")
+    public String post() {
+        return "통신 성공";
+    }
 }
