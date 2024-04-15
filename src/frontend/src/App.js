@@ -8,8 +8,10 @@ import Navibar from "./common/Navibar";
 import Sidebar from "./common/Sidebar";
 import Contents from "./pages/Contents";
 import Post from "./pages/Post";
+import CreatePost from "./pages/CreatePost";
 import Mypage from "./pages/Mypage";
 import Login from "./pages/Login";
+import SignUp from "./pages/SignUp";
 import Donate from "./pages/Donate";
 import Payment from "./pages/Payment";
 import Err404 from "./pages/Err404";
@@ -24,23 +26,43 @@ function App() {
     const [currentCategory, setCurrentCategory] = useState(0);
     const [idInput, setIdInput] = useState(' ');
     const [passwordInput, setPasswordInput] = useState(' ');
+    const [usernameInput, setUsernameInput] = useState('');
 
     //서버 연동 테스트입니다
-    const [hello, setHello] = useState('sds');
+    const [test1, setTest1] = useState('연결중');
+    const [test2, setTest2] = useState('연결중');
+    const testDate = new Date();
+    const testContent = 'contentcontentcontentcontentcontentcontent';
+    const testTitle = 'titletitletitletitletitle'
+
+
     useEffect(() => {
-        axios.get("http://localhost:8080/api/post")
+        axios.post("http://localhost:8080/api/test1", JSON.stringify({
+            post_time: testDate,
+            content: testContent,
+            title: testTitle,
+        }))
             .then((res) => {
-                setHello(res.data);
+                setTest1(res.data);
             })
             .catch(() => {
-                setHello('통신 실패');
+                setTest1('전송 실패');
             })
-    })
+
+        axios.get("http://localhost:8080/api/test2")
+            .then((res) => {
+                setTest2(res.data);
+            })
+            .catch(() => {
+                setTest2('수신 실패');
+            })
+    }, [])
 
 
     return (
 <Container fluid>
-    <p>{hello}</p>
+    <p>post test : {test1}</p>
+    <p>get test : {test2}</p>
 
     {/* 네비게이션 바 */}
     <Navibar />
@@ -54,10 +76,15 @@ function App() {
         <Routes>
             <Route path="/" element={<Contents postData={postData} userData={userData} currentCategory={currentCategory}/>} />
             <Route path="/pages/post/:postId" element={<Post postData={postData} userData={userData} />} />
+            <Route path="/pages/createpost" element={<CreatePost />}/>
             <Route path="/pages/mypage" element={<Mypage postData={userPostData} userData={userData}/>} />
             <Route path="/pages/login" element={<Login 
                 idInput={idInput} setIdInput={setIdInput} 
                 passwordInput={passwordInput} setPasswordInput={setPasswordInput} />}/>
+            <Route path="/pages/signup" element={<SignUp
+                idInput={idInput} setIdInput={setIdInput}
+                passwordInput={passwordInput} setPasswordInput={setPasswordInput}
+                usernameInput={setUsernameInput} setUsernameInput={setUsernameInput} />}/>
             <Route path="/pages/donate" element={<Donate />}/>
             <Route path="/pages/payment" element={<Payment />}/>
             <Route path="*" element={<Err404 />} />
