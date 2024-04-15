@@ -28,42 +28,8 @@ function App() {
     const [passwordInput, setPasswordInput] = useState(' ');
     const [usernameInput, setUsernameInput] = useState('');
 
-    //서버 연동 테스트입니다
-    const [test1, setTest1] = useState('연결중');
-    const [test2, setTest2] = useState('연결중');
-    const testDate = new Date();
-    const testContent = 'contentcontentcontentcontentcontentcontent';
-    const testTitle = 'titletitletitletitletitle'
-
-
-    useEffect(() => {
-        axios.post("http://localhost:8080/api/test1", JSON.stringify({
-            post_time: testDate,
-            content: testContent,
-            title: testTitle,
-        }))
-            .then((res) => {
-                setTest1(res.data);
-            })
-            .catch(() => {
-                setTest1('전송 실패');
-            })
-
-        axios.get("http://localhost:8080/api/test2")
-            .then((res) => {
-                setTest2(res.data);
-            })
-            .catch(() => {
-                setTest2('수신 실패');
-            })
-    }, [])
-
-
     return (
 <Container fluid>
-    <p>post test : {test1}</p>
-    <p>get test : {test2}</p>
-
     {/* 네비게이션 바 */}
     <Navibar />
     
@@ -93,8 +59,6 @@ function App() {
 </Container>
     );
 }
-
-
 
 
 export default App;

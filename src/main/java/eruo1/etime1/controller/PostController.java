@@ -1,6 +1,7 @@
 package eruo1.etime1.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -34,10 +35,7 @@ public class PostController {
 
     @PostMapping("/api/savepost")
     public String savePost(@RequestBody Post post) {
-        Post Post = new Post();
-        Post.setTitle("111");
-        Post.setContent("222");
-        postService.savePost(Post);
+        postService.savePost(post);
         return "Post 성공";
     }
 }

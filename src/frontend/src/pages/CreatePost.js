@@ -7,12 +7,26 @@ function CreatePost (){
 
     const [ submitted, setSubmitted ] = useState(false);
 
-    const [ postTime, setPostTime ] = useState(0);
+    const [ postTime, setPostTime ] = useState('');
     const [ postTitle, setPostTitle ] = useState('');
     const [ postContent, setPostContent ] = useState('');
 
-    const [ postSuccess, setPostSuccess ] = useState(null);
+    const handleSavePost = () => {
+        const currentTime = new Date().toISOString();
+        setPostTime(currentTime);
 
+        axios.post("http://localhost:8080/api/savepost", {
+            title: postTitle,
+            content: postContent,
+            postTime: currentTime
+        })
+            .then((res) => {
+                alert('작성 성공');
+            })
+            .catch((error) => {
+                alert('작성 실패');
+            });
+    };
 
     return(
         <Container>
@@ -32,19 +46,7 @@ function CreatePost (){
                             }}/>
                         </Form.Group>
                     </Form>
-                    <Button variant="primary" onClick={()=>{
-                        axios.post("http://localhost:8080/api/test1", JSON.stringify({
-                            post_time: postTime,
-                            content: postTitle,
-                            title: postContent,
-                        }))
-                            .then((res) => {
-                                alert('작성 성공')
-                            })
-                            .catch(() => {
-                                alert('작성 실패')
-                            })
-                    }}>
+                    <Button variant="primary" onClick={handleSavePost}>
                         Submit
                     </Button>
                 </Col>
