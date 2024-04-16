@@ -9,10 +9,10 @@ function MakeCard(props) {
     return (
     <Card>
         <Card.Link onClick={() => {navigate("./pages/post/" + (props.postData.id))}}>
-            <Card.Img variant="top" src={props.postData.thumnail} />
+            <Card.Img variant="top" src="http://via.placeholder.com/800x450" />
             <Card.Body>
                 <Card.Title>{props.postData.title}</Card.Title>
-                <Card.Text>{props.postData.summary}</Card.Text>
+                <Card.Text>{props.postData.content}</Card.Text>
             </Card.Body>
         </Card.Link>
     </Card>    

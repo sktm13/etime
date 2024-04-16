@@ -28,7 +28,7 @@ public class PostService {
         post.setContent(content);
     }
 
-    public List<Post> findPosts() {
+    public List<Post> findAll() {
         return postRepo.findAll();
     }
 

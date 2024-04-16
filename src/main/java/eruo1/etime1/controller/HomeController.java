@@ -23,7 +23,7 @@ public class HomeController {
     @GetMapping("/")
     public String home(Model model) {
 
-        List<Post> postList = postService.findPosts();
+        List<Post> postList = postService.findAll();
         model.addAttribute("postList", postList);
         List<Category> categoryList = categoryService.findCategory();
         model.addAttribute("categoryList", categoryList);
