@@ -31,7 +31,8 @@ function Navibar() {
                         <Dropdown.Item onClick={() => {navigate('/pages/login')}}>Login</Dropdown.Item>
                         <Dropdown.Item onClick={() => {navigate('/pages/mypage')}}>Mypage</Dropdown.Item>
                         <Dropdown.Item onClick={() => {navigate('/pages/donate')}}>Donate</Dropdown.Item>
-                        <Dropdown.Item onClick={() => {navigate('/pages/Payment')}}>Payment</Dropdown.Item>
+                        <Dropdown.Item onClick={() => {navigate('/pages/payment')}}>Payment</Dropdown.Item>
+                        <Dropdown.Item onClick={() => {navigate('/pages/createpost')}}>createPost</Dropdown.Item>
                     </DropdownButton>
                 </Col>
             </Row>

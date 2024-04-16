@@ -1,15 +1,18 @@
 import './style/App.css'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Container, Row } from 'react-bootstrap';
 import { Routes, Route } from "react-router-dom";
+import axios from 'axios';
 
 import Navibar from "./common/Navibar";
 import Sidebar from "./common/Sidebar";
 import MakeComment from "./common/MakeComment";
 import Contents from "./pages/Contents";
 import Post from "./pages/Post";
+import CreatePost from "./pages/CreatePost";
 import Mypage from "./pages/Mypage";
 import Login from "./pages/Login";
+import SignUp from "./pages/SignUp";
 import Donate from "./pages/Donate";
 import Payment from "./pages/Payment";
 import Err404 from "./pages/Err404";
@@ -18,12 +21,13 @@ import Err404 from "./pages/Err404";
 // This is temporary test data. Please delete it later
 import { postData, categoryData, userData, userPostData, commentData } from "./pages/data.js";
 
+
 function App() {
 
     const [currentCategory, setCurrentCategory] = useState(0);
     const [idInput, setIdInput] = useState(' ');
     const [passwordInput, setPasswordInput] = useState(' ');
-
+    const [usernameInput, setUsernameInput] = useState('');
 
     return (
 <Container fluid>
@@ -46,6 +50,10 @@ function App() {
             <Route path="/pages/login" element={<Login 
                 idInput={idInput} setIdInput={setIdInput} 
                 passwordInput={passwordInput} setPasswordInput={setPasswordInput} />}/>
+            <Route path="/pages/signup" element={<SignUp
+                idInput={idInput} setIdInput={setIdInput}
+                passwordInput={passwordInput} setPasswordInput={setPasswordInput}
+                usernameInput={setUsernameInput} setUsernameInput={setUsernameInput} />}/>
             <Route path="/pages/donate" element={<Donate />}/>
             <Route path="/pages/payment" element={<Payment />}/>
             <Route path="*" element={<Err404 />} />
@@ -54,8 +62,6 @@ function App() {
 </Container>
     );
 }
-
-
 
 
 export default App;
