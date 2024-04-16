@@ -29,9 +29,9 @@ div {
 	min-width: 200px;
 }
 
-.list-group {
-	box-shadow: 8px 8px 6px -6px #666;
-}
+/*.list-group {*/
+/*	box-shadow: 8px 8px 6px -6px #666;*/
+/*}*/
 
 .list-group-item {
 	margin: 0.3rem 0rem 0.3rem 0rem;

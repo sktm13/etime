@@ -5,6 +5,7 @@ import { Routes, Route } from "react-router-dom";
 
 import Navibar from "./common/Navibar";
 import Sidebar from "./common/Sidebar";
+import MakeComment from "./common/MakeComment";
 import Contents from "./pages/Contents";
 import Post from "./pages/Post";
 import Mypage from "./pages/Mypage";
@@ -15,7 +16,7 @@ import Err404 from "./pages/Err404";
 
 // 테스트용 임시 데이터입니다 나중에 삭제하세요
 // This is temporary test data. Please delete it later
-import { postData, categoryData, userData, userPostData } from "./pages/data.js";
+import { postData, categoryData, userData, userPostData, commentData } from "./pages/data.js";
 
 function App() {
 
@@ -37,7 +38,10 @@ function App() {
         {/* 컨텐츠 */}
         <Routes>
             <Route path="/" element={<Contents postData={postData} userData={userData} currentCategory={currentCategory}/>} />
-            <Route path="/pages/post/:postId" element={<Post postData={postData} userData={userData} />} />
+            <Route path="/pages/post/:postId" element={<Post postData={postData} userData={userData} commentData={commentData} />}>
+                <Route path="/pages/post/:postId/" element={<MakeComment commentData={commentData} postData={postData}/>} />
+            </Route>
+            <Route path="/pages/createpost" element={<CreatePost />}/>
             <Route path="/pages/mypage" element={<Mypage postData={userPostData} userData={userData}/>} />
             <Route path="/pages/login" element={<Login 
                 idInput={idInput} setIdInput={setIdInput} 

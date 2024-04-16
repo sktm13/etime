@@ -104,7 +104,6 @@ const categoryData = [
     },
 ];
 
-
 const userData = [
     {
         id : 0,
@@ -156,5 +155,38 @@ const userPostData = [
     },
 ]
 
+const commentData = [
+    {
+        id : 0,
+        comment : "comment0",
+        date : '2024-04-16',
+        userId : 0,
+        userName : 'username0',
+        postId : 0,
+    },
+    {
+        id : 1,
+        comment : "comment1",
+        date : '2024-04-16',
+        userId : 1,
+        userName : 'username1',
+        postId : 0,
+    },{
+        id : 2,
+        comment : "comment2",
+        date : '2024-04-16',
+        userId : 0,
+        userName : 'username0',
+        postId : 0,
+    },{
+        id : 3,
+        comment : "comment3",
+        date : '2024-04-16',
+        userId : 1,
+        userName : 'username1',
+        postId : 0,
+    },
+]
 
-export { postData, categoryData, userData, userPostData };
+
+export { postData, categoryData, userData, userPostData, commentData };

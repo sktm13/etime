@@ -12,13 +12,9 @@ function Contents(props) {
         {   
             props.postData.map((a, i) => {
                 if (props.currentCategory === 0)
-                    return (<MakeCard postData={props.postData[i]} 
-                        userData={props.userData[i]} />)
+                    return (<MakeCard postData={props.postData[i]} userData={props.userData[i]} />)
                 else if (props.currentCategory === props.postData[i].categoryId )
-                    return (<MakeCard postData={props.postData[i]} 
-                        userData={props.userData[i]} />)
-                else
-                    return null   
+                    return (<MakeCard postData={props.postData[i]} userData={props.userData[i]} />)
             })
         }
     </Row>
