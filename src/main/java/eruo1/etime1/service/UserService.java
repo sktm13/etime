@@ -1,19 +1,17 @@
 package eruo1.etime1.service;
 
-import java.util.List;
-
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import eruo1.etime1.domain.user.User;
 import eruo1.etime1.repository.UserRepo;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class UserService {
-
     private final UserRepo userRepo;
 
     /**
@@ -21,9 +19,11 @@ public class UserService {
      */
     @Transactional
     public Long join(User user) {
-
         validateDuplicateUser(user); // 중복 회원 검증
+
         userRepo.save(user);
+        //회원 가입 이벤트 -> 지갑 생성, 환영 이메일 발송 등...
+
         return user.getId();
     }
 
