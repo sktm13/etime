@@ -12,10 +12,15 @@ function MakeCard(props) {
             <Card.Img variant="top" src="http://via.placeholder.com/800x450" />
             <Card.Body>
                 <Card.Title>{props.postData.title}</Card.Title>
-                <Card.Text>{props.postData.content}</Card.Text>
+                {/* 컨텐츠 요약 (한줄 넘어가면 ...처리) */}
+                <Card.Text style={{
+                    whiteSpace: 'nowrap',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                }}>{props.postData.content}</Card.Text>
             </Card.Body>
         </Card.Link>
-    </Card>    
+    </Card>
     );
 }
 

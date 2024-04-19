@@ -1,48 +1,62 @@
 import { useState } from 'react';
 import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 
-function CreatePost (props){
+function CreatePost (){
 
-    const [ submitted, setSubmitted ] = useState(false);
+    const navigate = useNavigate();
 
-    const [ postTime, setPostTime ] = useState('');
     const [ postTitle, setPostTitle ] = useState('');
     const [ postContent, setPostContent ] = useState('');
 
+    // 글 저장버튼
     const handleSavePost = () => {
         const currentTime = new Date().toISOString();
-        setPostTime(currentTime);
 
         axios.post("http://localhost:8080/api/savepost", {
             title: postTitle,
             content: postContent,
             postTime: currentTime
         })
-            .then((res) => {
+            .then(() => {
                 alert('작성 성공');
+                navigate('/');
             })
-            .catch((error) => {
+            .catch(() => {
                 alert('작성 실패');
             });
     };
+
+    // 글 작성 취소버튼
+    const handleCancelPost = ()=>{
+        if (window.confirm('글 작성을 취소하시겠습니까?')) {
+            navigate('/');
+        }
+    }
 
     return(
 <Container fluid>
     <Row xs={8} className="justify-content-center mt-3">
         <Col xs={8}>
             <Card style={{width:'100%'}}>
-                <Card.Header>
+                <Card.Header className="d-flex justify-content-between align-items-center">
                     <Card.Title>title</Card.Title>
-                    <Button className='d-flex justify-content-end' variant="primary" onClick={handleSavePost}>
-                        Submit
-                    </Button>
+                    <div>
+                        <Button variant="secondary" onClick={handleCancelPost}>
+                            Cancel
+                        </Button>
+                        {' '}
+                        <Button variant="primary" onClick={handleSavePost}>
+                            Submit
+                        </Button>
+                    </div>
                 </Card.Header>
                 <Card.Body>
                     <Row className="justify-content-center">
                         <Col>
-                            <Form style={{width:'100%'}} onSubmit={handleSavePost}>
+                            <Form style={{width:'100%'}} onSubmit={(e)=>{e.preventDefault()}}>
                                 <Form.Group className="mb-6">
                                     <Form.Label>Post Title</Form.Label>
                                     <Form.Control style={{width:'100%'}} type="text" placeholder="Title" onChange={(e)=>{
