@@ -5,7 +5,7 @@ import org.springframework.ui.Model;
 
 import eruo1.etime1.domain.user.Donate;
 import eruo1.etime1.service.DonateService;
-import eruo1.etime1.service.UserService;
+// import eruo1.etime1.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 @RequiredArgsConstructor
 public class DonateController {
     
-    private final UserService userService;
+    // private final UserService userService;
     private final DonateService donateService;
 
     @GetMapping("/donate/new")
@@ -31,7 +31,7 @@ public class DonateController {
         
         Donate donate = new Donate();
 
-        donate.setDonator(userService.findOneByNickName(nickName));
+        // donate.setDonator(userService.findBynickName(nickName));
         donate.setMoney(form.getMoney());
 
         donateService.saveDonate(donate);
