@@ -15,7 +15,7 @@ function CreatePost (){
     const handleSavePost = () => {
         const currentTime = new Date().toISOString();
 
-        axios.post("http://localhost:8080/api/savepost", {
+        axios.post("http://localhost:8080/api/posts", {
             title: postTitle,
             content: postContent,
             postTime: currentTime

@@ -35,7 +35,7 @@ function Contents(props) {
 
     /* DB 데이터 수신 */
     useEffect(() => {
-        axios.get("http://localhost:8080/api/getpost")
+        axios.get("http://localhost:8080/api/posts")
             .then((res) => {
                 const sortedData = sortPosts(res.data);
                 setPostData(sortedData);

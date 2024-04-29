@@ -16,13 +16,13 @@ public class PostController {
     @Autowired
     private PostService2 postService;
 
-    @PostMapping("/api/savepost")
+    @PostMapping("/api/posts")
     public String savePost(@RequestBody Post post) {
         postService.savePost(post);
         return "Post 성공";
     }
 
-    @GetMapping("/api/getpost")
+    @GetMapping("/api/posts")
     public List<Post> getPost() {
         return postService.findAll();
     }
