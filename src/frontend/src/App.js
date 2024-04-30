@@ -25,9 +25,6 @@ import { postData, categoryData, userData, userPostData, commentData } from "./p
 function App() {
 
     const [currentCategory, setCurrentCategory] = useState(0);
-    const [idInput, setIdInput] = useState(' ');
-    const [passwordInput, setPasswordInput] = useState(' ');
-    const [usernameInput, setUsernameInput] = useState('');
 
     return (
 <Container fluid>
@@ -47,13 +44,8 @@ function App() {
             </Route>
             <Route path="/pages/createpost" element={<CreatePost />}/>
             <Route path="/pages/mypage" element={<Mypage postData={userPostData} userData={userData}/>} />
-            <Route path="/pages/login" element={<Login 
-                idInput={idInput} setIdInput={setIdInput} 
-                passwordInput={passwordInput} setPasswordInput={setPasswordInput} />}/>
-            <Route path="/pages/signup" element={<SignUp
-                idInput={idInput} setIdInput={setIdInput}
-                passwordInput={passwordInput} setPasswordInput={setPasswordInput}
-                usernameInput={setUsernameInput} setUsernameInput={setUsernameInput} />}/>
+            <Route path="/pages/login" element={<Login />}/>
+            <Route path="/pages/signup" element={<SignUp />}/>
             <Route path="/pages/donate" element={<Donate />}/>
             <Route path="/pages/payment" element={<Payment />}/>
             <Route path="*" element={<Err404 />} />

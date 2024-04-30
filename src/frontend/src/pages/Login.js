@@ -2,10 +2,39 @@
 // 로그인 페이지
 import {Container, Form, Button, Card } from 'react-bootstrap'
 import {Link, useNavigate} from "react-router-dom";
+import {useState} from "react";
+import axios from 'axios';
 
 
-function Login(props) {
+function Login() {
     const navigate = useNavigate();
+
+    const [inputId, setInputId] = useState('');
+    const [inputPassword, setInputPassword] = useState('');
+
+
+    // 로그인 버튼
+    const handleSignUp = () => {
+        axios.post("http://localhost:8080/api/users", {
+            login_id: inputId,
+            password: inputPassword,
+        })
+            .then(() => {
+                alert('로그인 성공');
+                navigate('/');
+            })
+            .catch(() => {
+                alert('로그인 실패');
+            });
+    };
+
+
+
+    const handleInputTest = () => {
+        console.log(inputId);
+        console.log(inputPassword);
+    }
+
 
     return (
 <Container className="centered" >
@@ -17,20 +46,14 @@ function Login(props) {
                 <Form>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label>Email address</Form.Label>
-                        <Form.Control type="email" placeholder="Enter email" onChange={(e)=>props.setIdInput(e.target.value)}/>
-                        {/* <Form.Text className="text-muted">
-              We'll never share your email with anyone else.
-            </Form.Text> */}
+                        <Form.Control type="email" placeholder="Enter email" onChange={(e)=>setInputId(e.target.value)}/>
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasicPassword">
                         <Form.Label>Password</Form.Label>
-                        <Form.Control type="password" placeholder="Password" onChange={(e)=>props.setPasswordInput(e.target.value)}/>
+                        <Form.Control type="password" placeholder="Password" onChange={(e)=>setInputPassword(e.target.value)}/>
                     </Form.Group>
-                    {/* <Form.Group className="mb-3" controlId="formBasicCheckbox">
-            <Form.Check type="checkbox" label="Check me out" />
-          </Form.Group> */}
-                    <Button variant="primary" type="submit" onClick={()=>AccountAlert(props.idInput, props.passwordInput)}>
+                    <Button variant="primary" type="submit" onClick={()=> handleInputTest()}>
                         Sign in
                     </Button>
                 </Form>
