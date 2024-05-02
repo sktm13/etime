@@ -1,24 +1,29 @@
 spring:
-    datasource:
-        driver-class-name: com.mysql.cj.jdbc.Driver
-        url: jdbc:mysql://database-2.c98s2k0k8maj.ap-northeast-2.rds.amazonaws.com:3306/etime
-        username: admin1
-        password: Password1
-    jpa:
-        hibernate:
-            ddl-auto: update # 세션이 시작할 때 스키마를 생성. 기존에 존재한 스키마는 삭제.
-        properties:
-            hibernate:
-                dialect: org.hibernate.dialect.MySQL8Dialect
-#                show_sql: true # SQL 로그 활성화
-                format_sql: true # SQL 로그에 출력포맷을 적용
-
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://database-2.c98s2k0k8maj.ap-northeast-2.rds.amazonaws.com:3306/etime
+    username: admin1
+    password: Password1
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        "[show_sql]": true
+        "[format_sql]": true
+  servlet:
+    multipart:
+      max-request-size: 30MB
+      max-file-size: 10MB
 logging:
-    level:
-        org:
-            hibernate:
-                SQL: debug
-#                type: trace # 데이터타입 로깅을 활성화.
+  level:
+    org:
+      springframework:
+        security:
+          web: trace
+eruo:
+  v1:
+    upload:
+      path: upload
 
-server.servlet.session.tracking-modes: cookie
-server.servlet.session.timeout: 1800 # 세션 1800초 글로벌 설정
+
