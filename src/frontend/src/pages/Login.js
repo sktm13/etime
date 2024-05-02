@@ -15,7 +15,7 @@ function Login() {
 
     // 로그인 버튼
     const handleSignUp = () => {
-        axios.post("http://localhost:8080/api/users", {
+        axios.post("http://localhost:8080/api/member/login", {
             login_id: inputId,
             password: inputPassword,
         })
@@ -30,10 +30,10 @@ function Login() {
 
 
 
-    const handleInputTest = () => {
-        console.log(inputId);
-        console.log(inputPassword);
-    }
+    // const handleInputTest = () => {
+    //     console.log(inputId);
+    //     console.log(inputPassword);
+    // }
 
 
     return (
@@ -45,15 +45,15 @@ function Login() {
             <Card.Body>
                 <Form>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
-                        <Form.Label>Email address</Form.Label>
-                        <Form.Control type="email" placeholder="Enter email" onChange={(e)=>setInputId(e.target.value)}/>
+                        <Form.Label>user Id</Form.Label>
+                        <Form.Control type="id" placeholder="id" onChange={(e)=>setInputId(e.target.value)}/>
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasicPassword">
                         <Form.Label>Password</Form.Label>
                         <Form.Control type="password" placeholder="Password" onChange={(e)=>setInputPassword(e.target.value)}/>
                     </Form.Group>
-                    <Button variant="primary" type="submit" onClick={()=> handleInputTest()}>
+                    <Button variant="primary" type="submit" onClick={()=> handleSignUp()}>
                         Sign in
                     </Button>
                 </Form>
