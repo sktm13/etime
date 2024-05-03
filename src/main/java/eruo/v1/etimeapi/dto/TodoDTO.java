@@ -2,7 +2,7 @@ package eruo.v1.etimeapi.dto;
 
 import java.time.LocalDate;
 
-import jakarta.persistence.Column;
+// import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
