@@ -18,6 +18,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import eruo.v1.etimeapi.security.filter.JWTCheckFilter;
 import eruo.v1.etimeapi.security.handler.APILoginFailHandler;
 import eruo.v1.etimeapi.security.handler.APILoginSuccessHandler;
+import eruo.v1.etimeapi.security.handler.CustomAccessDeniedHandler;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
@@ -50,6 +51,11 @@ public class CustomSecurityConfig {
 
         http.addFilterBefore(new JWTCheckFilter(), UsernamePasswordAuthenticationFilter.class);
         
+        //권한 없을 시 메세지 forbidden
+        http.exceptionHandling(config -> {
+            config.accessDeniedHandler(new CustomAccessDeniedHandler());
+        });
+
         return http.build();
     }
 
