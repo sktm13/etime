@@ -69,11 +69,4 @@ function Login() {
     );
 }
 
-
-function AccountAlert(id, password) {
-    alert('id = ' + {id})
-    alert('password = ' + {password})
-}
-
-
 export default Login;

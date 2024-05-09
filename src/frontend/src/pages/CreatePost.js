@@ -8,16 +8,16 @@ function CreatePost (){
 
     const navigate = useNavigate();
 
-    const [ postTitle, setPostTitle ] = useState('');
-    const [ postContent, setPostContent ] = useState('');
+    const [ inputPostTitle, setInputPostTitle ] = useState('');
+    const [ inputPostContent, setInputPostContent ] = useState('');
 
     // 글 저장버튼
     const handleSavePost = () => {
         const currentTime = new Date().toISOString();
 
         axios.post("http://localhost:8080/api/posts", {
-            title: postTitle,
-            content: postContent,
+            title: inputPostTitle,
+            content: inputPostContent,
             postTime: currentTime
         })
             .then(() => {
@@ -60,11 +60,11 @@ function CreatePost (){
                                 <Form.Group className="mb-6">
                                     <Form.Label>Post Title</Form.Label>
                                     <Form.Control style={{width:'100%'}} type="text" placeholder="Title" onChange={(e)=>{
-                                        setPostTitle(e.target.value);
+                                        setInputPostTitle(e.target.value);
                                     }}/>
                                     <Form.Label>Post Content</Form.Label>
                                     <Form.Control  style={{width:'100%', height:'30rem'}} as="textarea" rows={3} onChange={(e)=>{
-                                        setPostContent(e.target.value);
+                                        setInputPostContent(e.target.value);
                                     }}/>
                                 </Form.Group>
                             </Form>

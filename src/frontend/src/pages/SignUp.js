@@ -33,14 +33,6 @@ function SignUp() {
             });
     };
 
-    const handleInputTest = () => {
-        console.log(inputId);
-        console.log(inputName);
-        console.log(inputNickname);
-        console.log(inputPassword);
-    }
-
-
     return (
         <Container className="centered" >
             <Card>
@@ -61,13 +53,13 @@ function SignUp() {
                         <br/>
                         <Form.Group className="mb-3" controlId="formBasicPassword">
                             <Form.Label>Name</Form.Label>
-                            <Form.Control type="username" placeholder="Password" onChange={(e)=>setInputNickname(e.target.value)}/>
+                            <Form.Control type="username" placeholder="Password" onChange={(e)=>setInputName(e.target.value)}/>
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="formBasicPassword">
                             <Form.Label>Nickname</Form.Label>
                             <Form.Control type="username" placeholder="Password" onChange={(e)=>setInputNickname(e.target.value)}/>
                         </Form.Group>
-                        <Button variant="primary" type="submit" onClick={()=>handleInputTest()}>
+                        <Button variant="primary" type="submit" onClick={()=>handleSignUp()}>
                             Sign Up
                         </Button>
                     </Form>

@@ -4,12 +4,17 @@ import { Col, Row, Spinner, Button } from 'react-bootstrap';
 import { MakeCard } from '../common/MakeCard';
 import axios from "axios";
 import {useState, useEffect} from "react";
+import {useSelector} from "react-redux";
+
+// store 함수 불러오기
+import {setPostData, setSortOrder} from "../store";
 
 function Contents(props) {
-
     const [loading, setLoading] = useState(true)
-    const [postData, setPostData] = useState([])
-    const [sortOrder, setSortOrder] = useState('date_desc')
+
+    //store 데이터 불러오기
+    const postData = useSelector(state => state.postData);
+    const sortOrder = useSelector(state => state.sortOrder)
 
 
     // 정렬 함수
@@ -62,7 +67,7 @@ function Contents(props) {
             postData.map((a, i) => {
                 // 카테고리 분류 기능
                 // if (props.currentCategory === 0)
-                    return (<MakeCard postData={postData[i]} userData={props.userData[i]} />)
+                    return (<MakeCard i={i} />)
                 // else if (props.currentCategory === props.postData[i].categoryId )
                 //     return (<MakeCard postData={props.postData[i]} userData={props.userData[i]} />)
             })

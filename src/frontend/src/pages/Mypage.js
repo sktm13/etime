@@ -3,9 +3,11 @@
 import React from 'react';
 import { Container, Row, Col, Image } from 'react-bootstrap';
 import { MakeCard } from '../common/MakeCard';
-
+import {useSelector} from "react-redux";
 
 function MyPage(props) {
+	// store에서 데이터 불러오기
+	const userData = useSelector((state) => state.userData);
 
 	return (
 	  <Container>
@@ -22,31 +24,34 @@ function MyPage(props) {
 				<Image src="http://via.placeholder.com/50" size="2em" />
 			</Col>
 			<Col>
-				<Row>설정설정설정설정설정설정설정설정설정설정설정설정</Row>
-				<Row>설정설정설정설정설정설정설정설정설정설정설정설정</Row>
-				<Row>설정설정설정설정설정설정설정설정설정설정설정설정</Row>
-				<Row>설정설정설정설정설정설정설정설정설정설정설정설정</Row>
+				<Row>설정1</Row>
+				<Row>설정2</Row>
+				<Row>설정3</Row>
+				<Row>설정4</Row>
 			</Col>
 		
 		</Row>
 		<br />
 		<hr />
-		<h5>내 글</h5>
-		<Row>
-			{
-				props.postData.map((a, i) => {
-					return (<MakeCard postData={props.postData[i]} userData={props.userData[i]} />)})
-			}
-		</Row>
-		<br />
-		<hr />
-		<h5>최근 본 글</h5>
-		<Row>
-			{
-				props.postData.map((a, i) => {
-					return (<MakeCard postData={props.postData[i]} userData={props.userData[i]} />)})
-			}
-		</Row>
+		  {/*
+				<h5>내 글</h5>
+				<Row>
+					{
+						props.postData.map((a, i) => {
+							return (<MakeCard postData={props.postData[i]} userData={props.userData[i]} />)})
+					}
+				</Row>
+				<br />
+				<hr />
+				<h5>최근 본 글</h5>
+				<Row>
+					{
+						props.postData.map((a, i) => {
+							return (<MakeCard postData={props.postData[i]} userData={props.userData[i]} />)})
+					}
+				</Row>
+		  */}
+
 	  </Container>
 	);
 }
