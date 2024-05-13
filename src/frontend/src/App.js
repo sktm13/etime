@@ -3,6 +3,7 @@ import { Container, Row } from 'react-bootstrap';
 import { Routes, Route } from "react-router-dom";
 import { useSelector } from "react-redux";
 
+import LoadData from "./common/LoadData";
 import Navibar from "./common/Navibar";
 import Sidebar from "./common/Sidebar";
 import MakeComment from "./common/MakeComment";
@@ -20,6 +21,8 @@ import Err404 from "./pages/Err404";
 function App() {
     return (
 <Container fluid>
+    {/* 데이터 로드 */}
+    <LoadData />
     {/* 네비게이션 바 */}
     <Navibar />
     <Row className='Main'>

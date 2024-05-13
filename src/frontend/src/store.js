@@ -1,5 +1,15 @@
 import {configureStore, createSlice} from "@reduxjs/toolkit";
 
+const isLoading = createSlice({
+    name: "isLoading",
+    initialState: true,
+    reducers: {
+        setIsLoading: (state, action) => {
+            return action.payload;
+        }
+    }
+})
+
 const userData = createSlice({
     name: "userData",
     initialState: [
@@ -195,6 +205,7 @@ const currentCategory = createSlice({
 
 export default configureStore({
     reducer: {
+        isLoading: isLoading.reducer,
         userData: userData.reducer,
         postData: postData.reducer,
         userpostData: postData.reducer,
@@ -205,6 +216,7 @@ export default configureStore({
     }
 });
 
+export const { setIsLoading } = isLoading.actions;
 export const { setUserData } = userData.actions;
 export const { setPostData } = postData.actions;
 export const { setUserPostData } = userPostData.actions;
