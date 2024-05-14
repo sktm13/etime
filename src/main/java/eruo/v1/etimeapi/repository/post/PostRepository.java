@@ -1,4 +1,4 @@
-package eruo.v1.etimeapi.repository;
+package eruo.v1.etimeapi.repository.post;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import eruo.v1.etimeapi.domain.post.Post;

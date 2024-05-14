@@ -7,7 +7,7 @@ import {useState, useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 
 // store 함수 불러오기
-import {setSortOrder} from "../store";
+import {setIsPostLoaded, setSortOrder} from "../store";
 
 function Contents() {
     const dispatch = useDispatch();
@@ -16,7 +16,6 @@ function Contents() {
     const isLoading = useSelector(state => state.isLoading);
     const postData = useSelector(state => state.postData);
     const sortOrder = useSelector(state => state.sortOrder);
-
 
     // 정렬 함수
     const sortPosts = (data = 'date_desc') => {

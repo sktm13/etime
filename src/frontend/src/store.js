@@ -41,35 +41,7 @@ const userData = createSlice({
 
 const postData = createSlice({
     name : 'postData',
-    initialState: [
-        {
-            id : 0,
-            title : "Title0",
-            content : "Summary0",
-            text : "Text0",
-            userId : 0,
-            date : '2024-04-08',
-            thumnail : "http://via.placeholder.com/800x450",
-        },
-        {
-            id : 1,
-            title : "Title1",
-            content : "Summary2",
-            text : "Text1",
-            userId : 1,
-            date : '2024-04-08',
-            thumnail : "http://via.placeholder.com/800x450",
-        },
-        {
-            id : 2,
-            title : "Title2",
-            content : "Summary2",
-            text : "Text2",
-            userId : 2,
-            date : '2024-04-08',
-            thumnail : "http://via.placeholder.com/800x450",
-        },
-    ],
+    initialState: [],
     reducers: {
         setPostData: (state, action) => {
             return action.payload;

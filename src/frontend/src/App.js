@@ -8,8 +8,9 @@ import Navibar from "./common/Navibar";
 import Sidebar from "./common/Sidebar";
 import MakeComment from "./common/MakeComment";
 import Contents from "./pages/Contents";
-import Post from "./pages/Post";
-import CreatePost from "./pages/CreatePost";
+import Post from "./pages/post/Post";
+import CreatePost from "./pages/post/CreatePost";
+import ModifyPost from "./pages/post/ModifyPost";
 import Mypage from "./pages/Mypage";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
@@ -37,6 +38,7 @@ function App() {
                 <Route path="/pages/post/:postId/" element={<MakeComment />} />
             </Route>
             <Route path="/pages/createpost" element={<CreatePost />}/>
+            <Route path="/pages/modifypost/:postId" element={<ModifyPost />}/>
             <Route path="/pages/mypage" element={<Mypage />} />
             <Route path="/pages/login" element={<Login />}/>
             <Route path="/pages/signup" element={<SignUp />}/>

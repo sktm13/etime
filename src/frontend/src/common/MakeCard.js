@@ -12,7 +12,7 @@ function MakeCard(props) {
 
     return (
     <Card>
-        <Card.Link onClick={() => {navigate("./pages/post/" + (postData.id))}}>
+        <Card.Link onClick={() => {navigate("./pages/post/" + (postData.id-1))}}>
             <Card.Img variant="top" src="http://via.placeholder.com/800x450" />
             <Card.Body>
                 <Card.Title>{postData.title}</Card.Title>

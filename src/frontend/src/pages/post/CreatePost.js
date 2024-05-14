@@ -3,7 +3,6 @@ import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-
 function CreatePost (){
 
     const navigate = useNavigate();
@@ -17,8 +16,8 @@ function CreatePost (){
 
         axios.post("http://localhost:8080/api/posts", {
             title: inputPostTitle,
-            content: inputPostContent,
-            postTime: currentTime
+            postTime: currentTime,
+            content: inputPostContent
         })
             .then(() => {
                 alert('작성 성공');
@@ -42,7 +41,7 @@ function CreatePost (){
         <Col xs={8}>
             <Card style={{width:'100%'}}>
                 <Card.Header className="d-flex justify-content-between align-items-center">
-                    <Card.Title>title</Card.Title>
+                    <Card.Title>작성</Card.Title>
                     <div>
                         <Button variant="secondary" onClick={handleCancelPost}>
                             Cancel
@@ -72,6 +71,8 @@ function CreatePost (){
                     </Row>
                 </Card.Body>
             </Card>
+
+            <div id="editor"></div>
         </Col>
     </Row>
 </Container>
