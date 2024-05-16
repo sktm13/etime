@@ -44,10 +44,13 @@ public class CustomSecurityConfig {
 
         http.csrf(httpSecurityCsrfConfigurer -> httpSecurityCsrfConfigurer.disable());
         http.formLogin(config -> {
-            config.loginPage("/api/member/login");
+//            config.loginPage("/api/login");
+            config.loginProcessingUrl("/api/login");
             config.successHandler(new APILoginSuccessHandler());
             config.failureHandler(new APILoginFailHandler());
         });
+        http.logout(logout -> logout.logoutUrl("/api/logout"));
+
 
         http.addFilterBefore(new JWTCheckFilter(), UsernamePasswordAuthenticationFilter.class);
 

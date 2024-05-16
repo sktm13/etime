@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Optional;
+
 @RestController
 @RequiredArgsConstructor
 public class MemberController {
@@ -17,12 +19,17 @@ public class MemberController {
 
     @PostMapping("/api/member")
     public String addMember(@RequestBody Member member) {
-        // 해싱 처리
-        var hashPassword = passwordEncoder.encode(member.getPw());
-        member.setPw(hashPassword);
+        Optional<Member> memberFindById = memberRepository.findById(member.getEmail());
+        if (memberFindById.isPresent()) {
+            return "이미 존재하는 이메일임";
+        }
+        else {
+            // 해싱 처리
+            var hash = passwordEncoder.encode(member.getPw());
+            member.setPw(hash);
+            memberRepository.save(member);
 
-        memberRepository.save(member);
-
-        return "member 등록 성공";
+            return "회원가입 성공";
+        }
     }
 }

@@ -15,40 +15,31 @@ function Contents() {
     //store 데이터 불러오기
     const isLoading = useSelector(state => state.isLoading);
     const sortOrder = useSelector(state => state.sortOrder);
-    // const postData = useSelector(state => state.postData);
 
+    // state 생성
     const [postData, setPostData] = useState([]);
+    const [isPostLoaded, setIsPostLoaded] = useState(false);
 
-    // // 정렬 함수
-    // const sortPosts = (data = 'date_desc') => {
-    //     return data.sort((a, b) => {
-    //         const dateA = new Date(a.postTime);
-    //         const dateB = new Date(b.postTime);
-    //
-    //         switch (sortOrder) {
-    //             case 'date_asc':
-    //                 return dateA - dateB;
-    //             case 'date_desc':
-    //                 return dateB - dateA;
-    //         }
-    //     });
-    // };
-    //
-    // // 정렬 핸들러
-    // const handleSortOrder = (sortOrder) => {
-    //     dispatch(setSortOrder(sortOrder))
-    // };
-
+    // 서버에서 데이터 불러오기
     useEffect(() => {
         axios.get("http://localhost:8080/api/post/desc")
             .then((result) => {
-                dispatch(setPostData(result.data));
-                dispatch(setIsPostLoaded(true));
+                setPostData(result.data);
+                setIsPostLoaded(true);
             })
             .catch(() => {
-                dispatch(setIsPostLoaded(false));
+                setIsPostLoaded(false);
             });
     }, []);
+
+    if (!isPostLoaded) {
+        return <div>로딩중...</div>
+    }
+
+    if (!postData) {
+        return <div>post가 존재하지 않음</div>
+    }
+
 
     return (
 <Col className="Content">
@@ -62,10 +53,9 @@ function Contents() {
     </Row>
     <Row>
         {
-            isLoading ? null :
-                postData.map((a, i) => {
-                    return (<MakeCard i={i} postData={postData} />)
-                })
+            postData.map((a, i) => {
+                return (<MakeCard i={i} postData={postData[i]} />)
+            })
         }
     </Row>
 </Col>

@@ -23,9 +23,14 @@ function SignUp() {
             nickname: inputName,
             // nick_name: inputNickname,
         })
-            .then(() => {
-                alert('회원가입 성공');
-                navigate('/');
+            .then((res) => {
+                if (res.data === '회원가입 성공') {
+                    alert('회원가입 성공');
+                    navigate('/');
+                }
+                else {
+                    alert(res.data)
+                }
             })
             .catch(() => {
                 alert('회원가입 실패');

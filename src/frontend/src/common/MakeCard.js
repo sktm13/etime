@@ -2,13 +2,10 @@
 // Content.js, Mypage.js에서 카드를 생성하는 컴포넌트
 import { useNavigate } from 'react-router-dom';
 import { Card } from 'react-bootstrap';
-import {useSelector} from "react-redux";
 
 function MakeCard(props) {
     const navigate = useNavigate();
-
-    // store에서 데이터 불러오기
-    const postData = useSelector(state => state.postData[props.i]);
+    const postData = props.postData;
 
     return (
     <Card>

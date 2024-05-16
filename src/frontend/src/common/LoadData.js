@@ -15,15 +15,6 @@ function LoadData() {
 
 
     const handleLoadPost = () => {
-        axios.get("http://localhost:8080/api/post/desc")
-            .then((result) => {
-                dispatch(setPostData(result.data));
-                dispatch(setIsPostLoaded(true));
-            })
-            .catch(() => {
-                dispatch(setIsPostLoaded(false));
-            });
-
         axios.get("http://localhost:8080/api/comment/")
             .then((result) => {
                 dispatch(setCommentData(result.data));
@@ -39,12 +30,12 @@ function LoadData() {
 
             })
 
-        axios.get("https://localhost:8080/api/user/")
-            .then((result) => {
-                dispatch(setUserData(result.data));
-            }).catch(() => {
-
-            })
+        // axios.get("https://localhost:8080/api/user/")
+        //     .then((result) => {
+        //         dispatch(setUserData(result.data));
+        //     }).catch(() => {
+        //
+        //     })
 
         // Promise.all([
         //     axios.get("http://localhost:8080/api/user/"),

@@ -16,10 +16,10 @@ function Post() {
 
     // store 데이터 불러오기
     const userData = useSelector(state => state.userData);
-    const postData = useSelector((state) => state.postData);
+    // const postData = useSelector((state) => state.postData);
     const commentData = useSelector((state) => state.commentData);
 
-    const [post, setPost] = useState(null);
+    const [postData, setPostData] = useState(null);
     const [error, setError] = useState(false);
 
     // 글 수정 버튼
@@ -42,7 +42,7 @@ function Post() {
     useEffect(() => {
         axios.get(`http://localhost:8080/api/post/${params.postId}`)
             .then(res => {
-                setPost(res.data);
+                setPostData(res.data);
                 setIsPostLoaded(true);
             })
             .catch(()=>{
@@ -59,7 +59,7 @@ function Post() {
         return <div>에러 발생</div>
     }
     
-    if (!post) {
+    if (!postData) {
         return <div>post가 존재하지 않음</div>
     }
 
@@ -72,8 +72,8 @@ function Post() {
                 <Col xs={8}>
                     <Card style={{width:'100%'}}>
                         <Card.Header>
-                            <Card.Title>{post.title}</Card.Title>
-                            <Card.Text>{post.date}</Card.Text>
+                            <Card.Title>{postData.title}</Card.Title>
+                            <Card.Text>{postData.date}</Card.Text>
                             <Button onClick={handleModifyPost}>수정</Button>
                             <Button onClick={handleDeletePost}>삭제</Button>
                         </Card.Header>
@@ -91,7 +91,7 @@ function Post() {
                             </Row>
                         </Card.Body>
                         <Row>
-                            <Card.Text>{post.content}</Card.Text>
+                            <Card.Text>{postData.content}</Card.Text>
                         </Row>
                     </Card>
                 </Col>

@@ -2,8 +2,7 @@ import {useEffect, useState} from 'react';
 import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
 import {useNavigate, useParams} from 'react-router-dom';
 import axios from 'axios';
-import {useSelector} from "react-redux";
-import {setIsPostChanged, setSortOrder} from "../../store";
+import {setIsPostChanged, setIsPostLoaded } from "../../store";
 
 
 function EditPost (){
@@ -11,7 +10,8 @@ function EditPost (){
     const navigate = useNavigate();
     const params = useParams();
 
-    const postData = useSelector((state) => state.postData);
+    // const postData = useSelector((state) => state.postData);
+    const [ postData, setPostData] = useState([]);
     const [ inputPostTitle, setInputPostTitle ] = useState('');
     const [ inputPostContent, setInputPostContent ] = useState('');
 
@@ -42,10 +42,28 @@ function EditPost (){
         }
     }
 
+    // 글 데이터 서버에서 불러오기
     useEffect(() => {
-        setInputPostTitle(postData[params.postId].title)
-        setInputPostContent(postData[params.postId].content)
-    }, []);
+        axios.get(`http://localhost:8080/api/post/${params.postId}`)
+            .then(res => {
+                setPostData(res.data);
+                setIsPostLoaded(true);
+
+                setInputPostTitle(res.data.title)
+                setInputPostContent(res.data.content)
+            })
+            .catch(()=>{
+                setIsPostLoaded(false);
+            })
+    }, [params.postId]);
+
+    if (!setIsPostLoaded) {
+        return <div>로딩중...</div>
+    }
+
+    if (!postData) {
+        return <div>post가 존재하지 않음</div>
+    }
 
     return(
         <Container fluid>
