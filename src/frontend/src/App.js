@@ -10,7 +10,7 @@ import MakeComment from "./common/MakeComment";
 import Contents from "./pages/Contents";
 import Post from "./pages/post/Post";
 import CreatePost from "./pages/post/CreatePost";
-import ModifyPost from "./pages/post/ModifyPost";
+import EditPost from "./pages/post/EditPost";
 import Mypage from "./pages/Mypage";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
@@ -35,10 +35,10 @@ function App() {
         <Routes>
             <Route path="/" element={<Contents />} />
             <Route path="/pages/post/:postId" element={<Post />}>
-                <Route path="/pages/post/:postId/" element={<MakeComment />} />
+                {/*<Route path="/pages/post/:postId/" element={<MakeComment />} />*/}
             </Route>
             <Route path="/pages/createpost" element={<CreatePost />}/>
-            <Route path="/pages/modifypost/:postId" element={<ModifyPost />}/>
+            <Route path="/pages/editpost/:postId" element={<EditPost />}/>
             <Route path="/pages/mypage" element={<Mypage />} />
             <Route path="/pages/login" element={<Login />}/>
             <Route path="/pages/signup" element={<SignUp />}/>

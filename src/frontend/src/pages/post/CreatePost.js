@@ -14,10 +14,10 @@ function CreatePost (){
     const handleSavePost = () => {
         const currentTime = new Date().toISOString();
 
-        axios.post("http://localhost:8080/api/posts", {
+        axios.post("http://localhost:8080/api/post", {
             title: inputPostTitle,
             postTime: currentTime,
-            content: inputPostContent
+            content: inputPostContent,
         })
             .then(() => {
                 alert('작성 성공');

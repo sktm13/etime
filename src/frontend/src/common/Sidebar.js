@@ -6,7 +6,7 @@ import { MakeCategoryList  } from './MakeCategoryList';
 import {useSelector} from "react-redux";
 
 
-function Sidebar(props) {
+function Sidebar() {
 	// store 데이터 불러오기
 	const categoryData = useSelector((state) => state.categoryData);
 

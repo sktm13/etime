@@ -6,6 +6,8 @@ import MakeComment from "../../common/MakeComment";
 
 import {useSelector} from "react-redux";
 import axios from "axios";
+import {useEffect, useState} from "react";
+import {setIsPostLoaded} from "../../store";
 
 
 function Post() {
@@ -17,17 +19,17 @@ function Post() {
     const postData = useSelector((state) => state.postData);
     const commentData = useSelector((state) => state.commentData);
 
+    const [post, setPost] = useState(null);
+    const [error, setError] = useState(false);
+
     // 글 수정 버튼
     const handleModifyPost = () => {
-        navigate("../pages/modifypost/" + (params.postId))
-
+        navigate("../pages/editpost/" + (params.postId))
     }
 
     // 글 삭제 버튼
     const handleDeletePost = () => {
-        axios.delete("http://localhost:8080/api/posts", {
-            id: params.postId,
-        })
+        axios.delete(`http://localhost:8080/api/post/${params.postId}`)
             .then(() => {
                 alert('삭제 성공');
                 navigate('/');
@@ -36,6 +38,30 @@ function Post() {
                 alert('삭제 실패');
             });
     };
+
+    useEffect(() => {
+        axios.get(`http://localhost:8080/api/post/${params.postId}`)
+            .then(res => {
+                setPost(res.data);
+                setIsPostLoaded(true);
+            })
+            .catch(()=>{
+                setIsPostLoaded(false);
+            })
+    }, [params.postId]);
+
+
+    if (!setIsPostLoaded) {
+        return <div>로딩중...</div>
+    }
+    
+    if (error) {
+        return <div>에러 발생</div>
+    }
+    
+    if (!post) {
+        return <div>post가 존재하지 않음</div>
+    }
 
     return (
         <Container>
@@ -46,8 +72,8 @@ function Post() {
                 <Col xs={8}>
                     <Card style={{width:'100%'}}>
                         <Card.Header>
-                            <Card.Title>{postData[params.postId].title}</Card.Title>
-                            <Card.Text>{postData[params.postId].date}</Card.Text>
+                            <Card.Title>{post.title}</Card.Title>
+                            <Card.Text>{post.date}</Card.Text>
                             <Button onClick={handleModifyPost}>수정</Button>
                             <Button onClick={handleDeletePost}>삭제</Button>
                         </Card.Header>
@@ -65,7 +91,7 @@ function Post() {
                             </Row>
                         </Card.Body>
                         <Row>
-                            <Card.Text>{postData[params.postId].text}</Card.Text>
+                            <Card.Text>{post.content}</Card.Text>
                         </Row>
                     </Card>
                 </Col>

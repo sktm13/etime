@@ -1,13 +1,17 @@
-import { useState } from 'react';
+import {useEffect, useState} from 'react';
 import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
 import {useNavigate, useParams} from 'react-router-dom';
 import axios from 'axios';
+import {useSelector} from "react-redux";
+import {setIsPostChanged, setSortOrder} from "../../store";
 
-function ModifyPost (){
+
+function EditPost (){
 
     const navigate = useNavigate();
     const params = useParams();
 
+    const postData = useSelector((state) => state.postData);
     const [ inputPostTitle, setInputPostTitle ] = useState('');
     const [ inputPostContent, setInputPostContent ] = useState('');
 
@@ -15,18 +19,19 @@ function ModifyPost (){
     const handleSavePost = () => {
         const currentTime = new Date().toISOString();
 
-        axios.post("http://localhost:8080/api/posts", {
-
+        axios.put("http://localhost:8080/api/post/", {
+            id: params.postId,
             title: inputPostTitle,
             content: inputPostContent,
-            postTime: currentTime
+            postTime: currentTime,
         })
             .then(() => {
-                alert('작성 성공');
+                alert('수정 성공');
+                setIsPostChanged(true);
                 navigate('/');
             })
             .catch(() => {
-                alert('작성 실패');
+                alert('수정 실패');
             });
     };
 
@@ -36,6 +41,11 @@ function ModifyPost (){
             navigate('/');
         }
     }
+
+    useEffect(() => {
+        setInputPostTitle(postData[params.postId].title)
+        setInputPostContent(postData[params.postId].content)
+    }, []);
 
     return(
         <Container fluid>
@@ -60,13 +70,21 @@ function ModifyPost (){
                                     <Form style={{width:'100%'}} onSubmit={(e)=>{e.preventDefault()}}>
                                         <Form.Group className="mb-6">
                                             <Form.Label>Post Title</Form.Label>
-                                            <Form.Control style={{width:'100%'}} type="text" placeholder="Title" onChange={(e)=>{
-                                                setInputPostTitle(e.target.value);
-                                            }}/>
+                                            <Form.Control
+                                                style={{width:'100%'}}
+                                                type="text"
+                                                placeholder="Title"
+                                                onChange={(e)=>{setInputPostTitle(e.target.value);}}
+                                                value={inputPostTitle}
+                                            />
                                             <Form.Label>Post Content</Form.Label>
-                                            <Form.Control  style={{width:'100%', height:'30rem'}} as="textarea" rows={3} onChange={(e)=>{
-                                                setInputPostContent(e.target.value);
-                                            }}/>
+                                            <Form.Control
+                                                style={{width:'100%', height:'30rem'}}
+                                                as="textarea"
+                                                rows={3}
+                                                onChange={(e)=>{setInputPostContent(e.target.value);}}
+                                                value={inputPostContent}
+                                            />
                                         </Form.Group>
                                     </Form>
                                 </Col>
@@ -81,4 +99,4 @@ function ModifyPost (){
     )
 }
 
-export default ModifyPost;
+export default EditPost;

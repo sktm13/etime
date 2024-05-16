@@ -14,9 +14,10 @@ function Login() {
 
 
     // 로그인 버튼
-    const handleSignUp = () => {
+    const handleLogin = (e) => {
+        e.preventDefault();
         axios.post("http://localhost:8080/api/member/login", {
-            login_id: inputId,
+            username: inputId,
             password: inputPassword,
         })
             .then(() => {
@@ -29,32 +30,34 @@ function Login() {
     };
 
 
-
-    // const handleInputTest = () => {
-    //     console.log(inputId);
-    //     console.log(inputPassword);
-    // }
-
-
     return (
 <Container className="centered" >
         <Card>
             <Card.Header>
-                <h5>Sign In</h5>
+                <h5>Login</h5>
             </Card.Header>
             <Card.Body>
-                <Form>
-                    <Form.Group className="mb-3" controlId="formBasicEmail">
-                        <Form.Label>user Id</Form.Label>
-                        <Form.Control type="id" placeholder="id" onChange={(e)=>setInputId(e.target.value)}/>
+                <Form onSubmit={handleLogin}>
+                    <Form.Group className="mb-3" controlId="userId">
+                        <Form.Label>Id</Form.Label>
+                        <Form.Control
+                            type="id"
+                            placeholder="id"
+                            onChange={(e)=>setInputId(e.target.value)}
+                            value={inputId}
+                        />
                     </Form.Group>
-
-                    <Form.Group className="mb-3" controlId="formBasicPassword">
+                    <Form.Group className="mb-3" controlId="userPassword">
                         <Form.Label>Password</Form.Label>
-                        <Form.Control type="password" placeholder="Password" onChange={(e)=>setInputPassword(e.target.value)}/>
+                        <Form.Control
+                            type="password"
+                            placeholder="Password"
+                            onChange={(e)=>setInputPassword(e.target.value)}
+                            value={inputPassword}
+                        />
                     </Form.Group>
-                    <Button variant="primary" type="submit" onClick={()=> handleSignUp()}>
-                        Sign in
+                    <Button variant="primary" type="submit">
+                        Submit
                     </Button>
                 </Form>
             </Card.Body>
