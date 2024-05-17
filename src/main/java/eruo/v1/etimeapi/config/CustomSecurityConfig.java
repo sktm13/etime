@@ -31,7 +31,7 @@ public class CustomSecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         log.info("---------------------security config---------------------------");
-        
+
         http.cors(httpSecurityCorsConfigurer -> {
             httpSecurityCorsConfigurer.configurationSource(corsConfigurationSource());
         });
@@ -44,13 +44,16 @@ public class CustomSecurityConfig {
 
         http.csrf(httpSecurityCsrfConfigurer -> httpSecurityCsrfConfigurer.disable());
         http.formLogin(config -> {
-            config.loginPage("/api/member/login");
+//            config.loginPage("/api/login");
+            config.loginProcessingUrl("/api/login");
             config.successHandler(new APILoginSuccessHandler());
             config.failureHandler(new APILoginFailHandler());
         });
+        http.logout(logout -> logout.logoutUrl("/api/logout"));
+
 
         http.addFilterBefore(new JWTCheckFilter(), UsernamePasswordAuthenticationFilter.class);
-        
+
         //권한 없을 시 메세지 forbidden
         http.exceptionHandling(config -> {
             config.accessDeniedHandler(new CustomAccessDeniedHandler());
@@ -75,4 +78,21 @@ public class CustomSecurityConfig {
         source.registerCorsConfiguration("/**", configuration);
         return source;
     }
+
+//    @Bean
+//    public PasswordEncoder passwordEncoder() {
+//        return new BCryptPasswordEncoder();
+//    }
+//
+//    @Bean
+//    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+//        http.csrf((csrf) -> csrf.disable());
+//        http.authorizeHttpRequests((authorize) ->
+//                authorize.requestMatchers("/**").permitAll()
+//        );
+//        http.formLogin((formLogin) -> formLogin.loginPage("/api/member/login"));
+//        http.logout(logout -> logout.logoutUrl("/api/member/logout"));
+//
+//        return http.build();
+//    }
 }

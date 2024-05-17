@@ -11,22 +11,26 @@ function SignUp() {
 
     const [inputId, setInputId] = useState('');
     const [inputName, setInputName] = useState('');
-    const [inputNickname, setInputNickname] = useState('');
+    // const [inputNickname, setInputNickname] = useState('');
     const [inputPassword, setInputPassword] = useState('');
 
     // 회원가입 버튼
-    const handleSignUp = () => {
-        const currentTime = new Date().toISOString();
-
-        axios.post("http://localhost:8080/api/users", {
-            login_id: inputId,
-            name: inputName,
-            nick_name: inputNickname,
-            password: inputPassword,
+    const handleSignUp = (event) => {
+        event.preventDefault();
+        axios.post("http://localhost:8080/api/member", {
+            email: inputId,
+            pw: inputPassword,
+            nickname: inputName,
+            // nick_name: inputNickname,
         })
-            .then(() => {
-                alert('회원가입 성공');
-                navigate('/');
+            .then((res) => {
+                if (res.data === '회원가입 성공') {
+                    alert('회원가입 성공');
+                    navigate('/');
+                }
+                else {
+                    alert(res.data)
+                }
             })
             .catch(() => {
                 alert('회원가입 실패');
@@ -40,26 +44,44 @@ function SignUp() {
                     <h5>Sign Up</h5>
                 </Card.Header>
                 <Card.Body>
-                    <Form>
+                    <Form onSubmit={handleSignUp}>
                         <Form.Group className="mb-3" controlId="formBasicEmail">
                             <Form.Label>New Email address</Form.Label>
-                            <Form.Control type="email" placeholder="Enter email" onChange={(e)=>setInputId(e.target.value)}/>
+                            <Form.Control
+                                type="email"
+                                placeholder="Enter email"
+                                onChange={(e)=>setInputId(e.target.value)}
+                                value={inputId}
+                            />
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="formBasicPassword">
                             <Form.Label>New Password</Form.Label>
-                            <Form.Control type="password" placeholder="Password" onChange={(e)=>setInputPassword(e.target.value)}/>
+                            <Form.Control
+                                type="password"
+                                placeholder="Password"
+                                onChange={(e)=>setInputPassword(e.target.value)}
+                                value={inputPassword}
+                            />
                         </Form.Group>
                         <br/>
                         <br/>
                         <Form.Group className="mb-3" controlId="formBasicPassword">
                             <Form.Label>Name</Form.Label>
-                            <Form.Control type="username" placeholder="Password" onChange={(e)=>setInputName(e.target.value)}/>
+                            <Form.Control
+                                type="text"
+                                placeholder="Name"
+                                onChange={(e)=>setInputName(e.target.value)}
+                                value={inputName}
+                            />
                         </Form.Group>
-                        <Form.Group className="mb-3" controlId="formBasicPassword">
-                            <Form.Label>Nickname</Form.Label>
-                            <Form.Control type="username" placeholder="Password" onChange={(e)=>setInputNickname(e.target.value)}/>
-                        </Form.Group>
-                        <Button variant="primary" type="submit" onClick={()=>handleSignUp()}>
+                        {/*<Form.Group className="mb-3" controlId="formBasicPassword">*/}
+                        {/*    <Form.Label>Nickname</Form.Label>*/}
+                        {/*    <Form.Control*/}
+                        {/*        type="text" */}
+                        {/*        placeholder="Password"*/}
+                        {/*        onChange={(e)=>setInputNickname(e.target.value)}/>*/}
+                        {/*</Form.Group>*/}
+                        <Button variant="primary" type="submit">
                             Sign Up
                         </Button>
                     </Form>

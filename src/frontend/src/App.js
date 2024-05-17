@@ -3,12 +3,14 @@ import { Container, Row } from 'react-bootstrap';
 import { Routes, Route } from "react-router-dom";
 import { useSelector } from "react-redux";
 
+import LoadData from "./common/LoadData";
 import Navibar from "./common/Navibar";
 import Sidebar from "./common/Sidebar";
 import MakeComment from "./common/MakeComment";
 import Contents from "./pages/Contents";
-import Post from "./pages/Post";
-import CreatePost from "./pages/CreatePost";
+import Post from "./pages/post/Post";
+import CreatePost from "./pages/post/CreatePost";
+import EditPost from "./pages/post/EditPost";
 import Mypage from "./pages/Mypage";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
@@ -20,6 +22,8 @@ import Err404 from "./pages/Err404";
 function App() {
     return (
 <Container fluid>
+    {/* 데이터 로드 */}
+    <LoadData />
     {/* 네비게이션 바 */}
     <Navibar />
     <Row className='Main'>
@@ -31,9 +35,10 @@ function App() {
         <Routes>
             <Route path="/" element={<Contents />} />
             <Route path="/pages/post/:postId" element={<Post />}>
-                <Route path="/pages/post/:postId/" element={<MakeComment />} />
+                {/*<Route path="/pages/post/:postId/" element={<MakeComment />} />*/}
             </Route>
             <Route path="/pages/createpost" element={<CreatePost />}/>
+            <Route path="/pages/editpost/:postId" element={<EditPost />}/>
             <Route path="/pages/mypage" element={<Mypage />} />
             <Route path="/pages/login" element={<Login />}/>
             <Route path="/pages/signup" element={<SignUp />}/>

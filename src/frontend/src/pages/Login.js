@@ -9,52 +9,68 @@ import axios from 'axios';
 function Login() {
     const navigate = useNavigate();
 
-    const [inputId, setInputId] = useState('');
+    const [inputEmail, setInputEmail] = useState('');
     const [inputPassword, setInputPassword] = useState('');
 
 
     // 로그인 버튼
-    const handleSignUp = () => {
-        axios.post("http://localhost:8080/api/member/login", {
-            login_id: inputId,
+    const handleLogin = (e) => {
+        e.preventDefault();
+        axios.post("http://localhost:8080/api/login", {
+            username: inputEmail,
             password: inputPassword,
-        })
-            .then(() => {
-                alert('로그인 성공');
-                navigate('/');
+        }, {
+            headers: {'Content-Type': 'application/json'},
+            withCredentials: true // 쿠키 포함
+            }
+        )
+            .then((res) => {
+                if (res.data === 'success') {
+                    alert('로그인 성공');
+                    navigate('/');
+                } else {
+                    alert('로그인 실패');
+                    alert(JSON.stringify(res.data))
+                }
             })
-            .catch(() => {
-                alert('로그인 실패');
+            .catch((err) => {
+                if (err.response && err.response.data && err.response.data.error ) {
+                    alert('로그인 실패 : ' + err.response.data.error);
+                } else {
+                    alert('로그인 실패 : 알 수 없는 오류')
+                }
             });
     };
-
-
-
-    // const handleInputTest = () => {
-    //     console.log(inputId);
-    //     console.log(inputPassword);
-    // }
 
 
     return (
 <Container className="centered" >
         <Card>
             <Card.Header>
-                <h5>Sign In</h5>
+                <h5>Login</h5>
             </Card.Header>
             <Card.Body>
-                <Form>
-                    <Form.Group className="mb-3" controlId="formBasicEmail">
-                        <Form.Label>user Id</Form.Label>
-                        <Form.Control type="id" placeholder="id" onChange={(e)=>setInputId(e.target.value)}/>
+                <Form onSubmit={handleLogin}>
+                    <Form.Group className="mb-3" controlId="userId">
+                        <Form.Label>Email</Form.Label>
+                        <Form.Control
+                            type="email"
+                            placeholder="email"
+                            onChange={(e)=>setInputEmail(e.target.value)}
+                            value={inputEmail}
+                        />
                     </Form.Group>
-
-                    <Form.Group className="mb-3" controlId="formBasicPassword">
+                    <Form.Group className="mb-3" controlId="userPassword">
                         <Form.Label>Password</Form.Label>
-                        <Form.Control type="password" placeholder="Password" onChange={(e)=>setInputPassword(e.target.value)}/>
+                        <Form.Control
+                            type="password"
+                            placeholder="Password"
+                            onChange={(e)=>setInputPassword(e.target.value)}
+                            value={inputPassword}
+                        />
                     </Form.Group>
-                    <Button variant="primary" type="submit" onClick={()=> handleSignUp()}>
-                        Sign in
+                    <Button variant="primary" type="submit">
+                        Submit
                     </Button>
                 </Form>
             </Card.Body>

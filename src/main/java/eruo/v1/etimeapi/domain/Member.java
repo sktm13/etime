@@ -3,28 +3,23 @@ package eruo.v1.etimeapi.domain;
 import java.util.ArrayList;
 import java.util.List;
 
-import jakarta.persistence.ElementCollection;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import jakarta.persistence.*;
+import lombok.*;
 
 @Entity
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
+@Getter @Setter
 @ToString(exclude = "memberRoleList") // 연관관계시 처리해줘야함
 public class Member {
 
-    @Id
+    @Id @Column(unique=true)
     private String email;
 
     private String pw;
+
+    @Column(unique=true)
     private String nickname;
 
     private boolean social;
@@ -40,17 +35,4 @@ public class Member {
     public void clearRole() {
         memberRoleList.clear();
     }
-
-    public void changeNickname(String nickname) {
-        this.nickname = nickname;
-    }
-
-    public void changePw(String pw) {
-        this.pw = pw;
-    }
-
-    public void changeSocial(boolean social) {
-        this.social = social;
-    }
-
 }

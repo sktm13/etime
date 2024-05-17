@@ -4,79 +4,58 @@ import { Col, Row, Spinner, Button } from 'react-bootstrap';
 import { MakeCard } from '../common/MakeCard';
 import axios from "axios";
 import {useState, useEffect} from "react";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 
 // store 함수 불러오기
-import {setPostData, setSortOrder} from "../store";
+import {setIsPostLoaded, setSortOrder, setIsPostChanged, setPostData} from "../store";
 
-function Contents(props) {
-    const [loading, setLoading] = useState(true)
+function Contents() {
+    const dispatch = useDispatch();
 
     //store 데이터 불러오기
-    const postData = useSelector(state => state.postData);
-    const sortOrder = useSelector(state => state.sortOrder)
+    const isLoading = useSelector(state => state.isLoading);
+    const sortOrder = useSelector(state => state.sortOrder);
 
+    // state 생성
+    const [postData, setPostData] = useState([]);
+    const [isPostLoaded, setIsPostLoaded] = useState(false);
 
-    // 정렬 함수
-    const sortPosts = (data = 'date_desc') => {
-        return data.sort((a, b) => {
-            const dateA = new Date(a.postTime);
-            const dateB = new Date(b.postTime);
-
-            switch (sortOrder) {
-                case 'date_asc':
-                    return dateA - dateB;
-                case 'date_desc':
-                    return dateB - dateA;
-            }
-        });
-    };
-
-    // 정렬 핸들러
-    const handleSortChange = (sortOrder) => {
-        setSortOrder(sortOrder)
-    };
-
-
-    /* DB 데이터 수신 */
+    // 서버에서 데이터 불러오기
     useEffect(() => {
-        axios.get("http://localhost:8080/api/posts")
-            .then((res) => {
-                const sortedData = sortPosts(res.data);
-                setPostData(sortedData);
-                setLoading(false)
+        axios.get("http://localhost:8080/api/post/desc")
+            .then((result) => {
+                setPostData(result.data);
+                setIsPostLoaded(true);
             })
-            .catch(()=>{
-                setLoading(true)
-            })
-    }, [sortOrder]);
+            .catch(() => {
+                setIsPostLoaded(false);
+            });
+    }, []);
+
+    if (!isPostLoaded) {
+        return <div>로딩중...</div>
+    }
+
+    if (!postData) {
+        return <div>post가 존재하지 않음</div>
+    }
 
 
     return (
 <Col className="Content">
     <Row>
         <Col>
-            <Button onClick={() => handleSortChange('date_desc')}>최신순</Button>
+            <Button onClick={() => {}}>최신순</Button>
         </Col>
         <Col>
-            <Button onClick={() => handleSortChange('date_asc')}>오래된순</Button>
+            <Button onClick={() => {}}>오래된순</Button>
         </Col>
     </Row>
     <Row>
         {
             postData.map((a, i) => {
-                // 카테고리 분류 기능
-                // if (props.currentCategory === 0)
-                    return (<MakeCard i={i} />)
-                // else if (props.currentCategory === props.postData[i].categoryId )
-                //     return (<MakeCard postData={props.postData[i]} userData={props.userData[i]} />)
+                return (<MakeCard i={i} postData={postData[i]} />)
             })
-        }
-    </Row>
-    {/* 무한스크롤 */}
-    <Row>
-        {
-            loading? <Spinner animation="border" /> : null
         }
     </Row>
 </Col>
