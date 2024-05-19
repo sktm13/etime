@@ -16,21 +16,21 @@ function Login() {
     // 로그인 버튼
     const handleLogin = (e) => {
         e.preventDefault();
-        axios.post("http://localhost:8080/api/login", {
+        axios.post("http://localhost:8080/api/member/login", {
             username: inputEmail,
             password: inputPassword,
         }, {
-            headers: {'Content-Type': 'application/json'},
-            withCredentials: true // 쿠키 포함
+            headers: {'Content-Type': 'multipart/form-data'},
             }
         )
             .then((res) => {
-                if (res.data === 'success') {
+                if (res.data.accessToken) {
                     alert('로그인 성공');
+                    document.cookie = "token=${res.data.accessToken}; path=/; Max-Age=3600";
                     navigate('/');
                 } else {
-                    alert('로그인 실패');
-                    alert(JSON.stringify(res.data))
+                    alert('로그인 실패 : ' + res.data.message);
+                    console.log(res.data);
                 }
             })
             .catch((err) => {
