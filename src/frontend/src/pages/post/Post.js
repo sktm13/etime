@@ -4,23 +4,21 @@ import {Container, Row, Col, Image, Card, Button} from 'react-bootstrap';
 import {useNavigate, useParams} from 'react-router-dom';
 import MakeComment from "../../common/MakeComment";
 
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import axios from "axios";
-import {useEffect, useState} from "react";
-import {setIsPostLoaded} from "../../store";
+import {setIsPostChanged} from "../../store";
 
 
 function Post() {
     const params = useParams();
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     // store 데이터 불러오기
     const userData = useSelector(state => state.userData);
-    // const postData = useSelector((state) => state.postData);
+    const postData = useSelector((state) => state.postData);
     const commentData = useSelector((state) => state.commentData);
-
-    const [postData, setPostData] = useState(null);
-    const [error, setError] = useState(false);
+    const isDataLoaded = useSelector(state => state.isDataLoaded);
 
     // 글 수정 버튼
     const handleModifyPost = () => {
@@ -32,6 +30,7 @@ function Post() {
         axios.delete(`http://localhost:8080/api/post/${params.postId}`)
             .then(() => {
                 alert('삭제 성공');
+                dispatch(setIsPostChanged(true));
                 navigate('/');
             })
             .catch(() => {
@@ -39,28 +38,24 @@ function Post() {
             });
     };
 
-    useEffect(() => {
-        axios.get(`http://localhost:8080/api/post/${params.postId}`)
-            .then(res => {
-                setPostData(res.data);
-                setIsPostLoaded(true);
-            })
-            .catch(()=>{
-                setIsPostLoaded(false);
-            })
-    }, [params.postId]);
+    // useEffect(() => {
+    //     axios.get(`http://localhost:8080/api/post/${params.postId}`)
+    //         .then(res => {
+    //             setPostData(res.data);
+    //             setIsDataLoaded(true);
+    //         })
+    //         .catch(()=>{
+    //             setIsDataLoaded(false);
+    //         })
+    // }, [params.postId]);
 
 
-    if (!setIsPostLoaded) {
+    if (!isDataLoaded) {
         return <div>로딩중...</div>
     }
-    
-    if (error) {
-        return <div>에러 발생</div>
-    }
-    
-    if (!postData) {
-        return <div>post가 존재하지 않음</div>
+
+    if (!postData || !userData) {
+        return <div>데이터가 존재하지 않음</div>
     }
 
     return (
@@ -84,8 +79,8 @@ function Post() {
                                 </Col>
                                 <Col>
                                     <Card.Text>
-                                        {/*<strong>{userData[postData[params.postId].userId].name}<br /></strong>*/}
-                                        {/*{userData[postData[params.postId].userId].follower}*/}
+                                        <strong>{userData[postData[params.postId].userId].name}<br /></strong>
+                                        {userData[postData[params.postId].userId].follower}
                                     </Card.Text>
                                 </Col>
                             </Row>

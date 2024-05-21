@@ -4,33 +4,40 @@ import {Container, Form, Button, Card } from 'react-bootstrap'
 import {Link, useNavigate} from "react-router-dom";
 import {useState} from "react";
 import axios from 'axios';
+import {useCookies} from "react-cookie";
+import {setIsLogined} from "../store";
+import {useDispatch} from "react-redux";
 
 
 function Login() {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const [cookie, setCookie] = useCookies(['accessToken'])
 
+    // state 생성
     const [inputEmail, setInputEmail] = useState('');
     const [inputPassword, setInputPassword] = useState('');
+
 
 
     // 로그인 버튼
     const handleLogin = (e) => {
         e.preventDefault();
-        axios.post("http://localhost:8080/api/login", {
+        axios.post("http://localhost:8080/api/member/login", {
             username: inputEmail,
             password: inputPassword,
         }, {
-            headers: {'Content-Type': 'application/json'},
-            withCredentials: true // 쿠키 포함
+            headers: {'Content-Type': 'multipart/form-data'},
             }
         )
             .then((res) => {
-                if (res.data === 'success') {
+                if (res.data.accessToken) {
                     alert('로그인 성공');
+                    document.cookie = "token=${res.data.accessToken}; path=/; Max-Age=3600";
                     navigate('/');
                 } else {
-                    alert('로그인 실패');
-                    alert(JSON.stringify(res.data))
+                    alert('로그인 실패 : ' + res.data.message);
+                    console.log(res.data);
                 }
             })
             .catch((err) => {
@@ -77,8 +84,8 @@ function Login() {
         </Card>
         <Card>
             <Card.Body>
-                <p>No Account?</p>
-                <Link to={"/pages/signup"}>Create an new account</Link>
+                <p>계정이 없나오?</p>
+                <Link to={"/pages/signup"}>새로운 계정 만들기</Link>
             </Card.Body>
         </Card>
 </Container>

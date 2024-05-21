@@ -2,7 +2,7 @@ import {useEffect, useState} from 'react';
 import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
 import {useNavigate, useParams} from 'react-router-dom';
 import axios from 'axios';
-import {setIsPostChanged, setIsPostLoaded } from "../../store";
+import {setIsPostChanged, setIsDataLoaded } from "../../store";
 
 
 function EditPost (){
@@ -47,17 +47,17 @@ function EditPost (){
         axios.get(`http://localhost:8080/api/post/${params.postId}`)
             .then(res => {
                 setPostData(res.data);
-                setIsPostLoaded(true);
+                setIsDataLoaded(true);
 
                 setInputPostTitle(res.data.title)
                 setInputPostContent(res.data.content)
             })
             .catch(()=>{
-                setIsPostLoaded(false);
+                setIsDataLoaded(false);
             })
     }, [params.postId]);
 
-    if (!setIsPostLoaded) {
+    if (!setIsDataLoaded) {
         return <div>로딩중...</div>
     }
 

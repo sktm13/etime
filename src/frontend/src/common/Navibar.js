@@ -3,21 +3,31 @@
 import React from 'react';
 import { Col, Row, Navbar, Form, Button, Dropdown, DropdownButton } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom'
-import axios from "axios";
+import {useCookies} from "react-cookie";
+import {setIsLogined} from "../store";
+import {useSelector} from "react-redux";
 
 function Navibar() {
 
     const navigate = useNavigate();
+    const [cookie, setCookie, removeCookie] = useCookies(['accessToken'])
+    
+    // store state 로드
+    const isLogined = useSelector(state => state.isLogined)
 
     const handleLogout = () => {
-        axios.post('http://localhost:8000/api/logout')
-            .then(()=>{
-                alert('로그아웃 성공');
-                navigate('/');
-            })
-            .catch((err) => {
-                alert('로그아웃 실패 : ' + err);
-            })
+        // axios.post('http://localhost:8000/api/logout')
+        //     .then(()=>{
+        //         alert('로그아웃 성공');
+        //         removeCookie('accesToken');
+        //         navigate('/');
+        //     })
+        //     .catch((err) => {
+        //         alert('로그아웃 실패 : ' + err);
+        //     })
+        removeCookie('accessToken');
+        setIsLogined(false);
+        alert('로그아웃 완료');
     }
 
 
@@ -28,7 +38,7 @@ function Navibar() {
                 <Row className='w-100'>
                     <Col className='d-flex justify-content-start d-flex align-items-center'>
                         <Navbar.Brand href="/">
-                            <h3>React</h3>
+                            <h3>Etime</h3>
                         </Navbar.Brand>
                     </Col>
                     <Col className='d-flex justify-content-center'>
@@ -41,12 +51,15 @@ function Navibar() {
                     </Col>
                     <Col className='d-flex justify-content-end align-items-center'>
                         <DropdownButton variant="light" title="More">
-                            <Dropdown.Item onClick={() => {navigate('/pages/login')}}>Login</Dropdown.Item>
-                            <Dropdown.Item onClick={() => {handleLogout()}}>LogOut</Dropdown.Item>
-                            <Dropdown.Item onClick={() => {navigate('/pages/mypage')}}>Mypage</Dropdown.Item>
-                            <Dropdown.Item onClick={() => {navigate('/pages/donate')}}>Donate</Dropdown.Item>
-                            <Dropdown.Item onClick={() => {navigate('/pages/payment')}}>Payment</Dropdown.Item>
-                            <Dropdown.Item onClick={() => {navigate('/pages/createpost')}}>createPost</Dropdown.Item>
+                            {
+                                isLogined === true ?
+                                    <Dropdown.Item onClick={() => {handleLogout()}}>로그아웃</Dropdown.Item> :
+                                    <Dropdown.Item onClick={() => {navigate('/pages/login')}}>로그인</Dropdown.Item>
+                            }
+                            <Dropdown.Item onClick={() => {navigate('/pages/mypage')}}>마이페이지</Dropdown.Item>
+                            <Dropdown.Item onClick={() => {navigate('/pages/donate')}}>후원</Dropdown.Item>
+                            <Dropdown.Item onClick={() => {navigate('/pages/payment')}}>결제</Dropdown.Item>
+                            <Dropdown.Item onClick={() => {navigate('/pages/createpost')}}>새로운 글 작성</Dropdown.Item>
                         </DropdownButton>
                     </Col>
                 </Row>

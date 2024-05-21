@@ -2,11 +2,16 @@ import { useState } from 'react';
 import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import ReactQuill from "react-quill";
+import 'react-quill/dist/quill.snow.css'
+import {useDispatch} from "react-redux";
+import {setIsPostChanged} from "../../store";
 
 function CreatePost (){
-
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
+    // state 생성
     const [ inputPostTitle, setInputPostTitle ] = useState('');
     const [ inputPostContent, setInputPostContent ] = useState('');
 
@@ -21,6 +26,7 @@ function CreatePost (){
         })
             .then(() => {
                 alert('작성 성공');
+                dispatch(setIsPostChanged(true));
                 navigate('/');
             })
             .catch(() => {
@@ -62,17 +68,18 @@ function CreatePost (){
                                         setInputPostTitle(e.target.value);
                                     }}/>
                                     <Form.Label>Post Content</Form.Label>
-                                    <Form.Control  style={{width:'100%', height:'30rem'}} as="textarea" rows={3} onChange={(e)=>{
-                                        setInputPostContent(e.target.value);
-                                    }}/>
+                                    {/*<Form.Control  style={{width:'100%', height:'30rem'}} as="textarea" rows={3} onChange={(e)=>{*/}
+                                    {/*    setInputPostContent(e.target.value);*/}
+                                    {/*}}/>*/}
+                                    <ReactQuill theme="snow" value={inputPostContent} onChange={setInputPostContent}/>
+
                                 </Form.Group>
                             </Form>
                         </Col>
                     </Row>
+
                 </Card.Body>
             </Card>
-
-            <div id="editor"></div>
         </Col>
     </Row>
 </Container>
