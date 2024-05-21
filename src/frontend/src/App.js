@@ -29,7 +29,7 @@ function App() {
     <Row className='Main'>
         {/* 사이드 바 */}
         <Routes>
-            {/*<Route path='/' element={<Sidebar />} />*/}
+            <Route path='/' element={<Sidebar />} />
         </Routes>
         {/* 컨텐츠 */}
         <Routes>

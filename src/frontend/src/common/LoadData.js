@@ -7,25 +7,30 @@ import {useSelector, useDispatch} from "react-redux";
 import {setIsDataLoaded, setIsPostLoaded, setIsCategoryLoded, setIsCommentLoded, setIsUserLoaded,
     setPostData, setCategoryData, setUserData,
     setIsPostChanged} from "../store";
+import {useCookies} from "react-cookie";
 
 
 
 function LoadData() {
     const dispatch = useDispatch();
 
-    // store에서 데이터 불러오기
+    // 쿠키 데이터 로드
+    const [cookie, setCookie] = useCookies(['accessToken']);
+
+    // store에서 데이터 로드
     const isDataLoaded = useSelector(state => state.isDataLoaded);
     const isPostLoaded = useSelector(state => state.isPostLoaded);
     const isCategoryLoaded = useSelector(state => state.isCategoryLoaded);
     const isCommentLoaded = useSelector(state => state.isCommentLoaded);
     const isUserLoaded = useSelector(state => state.isUserLoaded);
-
-    // Post 변경사항이 존재 시 재로드
     const isPostChaneged = useSelector(state => state.isPostChanged);
+
 
     const handleLoadPost = () => {
         // 서버에서 Post 데이터 불러오기
-        axios.get("http://localhost:8080/api/post/desc")
+        axios.get("http://localhost:8080/api/post/desc", {
+            headers: {Authorization: `Bearer ${cookie.accessToken}`}
+        })
             .then((result) => {
                 dispatch(setPostData(result.data));
                 dispatch(setIsPostLoaded(true));
@@ -68,6 +73,7 @@ function LoadData() {
             dispatch(setIsDataLoaded(true))
         }
     };
+
 
     useEffect(() => {
         dispatch(setIsDataLoaded(false));

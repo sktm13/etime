@@ -3,12 +3,15 @@ import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
 import {useNavigate, useParams} from 'react-router-dom';
 import axios from 'axios';
 import {setIsPostChanged, setIsDataLoaded } from "../../store";
+import {useCookies} from "react-cookie";
 
 
 function EditPost (){
-
     const navigate = useNavigate();
     const params = useParams();
+
+    // 쿠키 데이터 로드
+    const [cookie, setCookie] = useCookies(['accessToken'])
 
     // const postData = useSelector((state) => state.postData);
     const [ postData, setPostData] = useState([]);
@@ -24,6 +27,8 @@ function EditPost (){
             title: inputPostTitle,
             content: inputPostContent,
             postTime: currentTime,
+        }, {
+            headers: {Authorization: `Bearer ${cookie.accessToken}`}
         })
             .then(() => {
                 alert('수정 성공');

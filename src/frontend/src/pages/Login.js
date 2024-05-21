@@ -33,7 +33,10 @@ function Login() {
             .then((res) => {
                 if (res.data.accessToken) {
                     alert('로그인 성공');
-                    document.cookie = "token=${res.data.accessToken}; path=/; Max-Age=3600";
+                    setCookie('accessToken', res.data.accessToken, {
+                        path: "/",
+                        maxAge: 3600
+                    });
                     navigate('/');
                 } else {
                     alert('로그인 실패 : ' + res.data.message);
@@ -54,12 +57,12 @@ function Login() {
 <Container className="centered" >
         <Card>
             <Card.Header>
-                <h5>Login</h5>
+                <h5>로그인</h5>
             </Card.Header>
             <Card.Body>
                 <Form onSubmit={handleLogin}>
                     <Form.Group className="mb-3" controlId="userId">
-                        <Form.Label>Email</Form.Label>
+                        <Form.Label>이메일</Form.Label>
                         <Form.Control
                             type="email"
                             placeholder="email"
@@ -68,7 +71,7 @@ function Login() {
                         />
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="userPassword">
-                        <Form.Label>Password</Form.Label>
+                        <Form.Label>비밀번호</Form.Label>
                         <Form.Control
                             type="password"
                             placeholder="Password"
@@ -77,7 +80,7 @@ function Login() {
                         />
                     </Form.Group>
                     <Button variant="primary" type="submit">
-                        Submit
+                        로그인
                     </Button>
                 </Form>
             </Card.Body>

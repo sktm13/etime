@@ -16,6 +16,7 @@ function Contents() {
     const isPostLoaded = useSelector(state => state.isPostLoaded);
     const postData = useSelector(state => state.postData);
 
+
     if (!isPostLoaded) {
         return (
             <>

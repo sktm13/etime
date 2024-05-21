@@ -6,10 +6,14 @@ import ReactQuill from "react-quill";
 import 'react-quill/dist/quill.snow.css'
 import {useDispatch} from "react-redux";
 import {setIsPostChanged} from "../../store";
+import {useCookies} from "react-cookie";
 
 function CreatePost (){
     const navigate = useNavigate();
     const dispatch = useDispatch();
+
+    // 쿠키 데이터 로드
+    const [cookie, setCookie] = useCookies(['accessToken'])
 
     // state 생성
     const [ inputPostTitle, setInputPostTitle ] = useState('');
@@ -23,6 +27,8 @@ function CreatePost (){
             title: inputPostTitle,
             postTime: currentTime,
             content: inputPostContent,
+        }, {
+            headers: {Authorization: `Bearer ${cookie.accessToken}`}
         })
             .then(() => {
                 alert('작성 성공');

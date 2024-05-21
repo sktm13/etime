@@ -5,16 +5,25 @@ import { Col, Row, Navbar, Form, Button, Dropdown, DropdownButton } from 'react-
 import { useNavigate } from 'react-router-dom'
 import {useCookies} from "react-cookie";
 import {setIsLogined} from "../store";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 
 function Navibar() {
-
+    const dispatch = useDispatch();
     const navigate = useNavigate();
-    const [cookie, setCookie, removeCookie] = useCookies(['accessToken'])
     
+    // 쿠키 데이터 로드
+    const [cookie, setCookie, removeCookie] = useCookies(['accessToken'])
+
     // store state 로드
     const isLogined = useSelector(state => state.isLogined)
 
+    // 로그인 여부 확인
+    if (cookie.accessToken) {
+        dispatch(setIsLogined(true))
+    }
+        
+        
+    // 로그아웃 핸들러
     const handleLogout = () => {
         // axios.post('http://localhost:8000/api/logout')
         //     .then(()=>{
@@ -26,8 +35,9 @@ function Navibar() {
         //         alert('로그아웃 실패 : ' + err);
         //     })
         removeCookie('accessToken');
-        setIsLogined(false);
+        dispatch(setIsLogined(false));
         alert('로그아웃 완료');
+        navigate("/");
     }
 
 
@@ -56,10 +66,10 @@ function Navibar() {
                                     <Dropdown.Item onClick={() => {handleLogout()}}>로그아웃</Dropdown.Item> :
                                     <Dropdown.Item onClick={() => {navigate('/pages/login')}}>로그인</Dropdown.Item>
                             }
-                            <Dropdown.Item onClick={() => {navigate('/pages/mypage')}}>마이페이지</Dropdown.Item>
-                            <Dropdown.Item onClick={() => {navigate('/pages/donate')}}>후원</Dropdown.Item>
-                            <Dropdown.Item onClick={() => {navigate('/pages/payment')}}>결제</Dropdown.Item>
-                            <Dropdown.Item onClick={() => {navigate('/pages/createpost')}}>새로운 글 작성</Dropdown.Item>
+                            <Dropdown.Item onClick={() => {isLogined? navigate('/pages/mypage') : navigate('/pages/login')}}>마이페이지</Dropdown.Item>
+                            <Dropdown.Item onClick={() => {isLogined? navigate('/pages/donate') : navigate('/pages/login')}}>후원</Dropdown.Item>
+                            <Dropdown.Item onClick={() => {isLogined? navigate('/pages/payment') : navigate('/pages/login')}}>결제</Dropdown.Item>
+                            <Dropdown.Item onClick={() => {isLogined? navigate('/pages/createpost') : navigate('/pages/login')}}>새로운 글 작성</Dropdown.Item>
                         </DropdownButton>
                     </Col>
                 </Row>

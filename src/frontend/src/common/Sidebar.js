@@ -12,6 +12,7 @@ function Sidebar() {
 	const categoryData = useSelector(state => state.categoryData);
 	const isCategoryLoaded = useSelector(state => state.isCategoryLoaded);
 
+	// placeholder용 배열
 	const categoryArr = [1,2,3,4,5,6,7,8,9,10];
 
 
