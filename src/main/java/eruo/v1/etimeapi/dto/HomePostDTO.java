@@ -14,17 +14,11 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProductDTO {
-
+public class HomePostDTO {
+    
     private Long pno;
 
     private String pname;
-
-    private int price;
-
-    private String pdesc;
-
-    private boolean delFlag;
 
     @Builder.Default
     private List<MultipartFile> files = new ArrayList<>();

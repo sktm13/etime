@@ -38,7 +38,8 @@ public class TodoController {
         return todoService.get(tno);
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
+    // @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    // 접근하려면 위 role을 가진 사용자 토큰 필요
     @GetMapping("/list")
     public PageResponseDTO<TodoDTO> list(PageRequestDTO pageRequestDTO) {
         log.info("list......"+pageRequestDTO);
