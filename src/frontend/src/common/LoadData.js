@@ -28,16 +28,16 @@ function LoadData() {
 
     const handleLoadPost = () => {
         // 서버에서 Post 데이터 불러오기
-        axios.get("http://localhost:8080/api/post/desc", {
-            headers: {Authorization: `Bearer ${cookie.accessToken}`}
-        })
-            .then((result) => {
-                dispatch(setPostData(result.data));
-                dispatch(setIsPostLoaded(true));
-            })
-            .catch(() => {
-                dispatch(setIsPostLoaded(false));
-            });
+        // axios.get("http://localhost:8080/api/post/desc", {
+        //     headers: {Authorization: `Bearer ${cookie.accessToken}`}
+        // })
+        //     .then((result) => {
+        //         dispatch(setPostData(result.data));
+        //         dispatch(setIsPostLoaded(true));
+        //     })
+        //     .catch(() => {
+        //         dispatch(setIsPostLoaded(false));
+        //     });
 
 
         // axios.get("http://localhost:8080/api/comment/")
@@ -69,18 +69,26 @@ function LoadData() {
         //     axios.get("http://localhost:8080/api/category"),
         // ]).then
 
-        if (isPostLoaded) {
-            dispatch(setIsDataLoaded(true))
-        }
+        // if (isPostLoaded) {
+        //     dispatch(setIsDataLoaded(true))
+        // }
     };
 
 
     useEffect(() => {
-        dispatch(setIsDataLoaded(false));
-        dispatch(setIsUserLoaded(false));
-        dispatch(setIsPostLoaded(false));
-        dispatch(setIsCategoryLoded(false));
-        dispatch(setIsCommentLoded(false));
+        // dispatch(setIsDataLoaded(false));
+        // dispatch(setIsUserLoaded(false));
+        // dispatch(setIsPostLoaded(false));
+        // dispatch(setIsCategoryLoded(false));
+        // dispatch(setIsCommentLoded(false));
+
+
+        // 디자인을 위해 데이터가 로드되었다고 가정
+        dispatch(setIsDataLoaded(true));
+        dispatch(setIsUserLoaded(true));
+        dispatch(setIsPostLoaded(true));
+        dispatch(setIsCategoryLoded(true));
+        dispatch(setIsCommentLoded(true));
     }, []);
 
 

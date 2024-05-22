@@ -21,12 +21,12 @@ import Err404 from "./pages/Err404";
 
 function App() {
     return (
-<Container fluid>
+<Container>
     {/* 데이터 로드 */}
     <LoadData />
     {/* 네비게이션 바 */}
     <Navibar />
-    <Row className='Main'>
+    <Row style={{width: '100rem'}}>
         {/* 사이드 바 */}
         <Routes>
             <Route path='/' element={<Sidebar />} />
