@@ -66,10 +66,14 @@ function Navibar() {
                                     <Dropdown.Item onClick={() => {handleLogout()}}>로그아웃</Dropdown.Item> :
                                     <Dropdown.Item onClick={() => {navigate('/pages/login')}}>로그인</Dropdown.Item>
                             }
-                            <Dropdown.Item onClick={() => {isLogined? navigate('/pages/mypage') : navigate('/pages/login')}}>마이페이지</Dropdown.Item>
-                            <Dropdown.Item onClick={() => {isLogined? navigate('/pages/donate') : navigate('/pages/login')}}>후원</Dropdown.Item>
-                            <Dropdown.Item onClick={() => {isLogined? navigate('/pages/payment') : navigate('/pages/login')}}>결제</Dropdown.Item>
-                            <Dropdown.Item onClick={() => {isLogined? navigate('/pages/createpost') : navigate('/pages/login')}}>새로운 글 작성</Dropdown.Item>
+                            {/*<Dropdown.Item onClick={() => {isLogined? navigate('/pages/mypage') : navigate('/pages/login')}}>마이페이지</Dropdown.Item>*/}
+                            {/*<Dropdown.Item onClick={() => {isLogined? navigate('/pages/donate') : navigate('/pages/login')}}>후원</Dropdown.Item>*/}
+                            {/*<Dropdown.Item onClick={() => {isLogined? navigate('/pages/payment') : navigate('/pages/login')}}>결제</Dropdown.Item>*/}
+                            {/*<Dropdown.Item onClick={() => {isLogined? navigate('/pages/createpost') : navigate('/pages/login')}}>새로운 글 작성</Dropdown.Item>*/}
+                            <Dropdown.Item onClick={() => {navigate('/pages/mypage')}}>마이페이지</Dropdown.Item>
+                            <Dropdown.Item onClick={() => {navigate('/pages/donate')}}>후원</Dropdown.Item>
+                            <Dropdown.Item onClick={() => {navigate('/pages/payment')}}>결제</Dropdown.Item>
+                            <Dropdown.Item onClick={() => {navigate('/pages/createpost')}}>새로운 글 작성</Dropdown.Item>
                         </DropdownButton>
                     </Col>
                 </Row>
