@@ -82,6 +82,7 @@ function Navibar() {
                             <Dropdown.Item onClick={() => {navigate('/pages/donate')}}>후원</Dropdown.Item>
                             <Dropdown.Item onClick={() => {navigate('/pages/payment')}}>결제</Dropdown.Item>
                             <Dropdown.Item onClick={() => {navigate('/pages/createpost')}}>새로운 글 작성</Dropdown.Item>
+                            <Dropdown.Item onClick={() => {navigate('/pages/license')}}>전문가 신청</Dropdown.Item>
                         </DropdownButton>
                     </Col>
                 </Row>

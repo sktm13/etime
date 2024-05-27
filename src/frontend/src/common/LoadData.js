@@ -4,9 +4,11 @@
 import {useEffect} from "react";
 import axios from "axios";
 import {useSelector, useDispatch} from "react-redux";
-import {setIsDataLoaded, setIsPostLoaded, setIsCategoryLoded, setIsCommentLoded, setIsUserLoaded,
+import {
+    setIsDataLoaded, setIsPostLoaded, setIsCategoryLoded, setIsCommentLoded, setIsUserLoaded,
     setPostData, setCategoryData, setUserData,
-    setIsPostChanged} from "../store";
+    setIsPostChanged, setIsLogined
+} from "../store";
 import {useCookies} from "react-cookie";
 
 
@@ -81,6 +83,8 @@ function LoadData() {
         dispatch(setIsPostLoaded(true));
         dispatch(setIsCategoryLoded(true));
         dispatch(setIsCommentLoded(true));
+
+        dispatch(setIsLogined(true))
     }, []);
 
 

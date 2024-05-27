@@ -13,6 +13,7 @@ import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import Donate from "./pages/Donate";
 import Payment from "./pages/Payment";
+import License from "./pages/License";
 import Err404 from "./pages/Err404";
 
 
@@ -42,6 +43,7 @@ function App() {
                 <Route path="/pages/signup" element={<SignUp />}/>
                 <Route path="/pages/donate" element={<Donate />}/>
                 <Route path="/pages/payment" element={<Payment />}/>
+                <Route path="/pages/license" element={<License />}></Route>
                 <Route path="*" element={<Err404 />} />
             </Routes>
         </Col>
