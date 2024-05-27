@@ -63,68 +63,70 @@ function Post() {
     }
 
     return (
-        <Container>
-            <Row className={"post__header"}>
-                <Col>
-                    <h6 className={"post__header__category"}>
-                        {categoryData[postData.category - 1].name}
-                    </h6>
-                    <h5>{postData.title}</h5>
-                </Col>
-                <Col className={"d-flex justify-content-end align-items-center"}>
-                    <Button onClick={handleModifyPost} className={"post__header__button"}>수정</Button>
-                    <Button onClick={handleDeletePost} className={"post__header__button"}>삭제</Button>
-                </Col>
-            </Row>
-            <Row className={"post__header"}>
-                <Col className={"d-flex justify-content-between align-items-center"}>
-                    <div className={"d-flex align-items-center"}>
-                        <Image
-                            src="http://via.placeholder.com/200x200"
-                            roundedCircle
-                            style={{width: '50px', height: '50px'}}/>
-                        <h6 className={"post__header__author"}>{userData[postData.userId - 1].displayName}</h6>
-                    </div>
-                    <small><strong>작성일 {postData.date}</strong></small>
-                </Col>
-            </Row>
-            <Row className={"post__body"}>
-                <Col>
-                    <Image src="http://via.placeholder.com/800x450" />
-                    <Row>
-                        <p>{postData.content}</p>
-                        <p>{postData.content}</p>
-                        <p>{postData.content}</p>
-                        <p>{postData.content}</p>
-                    </Row>
-                </Col>
-            </Row>
-            <Row className={"post__footer"}>
-                {
-                    commentData.map((a, i) => {
-                        return (
-                            <div className={"post_footer_comment"}>
-                                <div className="post__footer__commentTitle d-flex justify-content-between align-items-center">
-                                    <div className={"d-flex align-items-center"}>
-                                        <Image className={"post__footer__commentImage"}
-                                            src="http://via.placeholder.com/200x200"
-                                            roundedCircle />
-                                        <p className={"m-0"}>
-                                            {userData[commentData[i].userId - 1].displayName}
-                                        </p>
+        <Container className={"d-flex justify-content-center"}>
+            <Col xs={10}>
+                <Row className={"post__header"}>
+                    <Col>
+                        <h6 className={"post__header__category"}>
+                            {categoryData[postData.category - 1].name}
+                        </h6>
+                        <h5>{postData.title}</h5>
+                    </Col>
+                    <Col className={"d-flex justify-content-end align-items-center"}>
+                        <Button onClick={handleModifyPost} className={"post__header__button"}>수정</Button>
+                        <Button onClick={handleDeletePost} className={"post__header__button"}>삭제</Button>
+                    </Col>
+                </Row>
+                <Row className={"post__header"}>
+                    <Col className={"d-flex justify-content-between align-items-center"}>
+                        <div className={"d-flex align-items-center"}>
+                            <Image
+                                src="http://via.placeholder.com/200x200"
+                                roundedCircle
+                                style={{width: '50px', height: '50px'}}/>
+                            <h6 className={"post__header__author"}>{userData[postData.userId - 1].displayName}</h6>
+                        </div>
+                        <small><strong>작성일 {postData.date}</strong></small>
+                    </Col>
+                </Row>
+                <Row className={"post__body"}>
+                    <Col>
+                        <Image src="http://via.placeholder.com/800x450" />
+                        <Row>
+                            <p>{postData.content}</p>
+                            <p>{postData.content}</p>
+                            <p>{postData.content}</p>
+                            <p>{postData.content}</p>
+                        </Row>
+                    </Col>
+                </Row>
+                <Row className={"post__footer"}>
+                    {
+                        commentData.map((a, i) => {
+                            return (
+                                <div className={"post__footer__comment"}>
+                                    <div className="post__footer__commentTitle d-flex justify-content-between align-items-center">
+                                        <div className={"d-flex align-items-center"}>
+                                            <Image className={"post__footer__commentImage"}
+                                                   src="http://via.placeholder.com/200x200"
+                                                   roundedCircle />
+                                            <p className={"m-0"}>
+                                                {userData[commentData[i].userId - 1].displayName}
+                                            </p>
+                                        </div>
+                                        <small>
+                                            작성일 {commentData[i].date}
+                                        </small>
                                     </div>
-                                    <small>
-                                        작성일 {commentData[i].date}
-                                    </small>
+                                    <p className={"post__footer__commentContent"}>
+                                        {commentData[i].content}
+                                    </p>
                                 </div>
-                                <p className={"post__footer__commentContent"}>
-                                    {commentData[i].content}
-                                </p>
-                            </div>
-                        )
-                    })
-                }
-            </Row>
+                            )
+                        })
+                    }
+                </Row>
+            </Col>
         </Container>
     );
 }

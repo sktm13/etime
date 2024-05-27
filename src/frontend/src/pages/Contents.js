@@ -1,6 +1,6 @@
 // Contents.js
 // 메인 콘텐츠
-import {Col, Row, Spinner, Button, Placeholder, Card} from 'react-bootstrap';
+import {Col, Row, Spinner, Button, Placeholder, Card, Container} from 'react-bootstrap';
 import { MakeCard } from '../common/MakeCard';
 import axios from "axios";
 import {useState, useEffect} from "react";
@@ -42,24 +42,27 @@ function Contents() {
 
 
     return (
-<Col className="Content">
-    <Row>
-        <Col>
-            <Button onClick={() => {}}>최신순</Button>
-        </Col>
-        <Col>
-            <Button onClick={() => {}}>오래된순</Button>
-        </Col>
-    </Row>
-    <Row>
-        {
-            isPostLoaded === true &&
-            postData.map((a, i) => {
-                return (<MakeCard i={i} postData={postData[i]} />)
-            })
-        }
-    </Row>
-</Col>
+        <Container className={"d-flex justify-content-center"}>
+            <Col className="Content" xs={10}>
+                <Row>
+                    <Col>
+                        <Button onClick={() => {}}>최신순</Button>
+                    </Col>
+                    <Col>
+                        <Button onClick={() => {}}>오래된순</Button>
+                    </Col>
+                </Row>
+                <Row>
+                    {
+                        isPostLoaded === true &&
+                        postData.map((a, i) => {
+                            return (<MakeCard i={i} postData={postData[i]} />)
+                        })
+                    }
+                </Row>
+            </Col>
+        </Container>
+
     );
 }
 
