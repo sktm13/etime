@@ -87,7 +87,7 @@ function Login() {
         </Card>
         <Card>
             <Card.Body>
-                <p>계정이 없나오?</p>
+                <p>계정이 없나요?</p>
                 <Link to={"/pages/signup"}>새로운 계정 만들기</Link>
             </Card.Body>
         </Card>

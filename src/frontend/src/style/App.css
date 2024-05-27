@@ -12,19 +12,15 @@ div {
 	box-sizing: border-box;
 }
 
+
+
+
+
 /* Navbar */
 .navbar {
-	margin: 0 0 2rem 0;
+	margin: 0 0 0 0;
 	padding: 0rem 4rem 0rem 4rem;
 	border-bottom: #c6c6c6 solid 2px;
-	/*box-shadow: 0px 8px 6px -6px #666;*/
-}
-
-
-/* Main */
-.Main {
-	min-width: 950px;
-
 }
 
 /* Sidebar */
@@ -32,16 +28,24 @@ div {
 	min-width: 200px;
 }
 
-/*.list-group {*/
-/*	box-shadow: 8px 8px 6px -6px #666;*/
-/*}*/
+/* Main */
+.Main {
+	min-width: 950px;
+}
+
+
 
 .list-group-item {
 	margin: 0.3rem 0rem 0.3rem 0rem;
 }
 
 
-/* Contents */
+
+
+
+
+
+/* Page - Contents */
 .Content {
 	margin: 0rem;
 	min-width: 300px;
@@ -63,7 +67,68 @@ div {
 
 
 
-/* Err */
+
+/* Page - Post */
+.post__header {
+	background-color: #f5f5f5;
+	border-bottom: 1px solid black;
+	height: 4rem;
+	padding: 3px 0 0 5px;
+}
+
+.post__header__author {
+	margin-left: 10px;
+}
+
+.post__header__category {
+	-webkit-text-fill-color: #0064d9;
+}
+
+.post__header__button {
+	margin: 0 0.5rem 0 0;
+}
+
+.post__body {
+	background-color: #ffffff;
+	padding: 2rem 1rem 1rem 1rem;
+}
+
+.post__footer {
+	border-top: 1px solid black;
+	border-bottom: 1px solid black;
+	padding: 1rem;
+}
+
+.post_footer_comment {
+	background-color: #f5f5f5;
+	border: 1px solid #a6a6a6;
+	margin-bottom: 1rem;
+	padding: 0;
+}
+
+.post__footer__commentImage {
+	width: 50px;
+	height: 50px;
+	margin: 1px 16px 1px 0;
+}
+
+.post__footer__commentTitle {
+	background-color: #c6c6c6;
+	border-bottom: 1px solid black;
+	padding: 0 2rem 0 1rem;
+}
+
+.post__footer__commentContent {
+	padding: 0 0 0 1rem;
+	margin: 1rem 1rem 1rem 1rem;
+}
+
+
+
+
+
+
+/* Page - Err */
 .centered {
 	height: 80vh; /* 뷰포트의 높이를 100%로 설정 */
 	display: flex;
@@ -73,7 +138,10 @@ div {
 	text-align: center;
   }
 
-/* Login */
+
+
+
+/* Page - Login */
 .form-control {
 	width: 20rem;
 }

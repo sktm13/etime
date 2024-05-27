@@ -1,8 +1,9 @@
 // Post.js
 // 글 선택시 진입
-import {Container, Row, Col, Image, Card, Button} from 'react-bootstrap';
+import '../../style/App.css'
+
+import {Container, Row, Col, Image, Card, Button, ListGroup} from 'react-bootstrap';
 import {useNavigate, useParams} from 'react-router-dom';
-import MakeComment from "../../common/MakeComment";
 
 import {useDispatch, useSelector} from "react-redux";
 import axios from "axios";
@@ -16,10 +17,12 @@ function Post() {
 
     // store 데이터 불러오기
     const userData = useSelector(state => state.userData);
-    const postData = useSelector((state) => state.postData);
+    const storePostData = useSelector((state) => state.postData);
     const commentData = useSelector((state) => state.commentData);
     const isDataLoaded = useSelector(state => state.isDataLoaded);
+    const categoryData = useSelector(state => state.categoryData);
 
+    const postData = storePostData[params.postId];
 
     // 글 수정 버튼
     const handleModifyPost = () => {
@@ -61,46 +64,66 @@ function Post() {
 
     return (
         <Container>
-            <Row className="justify-content-center mt-3">
-                <Col xs={8}>
-                    <Image src="http://via.placeholder.com/800x450" fluid />
+            <Row className={"post__header"}>
+                <Col>
+                    <h6 className={"post__header__category"}>
+                        {categoryData[postData.category - 1].name}
+                    </h6>
+                    <h5>{postData.title}</h5>
                 </Col>
-                <Col xs={8}>
-                    <Card style={{width:'100%'}}>
-                        <Card.Header>
-                            <Card.Title>{postData[params.postId].title}</Card.Title>
-                            <Card.Text>{postData[params.postId].date}</Card.Text>
-                            <Button onClick={handleModifyPost}>수정</Button>
-                            <Button onClick={handleDeletePost}>삭제</Button>
-                        </Card.Header>
-                        <Card.Body>
-                            <Row className="align-items-center">
-                                <Col xs="auto">
-                                    <Image src="http://via.placeholder.com/800x450" roundedCircle style={{ width: '50px', height: '50px' }} />
-                                </Col>
-                                <Col>
-                                    <Card.Text>
-                                        <strong>{userData[postData[params.postId].userId].name}<br /></strong>
-                                        {userData[postData[params.postId].userId].follower}
-                                    </Card.Text>
-                                </Col>
-                            </Row>
-                        </Card.Body>
-                        <Row>
-                            <Card.Text>{postData[params.postId].content}</Card.Text>
-                        </Row>
-                    </Card>
+                <Col className={"d-flex justify-content-end align-items-center"}>
+                    <Button onClick={handleModifyPost} className={"post__header__button"}>수정</Button>
+                    <Button onClick={handleDeletePost} className={"post__header__button"}>삭제</Button>
                 </Col>
             </Row>
-            <Row className="justify-content-center mt-3">
-                <Col xs={8}>
-                    {
-                        commentData.map((a, i) => {
-                            if (commentData[i].postId === Number(params.postId))
-                                return <MakeComment i={i} />
-                        })
-                    }
+            <Row className={"post__header"}>
+                <Col className={"d-flex justify-content-between align-items-center"}>
+                    <div className={"d-flex align-items-center"}>
+                        <Image
+                            src="http://via.placeholder.com/200x200"
+                            roundedCircle
+                            style={{width: '50px', height: '50px'}}/>
+                        <h6 className={"post__header__author"}>{userData[postData.userId - 1].displayName}</h6>
+                    </div>
+                    <small><strong>작성일 {postData.date}</strong></small>
                 </Col>
+            </Row>
+            <Row className={"post__body"}>
+                <Col>
+                    <Image src="http://via.placeholder.com/800x450" />
+                    <Row>
+                        <p>{postData.content}</p>
+                        <p>{postData.content}</p>
+                        <p>{postData.content}</p>
+                        <p>{postData.content}</p>
+                    </Row>
+                </Col>
+            </Row>
+            <Row className={"post__footer"}>
+                {
+                    commentData.map((a, i) => {
+                        return (
+                            <div className={"post_footer_comment"}>
+                                <div className="post__footer__commentTitle d-flex justify-content-between align-items-center">
+                                    <div className={"d-flex align-items-center"}>
+                                        <Image className={"post__footer__commentImage"}
+                                            src="http://via.placeholder.com/200x200"
+                                            roundedCircle />
+                                        <p className={"m-0"}>
+                                            {userData[commentData[i].userId - 1].displayName}
+                                        </p>
+                                    </div>
+                                    <small>
+                                        작성일 {commentData[i].date}
+                                    </small>
+                                </div>
+                                <p className={"post__footer__commentContent"}>
+                                    {commentData[i].content}
+                                </p>
+                            </div>
+                        )
+                    })
+                }
             </Row>
         </Container>
     );
