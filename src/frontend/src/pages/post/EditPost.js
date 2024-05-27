@@ -1,9 +1,10 @@
 import {useEffect, useState} from 'react';
 import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
-import {useNavigate, useParams} from 'react-router-dom';
+import {Navigate, useNavigate, useParams} from 'react-router-dom';
 import axios from 'axios';
 import {setIsPostChanged, setIsDataLoaded } from "../../store";
 import {useCookies} from "react-cookie";
+import {useSelector} from "react-redux";
 
 
 function EditPost (){
@@ -13,10 +14,34 @@ function EditPost (){
     // 쿠키 데이터 로드
     const [cookie, setCookie] = useCookies(['accessToken'])
 
-    // const postData = useSelector((state) => state.postData);
+    // store 데이터 불러오기
+    const isLogined = useSelector(state => state.isLogined)
+
+    // state 생성
     const [ postData, setPostData] = useState([]);
     const [ inputPostTitle, setInputPostTitle ] = useState('');
     const [ inputPostContent, setInputPostContent ] = useState('');
+
+
+    // 글 데이터 서버에서 불러오기
+    useEffect(() => {
+        axios.get(`http://localhost:8080/api/post/${params.postId}`)
+            .then(res => {
+                setPostData(res.data);
+                setIsDataLoaded(true);
+
+                setInputPostTitle(res.data.title)
+                setInputPostContent(res.data.content)
+            })
+            .catch(()=>{
+                setIsDataLoaded(false);
+            })
+    }, [params.postId]);
+
+    // 로그인 상태가 아닐 때 로그인 페이지로 이동
+    if (!isLogined) {
+        return <Navigate to={'/pages/login'} />
+    }
 
     // 글 저장버튼
     const handleSavePost = () => {
@@ -46,21 +71,6 @@ function EditPost (){
             navigate('/');
         }
     }
-
-    // 글 데이터 서버에서 불러오기
-    useEffect(() => {
-        axios.get(`http://localhost:8080/api/post/${params.postId}`)
-            .then(res => {
-                setPostData(res.data);
-                setIsDataLoaded(true);
-
-                setInputPostTitle(res.data.title)
-                setInputPostContent(res.data.content)
-            })
-            .catch(()=>{
-                setIsDataLoaded(false);
-            })
-    }, [params.postId]);
 
     if (!setIsDataLoaded) {
         return <div>로딩중...</div>

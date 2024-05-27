@@ -16,6 +16,7 @@ function Navibar() {
 
     // store state 로드
     const isLogined = useSelector(state => state.isLogined)
+    const categoryData = useSelector(state => state.categoryData);
 
     // 로그인 여부 확인
     if (cookie.accessToken) {
@@ -50,6 +51,13 @@ function Navibar() {
                         <Navbar.Brand href="/">
                             <h3>Etime</h3>
                         </Navbar.Brand>
+                        <DropdownButton variant="light" title={"카테고리"}>
+                            {
+                                categoryData.map((a, i) => (
+                                    <Dropdown.Item key={i}>{categoryData[i].name}</Dropdown.Item>
+                                ))
+                            }
+                        </DropdownButton>
                     </Col>
                     <Col className='d-flex justify-content-center'>
                     <Form.Group className="mb-2 d-flex align-items-center" controlId="Form.SearchInput">
@@ -60,7 +68,7 @@ function Navibar() {
                     </Button>
                     </Col>
                     <Col className='d-flex justify-content-end align-items-center'>
-                        <DropdownButton variant="light" title="More">
+                        <DropdownButton variant="light" title="더보기">
                             {
                                 isLogined === true ?
                                     <Dropdown.Item onClick={() => {handleLogout()}}>로그아웃</Dropdown.Item> :

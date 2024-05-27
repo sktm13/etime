@@ -14,14 +14,17 @@ div {
 
 /* Navbar */
 .navbar {
-	padding: 0rem 2rem 0rem 2rem;
-	box-shadow: 0px 8px 6px -6px #666;
+	margin: 0 0 2rem 0;
+	padding: 0rem 4rem 0rem 4rem;
+	border-bottom: #c6c6c6 solid 2px;
+	/*box-shadow: 0px 8px 6px -6px #666;*/
 }
 
 
 /* Main */
 .Main {
 	min-width: 950px;
+
 }
 
 /* Sidebar */

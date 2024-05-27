@@ -20,6 +20,7 @@ function Post() {
     const commentData = useSelector((state) => state.commentData);
     const isDataLoaded = useSelector(state => state.isDataLoaded);
 
+
     // 글 수정 버튼
     const handleModifyPost = () => {
         navigate("../pages/editpost/" + (params.postId))
@@ -67,8 +68,8 @@ function Post() {
                 <Col xs={8}>
                     <Card style={{width:'100%'}}>
                         <Card.Header>
-                            <Card.Title>{postData.title}</Card.Title>
-                            <Card.Text>{postData.date}</Card.Text>
+                            <Card.Title>{postData[params.postId].title}</Card.Title>
+                            <Card.Text>{postData[params.postId].date}</Card.Text>
                             <Button onClick={handleModifyPost}>수정</Button>
                             <Button onClick={handleDeletePost}>삭제</Button>
                         </Card.Header>
@@ -86,7 +87,7 @@ function Post() {
                             </Row>
                         </Card.Body>
                         <Row>
-                            <Card.Text>{postData.content}</Card.Text>
+                            <Card.Text>{postData[params.postId].content}</Card.Text>
                         </Row>
                     </Card>
                 </Col>

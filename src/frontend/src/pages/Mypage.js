@@ -4,10 +4,17 @@ import React from 'react';
 import { Container, Row, Col, Image } from 'react-bootstrap';
 import { MakeCard } from '../common/MakeCard';
 import {useSelector} from "react-redux";
+import {Navigate} from "react-router-dom";
 
 function MyPage(props) {
 	// store에서 데이터 불러오기
 	const userData = useSelector((state) => state.userData);
+	const isLogined = useSelector(state => state.isLogined)
+
+	// 로그인 상태가 아닐 때 로그인 페이지로 이동
+	if (!isLogined) {
+		return <Navigate to={'/pages/login'} />
+	}
 
 	return (
 	  <Container>

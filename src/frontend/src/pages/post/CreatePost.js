@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
+import {Navigate, useNavigate} from 'react-router-dom';
 import axios from 'axios';
 import ReactQuill from "react-quill";
 import 'react-quill/dist/quill.snow.css'
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {setIsPostChanged} from "../../store";
 import {useCookies} from "react-cookie";
 
@@ -15,9 +15,18 @@ function CreatePost (){
     // 쿠키 데이터 로드
     const [cookie, setCookie] = useCookies(['accessToken'])
 
+    // store 데이터 불러오기
+    const isLogined = useSelector(state => state.isLogined)
+
     // state 생성
     const [ inputPostTitle, setInputPostTitle ] = useState('');
     const [ inputPostContent, setInputPostContent ] = useState('');
+
+
+    // 로그인 상태가 아닐 때 로그인 페이지로 이동
+    if (!isLogined) {
+        return <Navigate to={'/pages/login'} />
+    }
 
     // 글 저장버튼
     const handleSavePost = () => {
@@ -53,14 +62,14 @@ function CreatePost (){
         <Col xs={8}>
             <Card style={{width:'100%'}}>
                 <Card.Header className="d-flex justify-content-between align-items-center">
-                    <Card.Title>작성</Card.Title>
+                    <Card.Title>새로운 글 작성하기</Card.Title>
                     <div>
                         <Button variant="secondary" onClick={handleCancelPost}>
-                            Cancel
+                            취소
                         </Button>
                         {' '}
                         <Button variant="primary" onClick={handleSavePost}>
-                            Submit
+                            작성
                         </Button>
                     </div>
                 </Card.Header>
@@ -69,15 +78,15 @@ function CreatePost (){
                         <Col>
                             <Form style={{width:'100%'}} onSubmit={(e)=>{e.preventDefault()}}>
                                 <Form.Group className="mb-6">
-                                    <Form.Label>Post Title</Form.Label>
+                                    <Form.Label>글 제목</Form.Label>
                                     <Form.Control style={{width:'100%'}} type="text" placeholder="Title" onChange={(e)=>{
                                         setInputPostTitle(e.target.value);
                                     }}/>
-                                    <Form.Label>Post Content</Form.Label>
+                                    <Form.Label>글 내용</Form.Label>
                                     {/*<Form.Control  style={{width:'100%', height:'30rem'}} as="textarea" rows={3} onChange={(e)=>{*/}
                                     {/*    setInputPostContent(e.target.value);*/}
                                     {/*}}/>*/}
-                                    <ReactQuill theme="snow" value={inputPostContent} onChange={setInputPostContent}/>
+                                    <ReactQuill theme="snow" value={inputPostContent} onChange={setInputPostContent} />
 
                                 </Form.Group>
                             </Form>
