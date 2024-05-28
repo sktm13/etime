@@ -26,6 +26,7 @@ function LoadData() {
     const isCommentLoaded = useSelector(state => state.isCommentLoaded);
     const isUserLoaded = useSelector(state => state.isUserLoaded);
     const isPostChaneged = useSelector(state => state.isPostChanged);
+    const isLogined = useSelector(state => state.isLogined);
 
 
     const handleLoadPost = () => {

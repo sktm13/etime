@@ -5,13 +5,13 @@ import {Link, useNavigate} from "react-router-dom";
 import {useState} from "react";
 import axios from 'axios';
 import {useCookies} from "react-cookie";
-import {setIsLogined} from "../store";
+import {setIsLogined} from "../../store";
 import {useDispatch} from "react-redux";
 
 // 로그인 이미지
-import googleLogin from '../style/image/login_google.png'
-import naverLogin from '../style/image/login_naver.png'
-import kakaoLogin from '../style/image/login_kakao.png'
+import googleLogin from '../../style/image/login_google.png'
+import naverLogin from '../../style/image/login_naver.png'
+import kakaoLogin from '../../style/image/login_kakao.png'
 
 
 function Login() {

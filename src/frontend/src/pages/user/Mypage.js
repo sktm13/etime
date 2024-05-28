@@ -2,7 +2,7 @@
 // 마이페이지
 import React from 'react';
 import { Container, Row, Col, Image } from 'react-bootstrap';
-import { MakeCard } from '../common/MakeCard';
+import { MakeCard } from '../../common/MakeCard';
 import {useSelector} from "react-redux";
 import {Navigate} from "react-router-dom";
 

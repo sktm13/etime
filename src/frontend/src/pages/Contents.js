@@ -43,15 +43,7 @@ function Contents() {
 
     return (
         <Container className={"d-flex justify-content-center"}>
-            <Col className="Content" xs={10}>
-                <Row>
-                    <Col>
-                        <Button onClick={() => {}}>최신순</Button>
-                    </Col>
-                    <Col>
-                        <Button onClick={() => {}}>오래된순</Button>
-                    </Col>
-                </Row>
+            <Col className="Content" xs={11}>
                 <Row>
                     {
                         isPostLoaded === true &&

@@ -3,25 +3,33 @@ import {Col, Container, Row} from 'react-bootstrap';
 import { Routes, Route } from "react-router-dom";
 
 import LoadData from "./common/LoadData";
+import Loading from "./common/Loading";
 import Navibar from "./common/Navibar";
 import Contents from "./pages/Contents";
 import Post from "./pages/post/Post";
 import CreatePost from "./pages/post/CreatePost";
 import EditPost from "./pages/post/EditPost";
-import Mypage from "./pages/Mypage";
-import Login from "./pages/Login";
-import SignUp from "./pages/SignUp";
+import Mypage from "./pages/user/Mypage";
+import Login from "./pages/user/Login";
+import SignUp from "./pages/user/SignUp";
 import Donate from "./pages/Donate";
-import Payment from "./pages/Payment";
+import Payment from "./pages/payment/Payment";
+import PaymentSucess from "./pages/payment/PaymentSuccess";
+import PaymentFail from "./pages/payment/PaymentFail";
 import License from "./pages/License";
 import Err404 from "./pages/Err404";
+import {useSelector} from "react-redux";
 
 
 function App() {
+    // store 데이터 불러오기
+    const isDataLoaded = useSelector(state => state.isDataLoaded)
+    
     return (
 <Container>
     {/* 데이터 로드 */}
     <LoadData />
+    { !isDataLoaded && <Loading /> }
     {/* 네비게이션 바 */}
     <Navibar />
     <Row className='Main'>
@@ -42,7 +50,9 @@ function App() {
             <Route path="/pages/signup" element={<SignUp />}/>
             <Route path="/pages/donate" element={<Donate />}/>
             <Route path="/pages/payment" element={<Payment />}/>
-            <Route path="/pages/license" element={<License />}></Route>
+            <Route path="/pages/payment/success" element={<PaymentSucess />}/>
+            <Route path="/pages/payment/fail" element={<PaymentFail />}/>
+            <Route path="/pages/license" element={<License />} />
             <Route path="*" element={<Err404 />} />
         </Routes>
     </Row>
