@@ -1,5 +1,5 @@
 import './style/App.css'
-import { Container, Row } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 import { Routes, Route } from "react-router-dom";
 import { useSelector } from "react-redux";
 
@@ -17,6 +17,7 @@ import SignUp from "./pages/SignUp";
 import Donate from "./pages/Donate";
 import Payment from "./pages/Payment";
 import Err404 from "./pages/Err404";
+import MakeCarousel from './common/MakeCarousel';
 
 
 function App() {
@@ -26,26 +27,28 @@ function App() {
     <LoadData />
     {/* 네비게이션 바 */}
     <Navibar />
-    <Row style={{width: '100rem'}}>
-        {/* 사이드 바 */}
-        <Routes>
-            <Route path='/' element={<Sidebar />} />
-        </Routes>
-        {/* 컨텐츠 */}
-        <Routes>
-            <Route path="/" element={<Contents />} />
-            <Route path="/pages/post/:postId" element={<Post />}>
-                {/*<Route path="/pages/post/:postId/" element={<MakeComment />} />*/}
-            </Route>
-            <Route path="/pages/createpost" element={<CreatePost />}/>
-            <Route path="/pages/editpost/:postId" element={<EditPost />}/>
-            <Route path="/pages/mypage" element={<Mypage />} />
-            <Route path="/pages/login" element={<Login />}/>
-            <Route path="/pages/signup" element={<SignUp />}/>
-            <Route path="/pages/donate" element={<Donate />}/>
-            <Route path="/pages/payment" element={<Payment />}/>
-            <Route path="*" element={<Err404 />} />
-        </Routes>
+    <Row>
+        <Col>
+            {/* 캐러셀 */}
+            <Routes>
+                <Route path='/' element={<MakeCarousel />} />
+            </Routes>
+            {/* 컨텐츠 */}
+            <Routes>
+                <Route path="/" element={<Contents />} />
+                <Route path="/pages/post/:postId" element={<Post />}>
+                    {/*<Route path="/pages/post/:postId/" element={<MakeComment />} />*/}
+                </Route>
+                <Route path="/pages/createpost" element={<CreatePost />}/>
+                <Route path="/pages/editpost/:postId" element={<EditPost />}/>
+                <Route path="/pages/mypage" element={<Mypage />} />
+                <Route path="/pages/login" element={<Login />}/>
+                <Route path="/pages/signup" element={<SignUp />}/>
+                <Route path="/pages/donate" element={<Donate />}/>
+                <Route path="/pages/payment" element={<Payment />}/>
+                <Route path="*" element={<Err404 />} />
+            </Routes>
+        </Col>
     </Row>
 </Container>
     );

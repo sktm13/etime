@@ -6,22 +6,28 @@ import { Card } from 'react-bootstrap';
 function MakeCard(props) {
     const navigate = useNavigate();
     const postData = props.postData;
+    const categoryData = props.postData;
+
+    const category = props.categoryData.find(category => category.id === props.postData.postCategory);
 
     return (
-    <Card>
-        <Card.Link onClick={() => {navigate("./pages/post/" + (postData.id))}}>
-            <Card.Img variant="top" src="http://via.placeholder.com/800x450" />
-            <Card.Body>
-                <Card.Title>{postData.title}</Card.Title>
-                {/* 컨텐츠 요약 (한줄 넘어가면 ...처리) */}
-                <Card.Text style={{
-                    whiteSpace: 'nowrap',
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                }}>{postData.content}</Card.Text>
-            </Card.Body>
-        </Card.Link>
-    </Card>
+        <Card className="card">
+            <Card.Link className="card-link" onClick={() => { navigate("./pages/post/" + postData.id) }}>
+                <Card.Img className="card-img" variant="top" src="http://via.placeholder.com/800x450" />
+                <Card.Body className="card-body">
+                    <Card.Text className="card-category">{category.name}</Card.Text>
+                    <Card.Title className="card-title" id="main">{postData.title}</Card.Title>
+                    {/* 컨텐츠 요약 (한줄 넘어가면 ...처리) */}
+                    <Card.Text className="card-para" id="ExtraLight" style={{
+                     overflow: 'hidden',
+                     textOverflow: 'ellipsis',
+                     display: '-webkit-box',
+                     WebkitBoxOrient: 'vertical',
+                     WebkitLineClamp: 2,  
+                    }}>{postData.content}</Card.Text>
+                </Card.Body>
+            </Card.Link>
+        </Card>
     );
 }
 
