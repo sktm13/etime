@@ -57,47 +57,51 @@ function CreatePost (){
     }
 
     return(
-<Container fluid>
-    <Row xs={8} className="justify-content-center mt-3">
-        <Col xs={8}>
-            <Card style={{width:'100%'}}>
-                <Card.Header className="d-flex justify-content-between align-items-center">
-                    <Card.Title>새로운 글 작성하기</Card.Title>
-                    <div>
-                        <Button variant="secondary" onClick={handleCancelPost}>
-                            취소
-                        </Button>
-                        {' '}
-                        <Button variant="primary" onClick={handleSavePost}>
-                            작성
-                        </Button>
-                    </div>
-                </Card.Header>
-                <Card.Body>
-                    <Row className="justify-content-center">
+        <Container>
+            <Col lg={12} xl={8} xxl={6} className={"container__maxwidth"}>
+                <div className={"w-100"}>
+                    <div className="post__header w-100 d-flex align-items-center">
                         <Col>
-                            <Form style={{width:'100%'}} onSubmit={(e)=>{e.preventDefault()}}>
-                                <Form.Group className="mb-6">
-                                    <Form.Label>글 제목</Form.Label>
-                                    <Form.Control style={{width:'100%'}} type="text" placeholder="Title" onChange={(e)=>{
+                            <h5 className={"editpost__title"}>새로운 글 작성하기</h5>
+                        </Col>
+                        <div>
+                            <Button className={"post__header__button"} variant="secondary" onClick={handleCancelPost}>
+                                취소
+                            </Button>
+                            {' '}
+                            <Button className={"post__header__button"} variant="primary" onClick={handleSavePost}>
+                                작성
+                            </Button>
+                        </div>
+                    </div>
+                    <div className={"w-100 editpost__body"}>
+                        <Form style={{width: '100%'}} onSubmit={(e) => {
+                            e.preventDefault()
+                        }}>
+                            <Form.Group className="mb-6">
+                                <Form.Label>글 제목</Form.Label>
+                                <Form.Control
+                                    style={{width:'100%'}}
+                                    type="text"
+                                    placeholder="Title"
+                                    onChange={(e)=>{
                                         setInputPostTitle(e.target.value);
                                     }}/>
-                                    <Form.Label>글 내용</Form.Label>
-                                    {/*<Form.Control  style={{width:'100%', height:'30rem'}} as="textarea" rows={3} onChange={(e)=>{*/}
-                                    {/*    setInputPostContent(e.target.value);*/}
-                                    {/*}}/>*/}
-                                    <ReactQuill theme="snow" value={inputPostContent} onChange={setInputPostContent} />
-
-                                </Form.Group>
-                            </Form>
-                        </Col>
-                    </Row>
-
-                </Card.Body>
-            </Card>
-        </Col>
-    </Row>
-</Container>
+                                <br/>
+                                <Form.Label>글 내용</Form.Label>
+                                <ReactQuill
+                                    theme="snow"
+                                    value={inputPostContent}
+                                    onChange={(e) => {
+                                        setInputPostContent(e.target.value)
+                                    }}
+                                    />
+                            </Form.Group>
+                        </Form>
+                    </div>
+                </div>
+            </Col>
+        </Container>
     )
 }
 

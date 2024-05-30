@@ -62,7 +62,7 @@ function Login() {
     return (
 <Container className="login__background" >
     <Container className={"login__box"}>
-        <h1 className={"login__box__header"}><b>ETime</b></h1>
+        <h1><a href="/" className={"login__box__header"}><b>ETime</b></a></h1>
         <h5><b>믿을 수 있는 커뮤니티</b></h5>
 
         {

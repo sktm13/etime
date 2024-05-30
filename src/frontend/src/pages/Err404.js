@@ -6,7 +6,7 @@ function Err404 () {
     return (
 <Container className="centered">
     <h3>404 Not Found</h3>
-    <p>에러페이지임</p>
+    <p>페이지가 존재하지 않음</p>
 </Container>
     )
 }

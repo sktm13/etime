@@ -9,7 +9,7 @@ import Contents from "./pages/Contents";
 import Post from "./pages/post/Post";
 import CreatePost from "./pages/post/CreatePost";
 import EditPost from "./pages/post/EditPost";
-import Mypage from "./pages/user/Mypage";
+import Setting from "./pages/user/Setting";
 import Login from "./pages/user/Login";
 import SignUp from "./pages/user/SignUp";
 import Donate from "./pages/Donate";
@@ -19,6 +19,7 @@ import PaymentFail from "./pages/payment/PaymentFail";
 import License from "./pages/License";
 import Err404 from "./pages/Err404";
 import {useSelector} from "react-redux";
+import React from "react";
 
 
 function App() {
@@ -26,13 +27,14 @@ function App() {
     const isDataLoaded = useSelector(state => state.isDataLoaded)
     
     return (
-<Container>
+<Container fluid className={"main"}>
+
     {/* 데이터 로드 */}
     <LoadData />
     { !isDataLoaded && <Loading /> }
     {/* 네비게이션 바 */}
     <Navibar />
-    <Row className='Main'>
+    <Row className={"main__body"}>
         {/* 사이드 바 */}
         {/*<Routes>*/}
             {/*<Route path='/' element={<Sidebar />} />*/}
@@ -45,7 +47,7 @@ function App() {
             </Route>
             <Route path="/pages/createpost" element={<CreatePost />}/>
             <Route path="/pages/editpost/:postId" element={<EditPost />}/>
-            <Route path="/pages/mypage" element={<Mypage />} />
+            <Route path="/pages/setting" element={<Setting />} />
             <Route path="/pages/login" element={<Login />}/>
             <Route path="/pages/signup" element={<SignUp />}/>
             <Route path="/pages/donate" element={<Donate />}/>
@@ -56,6 +58,7 @@ function App() {
             <Route path="*" element={<Err404 />} />
         </Routes>
     </Row>
+    {/*<Row className={"main__footer"}></Row>*/}
 </Container>
     );
 }

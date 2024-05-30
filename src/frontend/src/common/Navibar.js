@@ -39,33 +39,17 @@ function Navibar() {
         dispatch(setIsLogined(false));
         alert('로그아웃 완료');
         navigate("/");
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 
 
     return (
-        <Container>
-            <Navbar fixed={"top"} >
+        <Container fluid className={"navbar__container"}>
+            <Navbar>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id='basic-navbar-nav'>
                     <Row className='w-100'>
                         <Col></Col>
-                        <Col xs={7} className='d-flex justify-content-between align-items-center'>
+                        <Col xl={12} xxl={8} className='d-flex justify-content-between align-items-center'>
                             <div className={"d-flex align-items-center"}>
                                 <Navbar.Brand href="/">
                                     <h3>Etime</h3>
@@ -98,7 +82,7 @@ function Navibar() {
                                 {/*<Dropdown.Item onClick={() => {isLogined? navigate('/pages/donate') : navigate('/pages/login')}}>후원</Dropdown.Item>*/}
                                 {/*<Dropdown.Item onClick={() => {isLogined? navigate('/pages/payment') : navigate('/pages/login')}}>결제</Dropdown.Item>*/}
                                 {/*<Dropdown.Item onClick={() => {isLogined? navigate('/pages/createpost') : navigate('/pages/login')}}>새로운 글 작성</Dropdown.Item>*/}
-                                <Dropdown.Item onClick={() => {navigate('/pages/mypage')}}>마이페이지</Dropdown.Item>
+                                <Dropdown.Item onClick={() => {navigate('/pages/setting')}}>설정</Dropdown.Item>
                                 <Dropdown.Item onClick={() => {navigate('/pages/donate')}}>후원</Dropdown.Item>
                                 <Dropdown.Item onClick={() => {navigate('/pages/payment')}}>결제</Dropdown.Item>
                                 <Dropdown.Item onClick={() => {navigate('/pages/createpost')}}>새로운 글 작성</Dropdown.Item>

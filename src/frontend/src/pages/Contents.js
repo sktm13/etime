@@ -6,9 +6,6 @@ import axios from "axios";
 import {useState, useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 
-// store 함수 불러오기
-import {setIsDataLoaded, setSortOrder, setIsPostChanged, setPostData} from "../store";
-
 function Contents() {
     const dispatch = useDispatch();
 
@@ -43,8 +40,8 @@ function Contents() {
 
     return (
         <Container className={"d-flex justify-content-center"}>
-            <Col className="Content" xs={11}>
-                <Row>
+            <Col className="Content" xl={12} xxl={8}>
+                <Row className={"d-flex justify-content-center"}>
                     {
                         isPostLoaded === true &&
                         postData.map((a, i) => {

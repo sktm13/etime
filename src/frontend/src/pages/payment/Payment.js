@@ -92,8 +92,8 @@ function Payment () {
     }
 
     return (
-        <Container className={"d-flex justify-content-center"}>
-            <Col xs={10}>
+        <Container className={"container__maxwidth d-flex justify-content-center"}>
+            <Col xs={8}>
                 {/* 할인 쿠폰 */}
                 <label htmlFor="coupon-box">
                     <input
@@ -106,8 +106,10 @@ function Payment () {
                     <span>5,000원 쿠폰 적용</span>
                 </label>
                 {/* 결제 UI, 이용약관 UI 영역 */}
-                <div id="payment-widget" />
-                <div id="agreement" />
+                <Col xs={8}>
+                    <div id="payment-widget" className={"payment__widget"} />
+                    <div id="agreement" />
+                </Col>
                 {/* 결제하기 버튼 */}
                 <button onClick={handlePaymentRequest}>결제하기</button>
             </Col>

@@ -50,7 +50,7 @@ function Donate() {
     const handleSubmit = () => {
         // ajax요청로직 추가
         console.log('제출된 파일 목록 : ', files);
-        alert('파일이 성공적으로 제출되었습니다. (임시)');
+        alert('파일이 성공적으로 제출되었습니다.');
     }
 
 
@@ -63,14 +63,16 @@ function Donate() {
 
     return (
         <Container className={"d-flex justify-content-center"}>
-            <Col xs={10}>
+            <Col lg={12} xl={8} xxl={6}>
+                <Row className={"post__header align-items-center"}>
+                    <h5>전문가 신청</h5>
+                </Row>
                 <Row className={"license__header"}>
-                    <h2><b>전문가 신청</b></h2>
                     <h4>자격증 제출</h4>
                 </Row>
                 <Row className={"license__body"}>
                     <Form.Group controlId="formFileDropZone" className="mb-3">
-                        <Form.Label><h4>보유한 자격증을 제출합니다.</h4></Form.Label>
+                        <Form.Label><h5>보유한 자격증을 제출합니다.</h5></Form.Label>
                         <div
                             onDragOver={handleDragOver}
                             onDragLeave={handleDragLeave}
@@ -81,11 +83,7 @@ function Donate() {
                         >
                             <h4><b>업로드할 파일 놓기</b></h4>
                             <h6>또는</h6>
-                            <Button
-                                variant={"primary"}
-                                onClick={()=>document.getElementById('fileInput').click()}>
-                                파일 선택
-                            </Button>
+                            <Button variant={"primary"}>파일 선택</Button>
                         </div>
                         <Form.Control type="file" multiple id={"fileInput"} style={{display: 'none'}}/>
                     </Form.Group>

@@ -63,8 +63,8 @@ function Post() {
     }
 
     return (
-        <Container className={"d-flex justify-content-center"}>
-            <Col xs={10}>
+        <Container className={"container__maxwidth"}>
+            <Col lg={12} xl={8} xxl={6}>
                 <Row className={"post__header"}>
                     <Col>
                         <h6 className={"post__header__category"}>
@@ -78,16 +78,16 @@ function Post() {
                     </Col>
                 </Row>
                 <Row className={"post__header"}>
-                    <Col className={"d-flex justify-content-between align-items-center"}>
-                        <div className={"d-flex align-items-center"}>
+                    <div className={"d-flex align-items-center"}>
+                        <Col className={"d-flex align-items-center"}>
                             <Image
                                 src="http://via.placeholder.com/200x200"
                                 roundedCircle
                                 style={{width: '50px', height: '50px'}}/>
                             <h6 className={"post__header__author"}>{userData[postData.userId - 1].displayName}</h6>
-                        </div>
+                        </Col>
                         <small><strong>작성일 {postData.date}</strong></small>
-                    </Col>
+                    </div>
                 </Row>
                 <Row className={"post__body"}>
                     <Col>
@@ -106,14 +106,14 @@ function Post() {
                             return (
                                 <div className={"post__footer__comment"}>
                                     <div className="post__footer__commentTitle d-flex justify-content-between align-items-center">
-                                        <div className={"d-flex align-items-center"}>
+                                        <Col className={"d-flex align-items-center"}>
                                             <Image className={"post__footer__commentImage"}
                                                    src="http://via.placeholder.com/200x200"
                                                    roundedCircle />
                                             <p className={"m-0"}>
                                                 {userData[commentData[i].userId - 1].displayName}
                                             </p>
-                                        </div>
+                                        </Col>
                                         <small>
                                             작성일 {commentData[i].date}
                                         </small>
