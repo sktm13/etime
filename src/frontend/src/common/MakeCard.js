@@ -8,7 +8,7 @@ function MakeCard(props) {
     const postData = props.postData;
     const categoryData = props.postData;
 
-    const category = props.categoryData.find(category => category.id === props.postData.postCategory);
+    const category = props.categoryData.find(category => category.id === props.postData.category);
 
     return (
         <Card className="card">
@@ -27,6 +27,7 @@ function MakeCard(props) {
                     }}>{postData.content}</Card.Text>
                 </Card.Body>
             </Card.Link>
+            <div className={"text-start"}></div>
         </Card>
     );
 }

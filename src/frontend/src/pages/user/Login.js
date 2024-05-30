@@ -2,13 +2,14 @@
 // 로그인 페이지
 import {Container, Form, Button, Card, Row, Image} from 'react-bootstrap'
 import {Link, useNavigate} from "react-router-dom";
-import {useState} from "react";
+import React, {useState} from "react";
 import axios from 'axios';
 import {useCookies} from "react-cookie";
 import {setIsLogined} from "../../store";
 import {useDispatch} from "react-redux";
 
 // 로그인 이미지
+import logoImage from '../../style/image/sample_logo.png';
 import googleLogin from '../../style/image/login_google.png'
 import naverLogin from '../../style/image/login_naver.png'
 import kakaoLogin from '../../style/image/login_kakao.png'
@@ -62,8 +63,10 @@ function Login() {
     return (
 <Container className="login__background" >
     <Container className={"login__box"}>
-        <h1><a href="/" className={"login__box__header"}><b>ETime</b></a></h1>
-        <h5><b>믿을 수 있는 커뮤니티</b></h5>
+        <h1><a href="/" className={"login__box__header"}>
+            <Image src={logoImage} className="logo-image" />
+        </a></h1>
+        <h5>믿을 수 있는 커뮤니티</h5>
 
         {
             !showLoginForm

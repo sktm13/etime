@@ -2,8 +2,9 @@
 // 결제 실패 페이지
 
 import {Navigate, useSearchParams} from "react-router-dom";
-import {Col, Container} from "react-bootstrap";
+import {Col, Container, Row} from "react-bootstrap";
 import {useSelector} from "react-redux";
+import React from "react";
 
 function PaymentFail() {
     const [searchParams] = useSearchParams();
@@ -17,8 +18,11 @@ function PaymentFail() {
     }
 
     return (
-        <Container className={"d-flex justify-content-center"}>
-            <Col xs={10}>
+        <Container className={"container__maxwidth"}>
+            <Col lg={12} xl={8} xxl={6}>
+                <Row className={"post__header align-items-center"}>
+                    <h5>결제 완료</h5>
+                </Row>
                 <div className="result wrapper">
                     <div className="box_section">
                         <h2>

@@ -1,6 +1,6 @@
 import Carousel from 'react-bootstrap/Carousel';
 import Image from 'react-bootstrap/Image';
-import bannerImage from '../image/sample_Banner.png';
+import bannerImage from '../style/image/sample_Banner.png';
 
 
 function MakeCarousel() {

@@ -1,9 +1,9 @@
 // PaymentSuccess.js
 // 결제 성공 페이지
 
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import {Navigate, useNavigate, useSearchParams} from "react-router-dom";
-import {Col, Container} from "react-bootstrap";
+import {Button, Col, Container, Row} from "react-bootstrap";
 import {useSelector} from "react-redux";
 
 function PaymentSuccess() {
@@ -50,8 +50,11 @@ function PaymentSuccess() {
     }
 
     return (
-        <Container className={"d-flex justify-content-center"}>
-            <Col xs={10}>
+        <Container className={"container__maxwidth"}>
+            <Col lg={12} xl={8} xxl={6}>
+                <Row className={"post__header align-items-center"}>
+                    <h5>결제 완료</h5>
+                </Row>
                 <div className="result wrapper">
                     <div className="box_section">
                         <h2>
@@ -66,7 +69,9 @@ function PaymentSuccess() {
                 </div>
             </Col>
         </Container>
-    );
+
+)
+    ;
 }
 
 export default PaymentSuccess;

@@ -39,10 +39,6 @@ function App() {
         {/*<Routes>*/}
             {/*<Route path='/' element={<Sidebar />} />*/}
         {/*</Routes>*/}
-        {/* 캐러셀 */}
-        <Routes>
-            <Route path='/' element={<MakeCarousel />} />
-        </Routes>
         {/* 컨텐츠 */}
         <Routes>
             <Route path="/" element={<Contents />} />

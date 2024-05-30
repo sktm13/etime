@@ -4,7 +4,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { loadPaymentWidget, ANONYMOUS } from "@tosspayments/payment-widget-sdk";
 import { nanoid } from "nanoid";
-import {Col, Container} from "react-bootstrap";
+import {Button, Col, Container, Row} from "react-bootstrap";
 import {Navigate} from "react-router-dom";
 import {useSelector} from "react-redux";
 
@@ -92,26 +92,35 @@ function Payment () {
     }
 
     return (
-        <Container className={"container__maxwidth d-flex justify-content-center"}>
-            <Col xs={8}>
+        <Container className={"container__maxwidth"}>
+            <Col lg={12} xl={8} xxl={6}>
                 {/* 할인 쿠폰 */}
-                <label htmlFor="coupon-box">
-                    <input
-                        id="coupon-box"
-                        type="checkbox"
-                        onChange={(event) => {
-                            setPrice(event.target.checked ? price - 5_000 : price + 5_000);
-                        }}
-                    />
-                    <span>5,000원 쿠폰 적용</span>
-                </label>
+                {/*<label htmlFor="coupon-box">*/}
+                {/*    <input*/}
+                {/*        id="coupon-box"*/}
+                {/*        type="checkbox"*/}
+                {/*        onChange={(event) => {*/}
+                {/*            setPrice(event.target.checked ? price - 5_000 : price + 5_000);*/}
+                {/*        }}*/}
+                {/*    />*/}
+                {/*    <span>5,000원 쿠폰 적용</span>*/}
+                {/*</label>*/}
                 {/* 결제 UI, 이용약관 UI 영역 */}
-                <Col xs={8}>
-                    <div id="payment-widget" className={"payment__widget"} />
-                    <div id="agreement" />
-                </Col>
+                <Row className={"post__header align-items-center"}>
+                    <h5>결제</h5>
+                </Row>
+                <Row>
+                    <Col xs={8}>
+                        <div id="payment-widget" className={"payment__widget"} />
+                        <div id="agreement" />
+                        <Row className={"d-flex justify-content-center"}>
+                            <Button size={"lg"} onClick={handlePaymentRequest}>결제하기</Button>
+                        </Row>
+                    </Col>
+                </Row>
+
                 {/* 결제하기 버튼 */}
-                <button onClick={handlePaymentRequest}>결제하기</button>
+
             </Col>
         </Container>
     );
