@@ -1,0 +1,76 @@
+/* Contents*/
+.Content {
+    margin: 0 auto;
+    min-width: 300px;
+    width: 100%;
+    align-items: center;
+	/*font-Family: "Pretendard-Light";*/
+	font-size: 16px;
+}
+
+.sort-button-group {
+	padding-left: 5rem;
+    display: flex;
+    flex-wrap: nowrap;
+	border: none;
+	font-family: "Pretendard-medium";
+}
+
+.sort-button {
+	background-color: white;
+	border: none;
+}
+
+.card {
+	margin: 0.7rem  0.7rem  0.1rem  0.7rem;
+	padding: 0.5rem;
+	width: 22rem;
+	border: none;
+	text-decoration: none;
+}
+
+.card:hover {
+	box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1); /* 아래 방향으로 큰 그림자 */
+    transition: box-shadow 0.2s ease; /* 부드러운 애니메이션 효과 추가 */}
+
+.card-link {
+    text-decoration: none;
+}
+
+.card-link:hover {
+    text-decoration: none;
+}
+
+.card-img {
+	border-radius: 10px;
+	margin-bottom: 3px;
+	}
+
+.card-body {
+	display: flex;
+    flex-direction: column;
+	margin-top: 3px;
+    padding: 0px 3px 3px 5px;
+}
+
+.card-category {
+	color: #265ca4;
+	font-size: 14px;
+	font-family: "NotoSansKR-Regular";
+	margin-bottom: 1px;
+;}
+
+.card-title {
+	color: #212121;
+	font-size: 16px;
+	font-family: "Pretendard-medium";
+	font-weight: bold;
+	margin-bottom: 3px;
+;}
+
+.card-para {
+	color: #A0A0A0;
+	font-size: 14px;
+	font-family: "Pretendard-Light";
+	margin-bottom: 3px;
+}

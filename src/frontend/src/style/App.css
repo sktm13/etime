@@ -208,6 +208,31 @@ div {
 	margin-bottom: 1rem;
 	padding: 0;
 }
+/* carousel */
+.carousel-container {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	margin-top: 60px;
+	margin-bottom: 1rem;
+  }
+
+.carousel {
+	width: 90%;
+	height: 35vh;
+	margin: 1rem 1rem 1rem 1rem;
+	display: flex;
+	align-items: center;
+	overflow: hidden;
+	min-width: 100px;
+  }
+
+.carousel-image {
+	width: 100%;
+	height: auto;
+	object-fit: cover;
+  }
 
 .post__footer__commentImage {
 	width: 50px;

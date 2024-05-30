@@ -1,6 +1,7 @@
 import './style/App.css'
 import {Col, Container, Row} from 'react-bootstrap';
 import { Routes, Route } from "react-router-dom";
+import {useSelector} from "react-redux";
 
 import LoadData from "./common/LoadData";
 import Loading from "./common/Loading";
@@ -18,14 +19,13 @@ import PaymentSucess from "./pages/payment/PaymentSuccess";
 import PaymentFail from "./pages/payment/PaymentFail";
 import License from "./pages/License";
 import Err404 from "./pages/Err404";
-import {useSelector} from "react-redux";
-import React from "react";
+import MakeCarousel from './common/MakeCarousel';
 
 
 function App() {
     // store 데이터 불러오기
     const isDataLoaded = useSelector(state => state.isDataLoaded)
-    
+
     return (
 <Container fluid className={"main"}>
 
@@ -39,6 +39,10 @@ function App() {
         {/*<Routes>*/}
             {/*<Route path='/' element={<Sidebar />} />*/}
         {/*</Routes>*/}
+        {/* 캐러셀 */}
+        <Routes>
+            <Route path='/' element={<MakeCarousel />} />
+        </Routes>
         {/* 컨텐츠 */}
         <Routes>
             <Route path="/" element={<Contents />} />
@@ -58,7 +62,6 @@ function App() {
             <Route path="*" element={<Err404 />} />
         </Routes>
     </Row>
-    {/*<Row className={"main__footer"}></Row>*/}
 </Container>
     );
 }

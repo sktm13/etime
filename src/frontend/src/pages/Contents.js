@@ -1,10 +1,14 @@
 // Contents.js
 // 메인 콘텐츠
-import {Col, Row, Spinner, Button, Placeholder, Card, Container} from 'react-bootstrap';
+import {Col, Row, Spinner, Button, Placeholder, Card, ButtonGroup, Container} from 'react-bootstrap';
 import { MakeCard } from '../common/MakeCard';
 import axios from "axios";
 import {useState, useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
+import '../style/Contents.css';
+
+// store 함수 불러오기
+import {setIsDataLoaded, setSortOrder, setIsPostChanged, setPostData} from "../store";
 
 function Contents() {
     const dispatch = useDispatch();
@@ -12,6 +16,7 @@ function Contents() {
     //store 데이터 불러오기
     const isPostLoaded = useSelector(state => state.isPostLoaded);
     const postData = useSelector(state => state.postData);
+    const categoryData = useSelector(state => state.categoryData);
 
 
     if (!isPostLoaded) {
@@ -39,21 +44,40 @@ function Contents() {
 
 
     return (
-        <Container className={"d-flex justify-content-center"}>
-            <Col className="Content" xl={12} xxl={8}>
-                <Row className={"d-flex justify-content-center"}>
-                    {
-                        isPostLoaded === true &&
-                        postData.map((a, i) => {
-                            return (<MakeCard i={i} postData={postData[i]} />)
-                        })
-                    }
-                </Row>
-            </Col>
-        </Container>
+        <Col>
+            <Row>
+            <div id="main" className="col-4 d-flex justify-content-start">
+            <ButtonGroup className="sort-button-group" >
+                            <Button className="sort-button" variant="light" onClick={() => {}}>최신순</Button>
+                            <Button className="sort-button" variant="light" onClick={() => {}}>오래된순</Button>
+                        </ButtonGroup>
+                        </div>
+            </Row>
+            <Row className="Content justify-content-center">
+                {
+                    isPostLoaded === true &&
+                    postData.map((a, i) => {
+                        return  <>
+                        <MakeCard i={i} postData={postData[i]} categoryData={categoryData}/>
+                    </>
+                    })
+                }
+            </Row>
+        </Col>
+        // <Container className={"d-flex justify-content-center"}>
+        //     <Col className="Content" xl={12} xxl={8}>
+        //         <Row className={"d-flex justify-content-center"}>
+        //             {
+        //                 isPostLoaded === true &&
+        //                 postData.map((a, i) => {
+        //                     return (<MakeCard i={i} postData={postData[i]} />)
+        //                 })
+        //             }
+        //         </Row>
+        //     </Col>
+        // </Container>
 
     );
 }
-
 
 export default Contents;
