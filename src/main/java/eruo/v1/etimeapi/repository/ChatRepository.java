@@ -11,5 +11,7 @@ public interface ChatRepository extends JpaRepository<ChatMessageEntity,Long> {
     
     List<ChatMessageEntity> findAllBySenderAndReceiverOrSenderAndReceiverOrderBySendDate(String user1, String user2,
             String user22, String user12);
+
+    List<ChatMessageEntity> findAllBySenderOrReceiverOrderBySendDate(String user);
 }
 

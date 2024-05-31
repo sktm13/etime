@@ -34,7 +34,21 @@ public class StompChatController {
         cr.save(ChatMessageEntity.toChatEntity(chatMessageSaveDTO));
     }
 
-    @GetMapping("/chat/messagelist")
+
+    @GetMapping("/chat/u1Mlist")        //user 한명으로 리스트 검색
+    @ResponseBody
+    public List<ChatMessageDetailDTO> getMessageList(@RequestParam String sender) {
+        List<ChatMessageEntity> messageEntities = cs.findAllMessagesByUser(sender);
+        
+        List<ChatMessageDetailDTO> messageList = new ArrayList<>();
+        for (ChatMessageEntity entity : messageEntities) {
+            ChatMessageDetailDTO dto = ChatMessageDetailDTO.toChatMessageDetailDTO(entity);
+            messageList.add(dto);
+        }
+        return messageList;
+    }
+
+    @GetMapping("/chat/u2Mlist")        //user 수신자, 송신자로 리스트 검색
     @ResponseBody
     public List<ChatMessageDetailDTO> getMessageList(@RequestParam String sender, @RequestParam String receiver) {
         List<ChatMessageEntity> messageEntities = cs.findAllMessagesBetweenUsers(sender, receiver);

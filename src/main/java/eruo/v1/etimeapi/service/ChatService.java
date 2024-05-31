@@ -17,4 +17,8 @@ public class ChatService {
     public List<ChatMessageEntity> findAllMessagesBetweenUsers(String user1, String user2) {
         return chatRepository.findAllBySenderAndReceiverOrSenderAndReceiverOrderBySendDate(user1, user2, user2, user1);
     }
+
+    public List<ChatMessageEntity> findAllMessagesByUser(String user){
+        return chatRepository.findAllBySenderOrReceiverOrderBySendDate(user);
+    }
 }
