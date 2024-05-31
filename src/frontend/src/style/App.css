@@ -1,22 +1,106 @@
+
+
+/*
+
+	전체 페이지의 기본 CSS
+
+*/
+
+
+
 .App {
 	text-align: center;
 	/* max-width: 1200px; */
 	margin: auto;
 }
 
+
+
 body {
 	margin: 0;
 }
 
+
+
 div {
 	box-sizing: border-box;
+	margin: 0 auto;
+	padding: 0;
 }
 
-/* Navbar */
-.navbar {
-	padding: 0rem 2rem 0rem 2rem;
-	box-shadow: 0px 8px 6px -6px #666;
+
+
+
+
+
+/*
+
+	컴포넌트 관련 CSS
+
+*/
+
+/* Main */
+
+.main {
+	width: 100%;
+	margin: 0 auto;
+	padding: 0;
 }
+
+.main__body {
+	min-width: 950px;
+}
+
+.main__footer {
+	width: 100%;
+	height: 20rem;
+	background-color: #c6c6c6;
+	margin: 0 auto;
+	padding: 0;
+}
+
+.container__maxwidth {
+	max-width: 171rem;
+	font-family: "Pretendard-Light";
+}
+
+.container__color {
+	background-color: blueviolet;
+}
+
+
+
+
+
+/* Common - Navbar */
+.navbar__container {
+	padding: 0;
+}
+
+.navbar {
+	margin: 0 0 0 0;
+	padding: 0.5rem 4rem 0.5rem 4rem;
+	border-bottom: #c6c6c6 solid 2px;
+	background-color: #fff;
+	width: 100%;
+}
+
+.navbar-brand {
+	color: #005eeb;
+}
+
+
+
+
+
+/* Common - Sidebar */
+.Sidebar {
+	min-width: 200px;
+}
+
+
+
+
 
 
 /* Main */
@@ -24,24 +108,48 @@ div {
 	min-width: 950px;
 }
 
-/* Sidebar */
-.Sidebar {
-	min-width: 200px;
-}
-
-/*.list-group {*/
-/*	box-shadow: 8px 8px 6px -6px #666;*/
-/*}*/
-
 .list-group-item {
 	margin: 0.3rem 0rem 0.3rem 0rem;
 }
 
 
-/* Contents */
+
+
+/* Common - Loading */
+.loading__background {
+	background-color: #c6c6c6;
+	width: 100%;
+	height: 100%;
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 100;
+}
+
+
+
+
+
+/*
+
+	페이지 관련 CSS
+
+*/
+
+
+
+/* Page - Contents */
 .Content {
 	margin: 0rem;
-	min-width: 300px;
+	max-width: 110rem;
 }
 
 .card {
@@ -51,16 +159,122 @@ div {
 
 .card a {
 	text-decoration: none;
+	color: black;
 }
 
 .card-img {
 	width: 22rem;
 }
 
+.carousel-container {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	margin-top: 60px;
+	margin-bottom: 1rem;
+}
+
+.carousel {
+	width: 90%;
+	height: 35vh;
+	margin: 1rem 1rem 1rem 1rem;
+	display: flex;
+	align-items: center;
+	overflow: hidden;
+	min-width: 100px;
+}
+
+.carousel-image {
+	width: 100%;
+	height: auto;
+	object-fit: cover;
+}
 
 
 
-/* Err */
+
+
+/* Page - Post */
+.post__header {
+	background-color: #f5f5f5;
+	border-bottom: 1px solid black;
+	height: 4rem;
+	padding: 3px 0 0 5px;
+}
+
+.post__header h5 {
+	margin-left: 1rem;
+	font-size: 1.4rem;
+	font-weight: bold;
+}
+
+.post__header__author {
+	margin-left: 10px;
+}
+
+.post__header__category {
+	-webkit-text-fill-color: #0064d9;
+	margin-left: 1rem;
+}
+
+.post__header__button {
+	margin: 0 0.5rem 0 0;
+}
+
+.post__body {
+	background-color: #ffffff;
+	padding: 2rem 1rem 1rem 1rem;
+}
+
+.post__footer {
+	border-top: 1px solid black;
+	border-bottom: 1px solid black;
+	padding: 1rem;
+}
+
+.post__footer__comment {
+	/*background-color: #f5f5f5;*/
+	/*border-top: 1px solid #a6a6a6;*/
+	border-bottom: 1px solid #a6a6a6;
+	/*margin-bottom: 1rem;*/
+	padding: 0;
+}
+
+.post__footer__commentImage {
+	width: 50px;
+	height: 50px;
+	margin: 1px 16px 1px 0;
+}
+
+.post__footer__commentTitle {
+	background-color: #f5f5f5;
+	border-bottom: 1px solid #a6a6a6;
+	padding: 0 2rem 0 1rem;
+}
+
+.post__footer__commentContent {
+	padding: 0 0 0 1rem;
+	margin: 1rem 1rem 1rem 1rem;
+}
+
+
+
+
+
+
+
+
+
+
+/* Page - EditPost, CreatePost */
+.editpost__body {
+	padding: 3rem 2rem 3rem 2rem;
+}
+
+
+
+/* Page - Err */
 .centered {
 	height: 80vh; /* 뷰포트의 높이를 100%로 설정 */
 	display: flex;
@@ -70,8 +284,165 @@ div {
 	text-align: center;
   }
 
-/* Login */
+
+
+/* Page - Login */
 .form-control {
 	width: 20rem;
 }
-  
+
+.login__background {
+	background-image: url("image/login_background.png");
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 1001;
+}
+
+.login__box {
+	background-color: #ffffff;
+	border-radius: 10px;
+	width: 30rem;
+	height: 35rem;
+	padding: 2rem 2rem 2rem 2rem;
+	box-shadow: 0 0 10px #000000;
+}
+
+.login__box__header {
+	color: #005eeb;
+	text-decoration-line: none;
+}
+
+.login__box__images {
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	gap: 1rem;
+	margin: 5rem 1rem 5rem 1rem;
+}
+
+.login__box__image {
+	cursor: pointer;
+	transition: transform 0.2s;
+}
+
+.login__box__image:hover {
+	transform: scale(105%);
+}
+
+.login__box__footer {
+	text-align: center;
+	width: 100%;
+	cursor: pointer;
+}
+
+.login__box__form {
+	margin: 2rem 1rem 2rem 1rem;
+	padding: 0 1rem 0 1rem;
+}
+
+.login__form__group {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 100%;
+	margin: 1rem 0 2rem 0;
+}
+
+.login__form__label {
+	align-self: flex-start;
+	margin-bottom: 0.5rem;
+}
+
+.login__form__input {
+	width: 100%;
+	align-self: center;
+}
+
+.login__box__button {
+	text-align: right;
+	width: 100%;
+}
+
+.login__box__register {
+	margin: 1rem 1rem 3rem 1rem;
+	text-align: center;
+}
+
+
+
+  /* Page - License */
+.license__header {
+	margin: 2rem 0 0 0;
+}
+
+.license__body {
+	margin: 2rem 2rem 2rem 2rem;
+}
+
+.license__body__dropzone {
+	width: 100%;
+	height: 300px;
+	border: 2px dashed #aeaeae;
+	border-radius: 20px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+}
+
+
+
+
+  /* Page - Setting */
+.setting__tab__container {
+	--bs-nav-tabs-border-width: 0px;
+}
+
+.setting__tab {
+	margin: 0;
+	padding: 0;
+	text-align: center;
+	border: 0;
+	border-bottom: 1px solid #c6c6c6;
+	width: 12.5rem;
+	--bs-nav-tabs-border-radius: 0;
+	--bs-nav-tabs-border-width: 1px;
+}
+
+.setting__tab .nav-link.active {
+	background-color: #cbf9ff;
+	border: 0px rgba(255, 255, 255, 0);
+	border-bottom: 1px solid #c6c6c6;
+}
+
+.setting__tab__list {
+	margin: 0;
+	-webkit-text-fill-color: black;
+}
+
+.setting__list {
+	margin: 1rem;
+	border-bottom: 1px solid #c6c6c6;
+	height: 2rem;
+}
+
+.setting__list__progressbar>* {
+	margin: 0;
+	padding: 0;
+}
+
+.setting__list__edit {
+	min-width: 4rem;
+}

@@ -4,9 +4,11 @@
 import {useEffect} from "react";
 import axios from "axios";
 import {useSelector, useDispatch} from "react-redux";
-import {setIsDataLoaded, setIsPostLoaded, setIsCategoryLoded, setIsCommentLoded, setIsUserLoaded,
+import {
+    setIsDataLoaded, setIsPostLoaded, setIsCategoryLoded, setIsCommentLoded, setIsUserLoaded,
     setPostData, setCategoryData, setUserData,
-    setIsPostChanged} from "../store";
+    setIsPostChanged, setIsLogined
+} from "../store";
 import {useCookies} from "react-cookie";
 
 
@@ -24,6 +26,7 @@ function LoadData() {
     const isCommentLoaded = useSelector(state => state.isCommentLoaded);
     const isUserLoaded = useSelector(state => state.isUserLoaded);
     const isPostChaneged = useSelector(state => state.isPostChanged);
+    const isLogined = useSelector(state => state.isLogined);
 
 
     const handleLoadPost = () => {
@@ -76,11 +79,13 @@ function LoadData() {
 
 
     useEffect(() => {
-        dispatch(setIsDataLoaded(false));
-        dispatch(setIsUserLoaded(false));
-        dispatch(setIsPostLoaded(false));
-        dispatch(setIsCategoryLoded(false));
-        dispatch(setIsCommentLoded(false));
+        dispatch(setIsDataLoaded(true));
+        dispatch(setIsUserLoaded(true));
+        dispatch(setIsPostLoaded(true));
+        dispatch(setIsCategoryLoded(true));
+        dispatch(setIsCommentLoded(true));
+
+        dispatch(setIsLogined(true))
     }, []);
 
 
