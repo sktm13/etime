@@ -2,7 +2,6 @@ package eruo.v1.etimeapi.service;
 
 import org.springframework.transaction.annotation.Transactional;
 
-import eruo.v1.etimeapi.dto.HomePostDTO;
 import eruo.v1.etimeapi.dto.PageRequestDTO;
 import eruo.v1.etimeapi.dto.PageResponseDTO;
 import eruo.v1.etimeapi.dto.ProductDTO;
@@ -11,5 +10,12 @@ import eruo.v1.etimeapi.dto.ProductDTO;
 public interface ProductService {
     
     PageResponseDTO<ProductDTO> getList(PageRequestDTO pageRequestDTO);
-    PageResponseDTO<HomePostDTO> getPostList(PageRequestDTO pageRequestDTO);
+    
+    Long register(ProductDTO productDTO);
+    
+    ProductDTO get(Long pno);
+
+    void modify(ProductDTO productDTO);
+
+    void remove(Long pno);
 }

@@ -1,42 +1,37 @@
 package eruo.v1.etimeapi.controller;
 
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+import org.springframework.core.io.Resource;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import eruo.v1.etimeapi.dto.PageRequestDTO;
 import eruo.v1.etimeapi.dto.PageResponseDTO;
-import eruo.v1.etimeapi.dto.ProductDTO;
-import eruo.v1.etimeapi.service.ProductService;
+import eruo.v1.etimeapi.dto.PostDTO;
+import eruo.v1.etimeapi.service.PostService;
 import eruo.v1.etimeapi.util.CustomFileUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.core.io.Resource;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-
-
-
-
-
 @RestController
 @Log4j2
 @RequiredArgsConstructor
-@RequestMapping("/api/products")
-public class ProductController {
-
+@RequestMapping("/api/posts")
+public class PostController {
+    
     private final CustomFileUtil fileUtil;
 
-    private final ProductService productService;
+    private final PostService postService;
 
     //조회(파일)
     @GetMapping("/view/{fileName}")
@@ -48,59 +43,59 @@ public class ProductController {
     
     //리스트 조회
     @GetMapping("/list")
-    public PageResponseDTO<ProductDTO> list(PageRequestDTO pageRequestDTO) {
+    public PageResponseDTO<PostDTO> list(PageRequestDTO pageRequestDTO) {
 
-        return productService.getList(pageRequestDTO);
+        return postService.getList(pageRequestDTO);
 
     }
     
     //단건 조회
-    @GetMapping("/{pno}")
-    public ProductDTO read(@PathVariable("pno") Long pno) {
-        return productService.get(pno);
+    @GetMapping("/{pid}")
+    public PostDTO read(@PathVariable("pid") Long pid) {
+        return postService.get(pid);
     }
 
     //등록
     @PostMapping("/")
-    public Map<String, Long> register(ProductDTO productDTO){
+    public Map<String, Long> register(PostDTO postDTO){
 
-        List<MultipartFile> files = productDTO.getFiles();
+        List<MultipartFile> files = postDTO.getFiles();
 
         List<String> uploadFileNames = fileUtil.saveFiles(files);
 
-        productDTO.setUploadFileNames(uploadFileNames);
+        postDTO.setUploadFileNames(uploadFileNames);
 
         log.info(uploadFileNames);
 
-        Long pno = productService.register(productDTO);
+        Long pid = postService.register(postDTO);
 
-        return Map.of("result", pno);
+        return Map.of("result", pid);
     }
 
     //단건 수정
-    @PutMapping("/{pno}")
-    public Map<String, String> modify(@PathVariable Long pno, ProductDTO productDTO) {
+    @PutMapping("/{pid}")
+    public Map<String, String> modify(@PathVariable Long pid, PostDTO postDTO) {
         
-        productDTO.setPno(pno);
+        postDTO.setPid(pid);
         
         //old product Database saved Product
-        ProductDTO oldProductDTO = productService.get(pno);
+        PostDTO oldPostDTO = postService.get(pid);
 
         //file upload
-        List<MultipartFile> files = productDTO.getFiles();
+        List<MultipartFile> files = postDTO.getFiles();
         List<String> currentUploadFileNames = fileUtil.saveFiles(files);
 
         //keep files String
-        List<String> uploadedFileNames = productDTO.getUploadFileNames();
+        List<String> uploadedFileNames = postDTO.getUploadFileNames();
 
         if(currentUploadFileNames != null && !currentUploadFileNames.isEmpty()){
             uploadedFileNames.addAll(currentUploadFileNames);
         }
 
-        productService.modify(productDTO);
+        postService.modify(postDTO);
 
         // A B C - > A B D 완료 but C 삭제해야함 , 원래 잇던것들과 지금 것 비교
-        List<String> oldFileNames = oldProductDTO.getUploadFileNames();
+        List<String> oldFileNames = oldPostDTO.getUploadFileNames();
         if(oldFileNames != null && oldFileNames.size() > 0){
 
             List<String> removeFiles = 
@@ -113,11 +108,11 @@ public class ProductController {
     }
 
     //단건 삭제
-    @DeleteMapping("/{pno}")
-    public Map<String, String> remove(@PathVariable Long pno){
-        List<String> oldFileNames = productService.get(pno).getUploadFileNames();
+    @DeleteMapping("/{pid}")
+    public Map<String, String> remove(@PathVariable Long pid){
+        List<String> oldFileNames = postService.get(pid).getUploadFileNames();
 
-        productService.remove(pno);
+        postService.remove(pid);
 
         fileUtil.deletesFile(oldFileNames);
 

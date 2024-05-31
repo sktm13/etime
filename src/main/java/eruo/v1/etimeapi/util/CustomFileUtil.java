@@ -9,8 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import javax.management.RuntimeErrorException;
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
@@ -108,7 +106,7 @@ public class CustomFileUtil {
         
     }
 
-    public void deleteFile(List<String> fileNames){
+    public void deletesFile(List<String> fileNames){
         if(fileNames == null || fileNames.size() == 0){return;}
 
         fileNames.forEach(fileName -> {

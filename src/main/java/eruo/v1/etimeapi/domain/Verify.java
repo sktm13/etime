@@ -1,13 +1,18 @@
 package eruo.v1.etimeapi.domain;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,50 +22,41 @@ import lombok.ToString;
 
 @Entity
 @Getter
-@Table(name = "tbl_product")
+@Table(name = "tbl_verify")
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString(exclude = "imageList")
-public class Product {
+public class Verify {
     
-
-    // id, 제목, 내용, 썸네일, 게시 시간, 게시자 객체,  
+    //vid, member(email), Date, image, approval
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long pno;
+    private Long vid;
 
-    private String pname;
+    @OneToOne(mappedBy = "verify")
+    private Member member;
 
-    private int price;
+    private LocalDateTime verifyDate; // 등록 시간
 
-    //상품 설명
-    private String pdesc;
-
-    private boolean delFlag;
-
-    //엔티티를 지우면 elementCollection도 자동 삭제
+    //파일
     @ElementCollection
     @Builder.Default
-    private List<ProductImage> imageList = new ArrayList<>();
+    private List<VerifyImage> imageList = new ArrayList<>();
 
-    public void changePrice(int price){
-        this.price = price;
+    private boolean approval;
+
+    private int result;
+
+    public void changeApproval(boolean approval){
+        this.approval = approval;
     }
 
-    public void changeDesc(String desc){
-        this.pdesc = desc;
+    public void changeResult(int result){
+        this.result = result;
     }
 
-    public void changeName(String name){
-        this.pname = name;
-    }
-
-    public void changeDel(boolean delFlag){
-        this.delFlag = delFlag;
-    }
-
-    public void addImage(ProductImage image){
+    public void addImage(VerifyImage image){
         
         image.setOrd(imageList.size());
         imageList.add(image);
@@ -69,10 +65,10 @@ public class Product {
 
     public void addImageString(String fileName){
 
-        ProductImage productImage = ProductImage.builder()
+        VerifyImage verifyImage = VerifyImage.builder()
                                                 .fileName(fileName)
                                                 .build();
-        addImage(productImage);
+        addImage(verifyImage);
 
     }
 

@@ -11,6 +11,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.google.gson.Gson;
 
+import eruo.v1.etimeapi.domain.Verify;
 import eruo.v1.etimeapi.dto.MemberDTO;
 import eruo.v1.etimeapi.util.JWTUtil;
 import jakarta.servlet.FilterChain;
@@ -42,7 +43,7 @@ public class JWTCheckFilter extends OncePerRequestFilter {
         // if (path.startsWith("/api/products/view/")) {
         // return true;
         // }
-        return true;
+        return false;
     }
 
     @Override
@@ -66,9 +67,13 @@ public class JWTCheckFilter extends OncePerRequestFilter {
             String pw = (String) claims.get("pw");
             String nickname = (String) claims.get("nickname");
             Boolean social = (Boolean) claims.get("social");
+            int grade = (int) claims.get("grade");
+            int primitiveGrade = (int) claims.get("primitiveGrade");
+            int point = (int) claims.get("point");
+            Verify verify = (Verify) claims.get("verify");
             List<String> roleNames = (List<String>) claims.get("roleNames");
 
-            MemberDTO memberDTO = new MemberDTO(email, pw, nickname, social.booleanValue(),roleNames);
+            MemberDTO memberDTO = new MemberDTO(email, pw, nickname, social.booleanValue(),grade, primitiveGrade, point, verify, roleNames);
            
             log.info("-----------------------------------");
             log.info(memberDTO);
