@@ -39,7 +39,7 @@ public class MemberController {
 
     //수정
     //단건 수정
-    @PutMapping("/{email}")
+    @PutMapping("/grade/{email}")
     public Map<String, String> modifyGrade(@PathVariable String email, @RequestBody GradeRequest request) {
 
         memberService.modifyGrade(email, request.getGrade());
@@ -54,7 +54,7 @@ public class MemberController {
         private int grade;
     }
 
-    @PutMapping("/{email}")
+    @PutMapping("/pgrade/{email}")
     public Map<String, String> modifyPrimitiveGrade(@PathVariable String email, @RequestBody PrimitiveGradeRequest request) {
 
         memberService.modifyPrimitiveGrade(email, request.getPrimitiveGrade());
