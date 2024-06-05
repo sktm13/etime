@@ -104,26 +104,7 @@ const currentCategory = createSlice({
 // 데이터
 const userData = createSlice({
     name: "userData",
-    initialState: [
-        {
-            id: 1,
-            email: "user1@example.com",
-            displayName: "user1",
-            social: false,
-        },
-        {
-            id: 2,
-            email: "user2@example.com",
-            displayName: "user2",
-            social: false,
-        },
-        {
-            id: 3,
-            email: "user3@example.com",
-            displayName: "user3",
-            social: true,
-        }
-    ],
+    initialState: [],
     reducers: {
         setUserData: (state, action) => {
             return action.payload;
@@ -366,6 +347,7 @@ export default configureStore({
         categoryData: categoryData.reducer,
     }
 });
+
 
 // 데이터로드 체크
 export const { setIsDataLoaded } = isDataLoaded.actions;

@@ -1,15 +1,36 @@
 // Setting.js
 // 마이페이지
-import React from 'react';
-import {Container, Row, Col, Image, Nav, Tabs, Tab, ProgressBar} from 'react-bootstrap';
-import { MakeCard } from '../../common/MakeCard';
-import {useSelector} from "react-redux";
+import {Container, Row, Col, Image, Nav, Tab, ProgressBar} from 'react-bootstrap';
+import {useDispatch, useSelector} from "react-redux";
 import {Navigate} from "react-router-dom";
+import {setIsDataLoaded, setIsLogined, setIsUserLoaded, setUserData} from "../../store";
+import {useCookies} from "react-cookie";
+import {jwtDecode} from "jwt-decode";
 
-function Setting(props) {
+function Setting() {
+	const [cookie, setCookie] = useCookies();
+	const dispatch = useDispatch();
+
 	// store에서 데이터 불러오기
 	const userData = useSelector((state) => state.userData);
-	const isLogined = useSelector(state => state.isLogined)
+	const isLogined = useSelector(state => state.isLogined);
+	const isUserLoaded = useSelector(state => state.isLogined);
+	const isDataLoaded = useSelector(state => state.isDataLoaded);
+
+
+	// 토큰을 디코드, userData에 저장
+	const saveUserData = (accessToken) => {
+		const token = accessToken;
+		const decodedToken = jwtDecode(token);
+		dispatch(setUserData(decodedToken));
+		dispatch(setIsDataLoaded(true))
+	}
+
+	if (cookie.accessToken) {
+		dispatch(setIsLogined(true));
+		saveUserData(cookie.accessToken);
+	}
+
 
 	// 로그인 상태가 아닐 때 로그인 페이지로 이동
 	if (!isLogined) {
@@ -62,12 +83,12 @@ function Setting(props) {
 											  <Image src="http://via.placeholder.com/150" roundedCircle/>
 										  </Row>
 										  <Row className={"text-center mt-3"}>
-											  <h5>홍길동</h5>
+											  <h5>{userData.nickname}</h5>
 										  </Row>
 									  </Col>
 									  <Col>
 										  <Row className={"m-4 setting__list__progressbar"}>
-											  <p className={"m-0 p-1"}>현재 레벨 : 4</p>
+											  <p className={"m-0 p-1"}>현재 레벨 : {userData.grade}</p>
 											  <p className={"m-0 p-1"}>다음 레벨까지 남은 경험치 : 40,000</p>
 											  <ProgressBar className={"setting__list__progressbar"} animated min={50000} max={100000} now={60000}></ProgressBar>
 										  </Row>
@@ -82,22 +103,22 @@ function Setting(props) {
 								  </Row>
 								  <Row className={"setting__list"}>
 									  <Col xs={3}>이름</Col>
-									  <Col>홍길동</Col>
+									  <Col>{userData.name}</Col>
 									  <Col xs={1} className={"setting__list__edit"}>수정</Col>
 								  </Row>
 								  <Row className={"setting__list"}>
 									  <Col xs={3}>별명</Col>
-									  <Col>DisplayName</Col>
+									  <Col>{userData.nickname}</Col>
 									  <Col xs={1} className={"setting__list__edit"}>수정</Col>
 								  </Row>
 								  <Row className={"setting__list"}>
 									  <Col xs={3}>이메일</Col>
-									  <Col>email@email.com</Col>
+									  <Col>{userData.email}</Col>
 									  <Col xs={1} className={"setting__list__edit"}>수정</Col>
 								  </Row>
 								  <Row className={"setting__list"}>
 									  <Col xs={3}>휴대전화</Col>
-									  <Col>010-1234-1234</Col>
+									  <Col>{userData.phonenumber}</Col>
 									  <Col xs={1} className={"setting__list__edit"}>수정</Col>
 								  </Row>
 							  </Tab.Pane>

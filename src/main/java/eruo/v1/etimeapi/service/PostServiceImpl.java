@@ -83,6 +83,12 @@ public class PostServiceImpl implements PostService {
 
         Long pid = postRepository.save(post).getPid();
 
+        // 이미지가 포함되지 않을 경우 기본 이미지 저장
+        if (post.getImageList().isEmpty()) {
+            post.addImageString("default.jpg");
+            postRepository.save(post);
+        }
+
         return pid;
     }
 

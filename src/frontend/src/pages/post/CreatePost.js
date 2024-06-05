@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
+import { Button, Col, Container, Form } from 'react-bootstrap';
 import {Navigate, useNavigate} from 'react-router-dom';
 import axios from 'axios';
 import ReactQuill from "react-quill";
@@ -17,10 +17,12 @@ function CreatePost (){
 
     // store 데이터 불러오기
     const isLogined = useSelector(state => state.isLogined)
+    const userData = useSelector(state => state.userData)
 
     // state 생성
     const [ inputPostTitle, setInputPostTitle ] = useState('');
     const [ inputPostContent, setInputPostContent ] = useState('');
+    const [ inputPostCategory, setInputPostCategory ] = useState('');
 
 
     // 로그인 상태가 아닐 때 로그인 페이지로 이동
@@ -32,20 +34,24 @@ function CreatePost (){
     const handleSavePost = () => {
         const currentTime = new Date().toISOString();
 
-        axios.post("http://localhost:8080/api/post", {
+        axios.post("http://localhost:8080/api/posts/", {
             title: inputPostTitle,
-            postTime: currentTime,
             content: inputPostContent,
+            category: inputPostCategory,
+            member: userData,
+            postDate: currentTime,
         }, {
-            headers: {Authorization: `Bearer ${cookie.accessToken}`}
+            headers: {Authorization: `Bearer ${cookie.accessToken}`},
         })
-            .then(() => {
+            .then((res) => {
                 alert('작성 성공');
+                console.log(res.data);
                 dispatch(setIsPostChanged(true));
                 navigate('/');
             })
-            .catch(() => {
+            .catch((error) => {
                 alert('작성 실패');
+                console.log(error)
             });
     };
 
@@ -88,13 +94,20 @@ function CreatePost (){
                                         setInputPostTitle(e.target.value);
                                     }}/>
                                 <br/>
+                                <Form.Label>글 카테고리</Form.Label>
+                                <Form.Control
+                                    style={{width:'100%'}}
+                                    type="text"
+                                    placeholder="Category"
+                                    onChange={(e)=>{
+                                        setInputPostCategory(e.target.value);
+                                    }}/>
+                                <br/>
                                 <Form.Label>글 내용</Form.Label>
                                 <ReactQuill
                                     theme="snow"
                                     value={inputPostContent}
-                                    onChange={(e) => {
-                                        setInputPostContent(e.target.value)
-                                    }}
+                                    onChange={setInputPostContent}
                                     />
                             </Form.Group>
                         </Form>

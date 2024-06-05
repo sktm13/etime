@@ -1,42 +1,77 @@
 // Contents.js
 // 메인 콘텐츠
-import {Col, Row, Spinner, Button, Placeholder, Card, ButtonGroup, Container, ToggleButton} from 'react-bootstrap';
+import {Col, Row, Button, ButtonGroup, Container, ToggleButton} from 'react-bootstrap';
 import { MakeCard } from '../common/MakeCard';
-import axios from "axios";
-import {useState, useEffect} from "react";
+import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import '../style/Contents.css';
 
 // store 함수 불러오기
-import {setIsDataLoaded, setSortOrder, setIsPostChanged, setPostData} from "../store";
 import MakeCarousel from "../common/MakeCarousel";
-import * as radios from "react-bootstrap/ElementChildren";
+import axios from "axios";
+import {useCookies} from "react-cookie";
+import {setIsPostLoaded, setPostData, setIsDataLoaded} from "../store";
+import {useNavigate} from "react-router-dom";
 
 function Contents() {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const [cookie, setCookie] = useCookies();
 
     //store 데이터 불러오기
     const isPostLoaded = useSelector(state => state.isPostLoaded);
+    const isDataLoaded = useSelector(state => state.isDataLoaded);
     const postData = useSelector(state => state.postData);
     const categoryData = useSelector(state => state.categoryData);
+    const isLogined = useSelector(state => state.isLogined);
 
     const [radioValue, setRadioValue] = useState('1');
     const radios = [
         { name: '1', value: '1' },
         { name: '2', value: '2' },
         { name: '3', value: '3' },
-        { name: '4', value: '3' },
-        { name: '5', value: '3' },
-        { name: '6', value: '3' },
-        { name: '7', value: '3' },
-        { name: '8', value: '3' },
-        { name: '9', value: '3' },
+        { name: '4', value: '4' },
+        { name: '5', value: '5' },
+        { name: '6', value: '6' },
+        { name: '7', value: '7' },
+        { name: '8', value: '8' },
+        { name: '9', value: '9' },
     ];
 
-    if (!postData) {
+    // 서버에서 Post 데이터 로드
+    useEffect(() => {
+        if (isLogined) {
+            axios.get("http://localhost:8080/api/posts/list", {
+                headers: {Authorization: `Bearer ${cookie.accessToken}`},
+                params: {page: 1, size: 10}
+            })
+                .then((res) => {
+                    if (!res.data.error) {
+                        dispatch(setPostData(res.data));
+                        dispatch(setIsPostLoaded(true));
+                        dispatch(setIsDataLoaded(true));
+                    }
+                    else {
+                        console.error(res.data.error);
+                        dispatch(setIsPostLoaded(false))
+                        if (res.data.error === "ERROR_ACCESS_TOKEN") {
+                            navigate('/pages/login');
+                        }
+                    }
+                })
+                .catch((err) => {
+                    console.log(err)
+                    dispatch(setIsPostLoaded(false));
+                });
+        } else {
+            console.log("로그인안됨")
+        }
+    }, []);
+
+
+    if (!isPostLoaded) {
         return <div>post가 존재하지 않음</div>
     }
-
 
     return (
         <Container className={"container__maxwidth"}>
@@ -55,11 +90,9 @@ function Contents() {
                 </Row>
                 <Row className="Content justify-content-center">
                     {
-                        isPostLoaded === true &&
-                        postData.map((a, i) => {
-                            return  <>
-                                <MakeCard i={i} postData={postData[i]} categoryData={categoryData}/>
-                            </>
+                        isPostLoaded &&
+                        postData.dtoList.map((a, i) => {
+                            return  <MakeCard i={i} postData={postData.dtoList[i]}/>
                         })
                     }
                 </Row>
@@ -83,20 +116,6 @@ function Contents() {
                 </Container>
             </Col>
         </Container>
-
-        // <Container className={"d-flex justify-content-center"}>
-        //     <Col className="Content" xl={12} xxl={8}>
-        //         <Row className={"d-flex justify-content-center"}>
-        //             {
-        //                 isPostLoaded === true &&
-        //                 postData.map((a, i) => {
-        //                     return (<MakeCard i={i} postData={postData[i]} />)
-        //                 })
-        //             }
-        //         </Row>
-        //     </Col>
-        // </Container>
-
     );
 }
 
