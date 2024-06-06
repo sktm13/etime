@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
+import { useEffect, useRef, useState } from 'react';
+import { Button, Col, Container, Form } from 'react-bootstrap';
 import {Navigate, useNavigate} from 'react-router-dom';
 import axios from 'axios';
 import ReactQuill from "react-quill";
@@ -7,45 +7,92 @@ import 'react-quill/dist/quill.snow.css'
 import {useDispatch, useSelector} from "react-redux";
 import {setIsPostChanged} from "../../store";
 import {useCookies} from "react-cookie";
+import jwtDecode from "jwt-decode";
+
+function getByteLength(str) {
+    return new TextEncoder().encode(str).length;
+}
 
 function CreatePost (){
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const quillRef = useRef(null);
+
+    const MAX_CONTENT_LENGTH = 65535;
 
     // 쿠키 데이터 로드
     const [cookie, setCookie] = useCookies(['accessToken'])
 
     // store 데이터 불러오기
-    const isLogined = useSelector(state => state.isLogined)
+    const userData = useSelector(state => state.userData)
 
     // state 생성
     const [ inputPostTitle, setInputPostTitle ] = useState('');
     const [ inputPostContent, setInputPostContent ] = useState('');
+    const [ inputPostCategory, setInputPostCategory ] = useState('');
+    const [ byteLength, setByteLength ] = useState(0);
 
+
+    useEffect(() => {
+        const observer = new MutationObserver((mutations, observer) => {
+            mutations.forEach((mutation) => {
+                if (mutation.type === 'childList') {
+                    // console.log('Node inserted: ', mutation.addedNodes[0])
+                }
+            })
+        });
+
+        if (quillRef.current) {
+            observer.observe(quillRef.current, {
+                childList: true,
+                subtree: true
+            });
+        }
+
+        return () => {
+            observer.disconnect();
+        };
+    }, []);
 
     // 로그인 상태가 아닐 때 로그인 페이지로 이동
-    if (!isLogined) {
-        return <Navigate to={'/pages/login'} />
+    if (!cookie.accessToken) {
+        return <Navigate to={'/pages/login'} />;
+    }
+
+    // 데이터 적용 + byte 용량 측정
+    const handleContentInput = (value) => {
+        setInputPostContent(value);
+        setByteLength(getByteLength(value));
+        if (byteLength > MAX_CONTENT_LENGTH) {
+            alert("글자수 제한을 초과하였습니다.")
+        }
     }
 
     // 글 저장버튼
     const handleSavePost = () => {
+        if (byteLength > MAX_CONTENT_LENGTH) {
+            alert("글자수 제한을 초과하였습니다.")
+            return;
+        }
         const currentTime = new Date().toISOString();
 
-        axios.post("http://localhost:8080/api/post", {
+        axios.post("http://localhost:8080/api/posts/", {
             title: inputPostTitle,
-            postTime: currentTime,
             content: inputPostContent,
+            category: inputPostCategory,
+            member: userData,
+            postDate: currentTime,
         }, {
-            headers: {Authorization: `Bearer ${cookie.accessToken}`}
+            headers: { Authorization: `Bearer ${cookie.accessToken}` },
         })
-            .then(() => {
+            .then((res) => {
                 alert('작성 성공');
                 dispatch(setIsPostChanged(true));
                 navigate('/');
             })
-            .catch(() => {
+            .catch((error) => {
                 alert('작성 실패');
+                console.log(error)
             });
     };
 
@@ -55,6 +102,10 @@ function CreatePost (){
             navigate('/');
         }
     }
+
+
+
+
 
     return(
         <Container>
@@ -88,14 +139,24 @@ function CreatePost (){
                                         setInputPostTitle(e.target.value);
                                     }}/>
                                 <br/>
+                                <Form.Label>글 카테고리</Form.Label>
+                                <Form.Control
+                                    style={{width:'100%'}}
+                                    type="text"
+                                    placeholder="Category"
+                                    onChange={(e)=>{
+                                        setInputPostCategory(e.target.value);
+                                    }}/>
+                                <br/>
                                 <Form.Label>글 내용</Form.Label>
-                                <ReactQuill
-                                    theme="snow"
-                                    value={inputPostContent}
-                                    onChange={(e) => {
-                                        setInputPostContent(e.target.value)
-                                    }}
+                                <div ref={quillRef}>
+                                    <ReactQuill
+                                        theme="snow"
+                                        value={inputPostContent}
+                                        onChange={handleContentInput}
                                     />
+                                </div>
+                                <div>{byteLength} / {MAX_CONTENT_LENGTH} byte</div>
                             </Form.Group>
                         </Form>
                     </div>
