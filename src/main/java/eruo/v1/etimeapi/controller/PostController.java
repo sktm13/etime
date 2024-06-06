@@ -68,7 +68,7 @@ public class PostController {
 
     //단건 수정
     @PutMapping("/{pid}")
-    public Map<String, String> modify(@PathVariable Long pid, PostDTO postDTO) {
+    public Map<String, String> modify(@PathVariable Long pid, @RequestBody PostDTO postDTO) {
         
         postDTO.setPid(pid);
         

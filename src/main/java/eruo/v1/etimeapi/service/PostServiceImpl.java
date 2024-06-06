@@ -177,6 +177,11 @@ public class PostServiceImpl implements PostService {
             });
         }
 
+        // 이미지가 포함되지 않을 경우 기본 이미지 저장
+        if (post.getImageList().isEmpty()) {
+            post.addImageString("default.jpg");
+        }
+
         // 저장
         postRepository.save(post);
     }
