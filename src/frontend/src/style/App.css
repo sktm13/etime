@@ -171,26 +171,73 @@ div {
 	align-items: center;
 	justify-content: center;
 	width: 100%;
-	margin-top: 60px;
+	margin-top: 30px;
 	margin-bottom: 1rem;
+	min-inline-size: 700px; /* 요소의 최소 너비 설정 */
+
 }
 
 .carousel {
-	width: 90%;
+	width: 100%;
 	height: 35vh;
 	margin: 1rem 1rem 1rem 1rem;
 	display: flex;
 	align-items: center;
 	overflow: hidden;
-	min-width: 100px;
 }
 
 .carousel-image {
 	width: 100%;
-	height: auto;
+	height: 300px;	
 	object-fit: cover;
 }
 
+.carousel-button-container1 {
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap; 
+	margin-top: 10px;
+ 	justify-content: flex-start; /* 위쪽을 기준으로 정렬 */
+	align-items: flex-start; /* 내부 요소의 수직 정렬을 위쪽으로 설정 */
+	padding-bottom: 30px;
+}
+
+@media (max-width: 1204px) {
+	.carousel-button-container1 {
+	  padding-bottom: 5px;
+	}
+  }
+
+.carousel-button1 {
+	margin-right: 0.7rem;
+	margin-bottom: 7px;
+	border-top-left-radius: 50px;
+	border-bottom-left-radius: 50px;
+	border-top-right-radius: 50px;
+	border-bottom-right-radius: 50px;
+	font-family: "Pretendard-light";
+	font-size: 14px;
+}
+
+.carousel-button-container2 {
+	height: 7rem;
+	position: absolute;
+	top: 50%; /* 원하는 위치로 조정 */
+	left: 61%;
+	transform: translate(0, -50%);  }
+
+.carousel-button2 {
+	height: 35%;
+	margin-right: 0.7rem;
+	border-top-left-radius: 50px;
+	border-bottom-left-radius: 50px;
+	border-top-right-radius: 50px;
+	border-bottom-right-radius: 50px;
+	font-family: "Pretendard-light";
+	font-size: 16px;
+	background-color: white;
+	color: #005eeb;
+}
 
 
 
