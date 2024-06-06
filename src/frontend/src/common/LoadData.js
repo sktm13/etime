@@ -3,9 +3,10 @@
 
 import {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {setIsDataLoaded, setIsLogined, setIsPostLoaded, setIsUserLoaded} from "../store";
+import {setIsDataLoaded, setIsLogined, setIsPostChanged, setIsPostLoaded, setIsUserLoaded, setUserData} from "../store";
 import {useCookies} from "react-cookie";
 import {useNavigate} from "react-router-dom";
+import {jwtDecode} from "jwt-decode";
 
 
 function LoadData() {
@@ -19,10 +20,18 @@ function LoadData() {
     const isPostLoaded = useSelector(state => state.isPostLoaded);
     const isDataLoaded = useSelector(state => state.isDataLoaded);
 
+    // 토큰을 디코드, userData에 저장
+    const saveUserData = (accessToken) => {
+        const token = accessToken;
+        const decodedToken = jwtDecode(token);
+        dispatch(setUserData(decodedToken));
+        dispatch(setIsUserLoaded(true));
+    }
+
     const handleLoginCheck = () => {
         if (cookie.accessToken) {
             dispatch(setIsLogined(true))
-            dispatch(setIsUserLoaded(true))
+            saveUserData(cookie.accessToken);
         } else {
             dispatch(setIsLogined(false))
             dispatch(setIsUserLoaded(false))
@@ -36,6 +45,7 @@ function LoadData() {
     useEffect(() => {
         dispatch(setIsDataLoaded(false))
         dispatch(setIsPostLoaded(false))
+        dispatch(setIsPostChanged(false))
         handleLoginCheck();
     }, []);
 }

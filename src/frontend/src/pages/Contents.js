@@ -20,21 +20,11 @@ function Contents() {
     //store 데이터 불러오기
     const isPostLoaded = useSelector(state => state.isPostLoaded);
     const isDataLoaded = useSelector(state => state.isDataLoaded);
+    const isPostChanged = useSelector(state => state.isPostChanged);
     const postData = useSelector(state => state.postData);
     const isLogined = useSelector(state => state.isLogined);
 
     const [pageSelect, setPageSelect] = useState('1');
-    const radios = [
-        { name: '1', value: '1' },
-        { name: '2', value: '2' },
-        { name: '3', value: '3' },
-        { name: '4', value: '4' },
-        { name: '5', value: '5' },
-        { name: '6', value: '6' },
-        { name: '7', value: '7' },
-        { name: '8', value: '8' },
-        { name: '9', value: '9' },
-    ];
 
     // 서버에서 Post 데이터 로드
     useEffect(() => {
@@ -64,10 +54,117 @@ function Contents() {
         } else if (!cookie.accessToken) {
             navigate('/pages/login');
         }
-    }, [isLogined, cookie.accessToken, dispatch, navigate]);
+    }, [isLogined, cookie.accessToken, dispatch, navigate, pageSelect, isPostChanged]);
 
+    // Post 데이터가 로드되있지 않다면, 로딩 화면 출력
     if (!isPostLoaded) {
         return <Loading />
+    }
+
+    // 페이지 버튼 생성
+    const generatePageButtons = () => {
+        const buttons = [];
+
+        // 첫 페이지와 이전 페이지 버튼
+        if (postData.prev) {
+            buttons.push(
+                <ToggleButton
+                    key="first"
+                    id="page-first"
+                    type="radio"
+                    variant={'outline-secondary'}
+                    name="radio"
+                    value={1}
+                    checked={pageSelect === 1}
+                    onChange={(e) => setPageSelect(parseInt(e.currentTarget.value))}
+                >
+                    1
+                </ToggleButton>
+            );
+
+            buttons.push(
+                <ToggleButton
+                    key="prev"
+                    id="page-prev"
+                    type="radio"
+                    variant={'outline-secondary'}
+                    name="radio"
+                    value={postData.prevPage}
+                    onChange={(e) => setPageSelect(parseInt(e.currentTarget.value))}
+                >
+                    &lt;
+                </ToggleButton>
+            );
+
+            buttons.push(
+                <ToggleButton
+                    variant={'outline-secondary'}
+                >
+                    ...
+                </ToggleButton>
+            )
+        }
+
+
+        // 현재 페이지 번호 목록
+        postData.pageNumList.forEach(pageNum => {
+            buttons.push(
+                <ToggleButton
+                    key={pageNum}
+                    id={`page-${pageNum}`}
+                    type="radio"
+                    variant={'outline-secondary'}
+                    name="radio"
+                    value={pageNum}
+                    checked={pageSelect === pageNum}
+                    onChange={(e) => setPageSelect(parseInt(e.currentTarget.value))}
+                >
+                    {pageNum}
+                </ToggleButton>
+            );
+        });
+
+        if (postData.next) {
+            buttons.push(
+                <ToggleButton
+                    variant={'outline-secondary'}
+                >
+                    ...
+                </ToggleButton>
+            )
+
+            buttons.push(
+                <ToggleButton
+                    key="next"
+                    id="page-next"
+                    type="radio"
+                    variant={'outline-secondary'}
+                    name="radio"
+                    value={postData.nextPage}
+                    onChange={(e) => setPageSelect(parseInt(e.currentTarget.value))}
+                >
+                    &gt;
+                </ToggleButton>
+            );
+
+            // 마지막 페이지 버튼
+            buttons.push(
+                <ToggleButton
+                    key="last"
+                    id="page-last"
+                    type="radio"
+                    variant={'outline-secondary'}
+                    name="radio"
+                    value={postData.totalCount}
+                    checked={pageSelect === postData.totalCount}
+                    onChange={(e) => setPageSelect(parseInt(e.currentTarget.value))}
+                >
+                    {postData.totalCount}
+                </ToggleButton>
+            );
+        }
+
+        return buttons;
     }
 
     return (
@@ -94,21 +191,25 @@ function Contents() {
                     }
                 </Row>
                 <Container className={"my-5 d-flex justify-content-center"}>
+                    {/*<ButtonGroup>*/}
+                    {/*    {radios.map((radio, idx) => (*/}
+                    {/*        <ToggleButton*/}
+                    {/*            key={idx}*/}
+                    {/*            id={`radio-${idx}`}*/}
+                    {/*            type="radio"*/}
+                    {/*            variant={'outline-secondary'}*/}
+                    {/*            name="radio"*/}
+                    {/*            value={radio.value}*/}
+                    {/*            checked={pageSelect === radio.value}*/}
+                    {/*            onChange={(e) => setPageSelect(e.currentTarget.value)}*/}
+                    {/*        >*/}
+                    {/*            {radio.name}*/}
+                    {/*        </ToggleButton>*/}
+                    {/*    ))}*/}
+                    {/*</ButtonGroup>*/}
+
                     <ButtonGroup>
-                        {radios.map((radio, idx) => (
-                            <ToggleButton
-                                key={idx}
-                                id={`radio-${idx}`}
-                                type="radio"
-                                variant={'outline-secondary'}
-                                name="radio"
-                                value={radio.value}
-                                checked={pageSelect === radio.value}
-                                onChange={(e) => setPageSelect(e.currentTarget.value)}
-                            >
-                                {radio.name}
-                            </ToggleButton>
-                        ))}
+                        {generatePageButtons()}
                     </ButtonGroup>
                 </Container>
             </Col>

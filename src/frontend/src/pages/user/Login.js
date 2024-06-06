@@ -7,13 +7,13 @@ import axios from 'axios';
 import {useCookies} from "react-cookie";
 import {setIsLogined, setIsUserLoaded, setUserData} from "../../store";
 import {useDispatch, useSelector} from "react-redux";
+import {jwtDecode} from "jwt-decode";
 
 // 로그인 이미지
 import logoImage from '../../style/image/sample_logo.png';
 import googleLogin from '../../style/image/login_google.png'
 import naverLogin from '../../style/image/login_naver.png'
 import kakaoLogin from '../../style/image/login_kakao.png'
-import {jwtDecode} from "jwt-decode";
 
 
 function Login() {
