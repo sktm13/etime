@@ -93,13 +93,13 @@ function Navibar() {
                 </Form.Group>
                 
                     <div className="d-flex">
-                            <Button variant="light" className="navi-Button me-1">
+                            <Button variant="light" className="navi-Button me-1" onClick={() => navigate("/pages/createPost")}>
                                 <RxPencil2 size="20" color='#343232'/>
                             </Button>
-                            <Button variant="light" className="navi-Button me-1">
+                            <Button variant="light" className="navi-Button me-1" onClick={() => navigate("/pages/donate")}>
                                 <BiDonateHeart size="20" color='#343232'/>
                             </Button>
-                            <Button variant="light" className="navi-Button me-1">
+                            <Button variant="light" className="navi-Button me-1" onClick={() => navigate("/pages/payment")}>
                                 <MdOutlinePayment size="20" color='#343232'/>
                             </Button>
                     </div>
