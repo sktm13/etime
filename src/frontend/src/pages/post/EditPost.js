@@ -1,93 +1,135 @@
-import {useEffect, useState} from 'react';
-import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
+import { useEffect, useRef, useState } from 'react';
+import { Button, Col, Container, Form } from 'react-bootstrap';
 import {Navigate, useNavigate, useParams} from 'react-router-dom';
 import axios from 'axios';
-import {setIsPostChanged, setIsDataLoaded } from "../../store";
-import {useCookies} from "react-cookie";
-import {useSelector} from "react-redux";
 import ReactQuill from "react-quill";
+import 'react-quill/dist/quill.snow.css'
+import {useDispatch, useSelector} from "react-redux";
+import {setCurrentPostData, setIsCurrentPostLoaded, setIsPostChanged} from "../../store";
+import {useCookies} from "react-cookie";
+import jwtDecode from "jwt-decode";
 
+function getByteLength(str) {
+    return new TextEncoder().encode(str).length;
+}
 
 function EditPost (){
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const params = useParams();
+    const quillRef = useRef(null);
+
+    const MAX_CONTENT_LENGTH = 65535;
 
     // 쿠키 데이터 로드
     const [cookie, setCookie] = useCookies(['accessToken'])
 
     // store 데이터 불러오기
-    const isLogined = useSelector(state => state.isLogined)
+    const userData = useSelector(state => state.userData)
+    const currentPostData = useSelector(state => state.currentPostData);
 
     // state 생성
-    const [ postData, setPostData] = useState([]);
     const [ inputPostTitle, setInputPostTitle ] = useState('');
     const [ inputPostContent, setInputPostContent ] = useState('');
+    const [ inputPostCategory, setInputPostCategory ] = useState('');
+    const [ byteLength, setByteLength ] = useState(0);
 
 
-    // 글 데이터 서버에서 불러오기
     useEffect(() => {
-        axios.get(`http://localhost:8080/api/post/${params.postId}`)
-            .then(res => {
-                setPostData(res.data);
-                setIsDataLoaded(true);
+        const observer = new MutationObserver((mutations, observer) => {
+            mutations.forEach((mutation) => {
+                if (mutation.type === 'childList') {
+                    // console.log('Node inserted: ', mutation.addedNodes[0])
+                }
+            })
+        });
 
-                setInputPostTitle(res.data.title)
-                setInputPostContent(res.data.content)
+        if (quillRef.current) {
+            observer.observe(quillRef.current, {
+                childList: true,
+                subtree: true
+            });
+        }
+
+        return () => {
+            observer.disconnect();
+        };
+    }, []);
+
+    // 서버에서 글 데이터 로드
+    useEffect(() => {
+        axios.get(`http://localhost:8080/api/posts/${params.postId}`, {
+            headers: {Authorization: `Bearer ${cookie.accessToken}`},
+        })
+            .then((res) => {
+                dispatch(setCurrentPostData(res.data));
+                dispatch(setIsCurrentPostLoaded(true));
             })
-            .catch(()=>{
-                setIsDataLoaded(false);
+            .catch((error)=>{
+                console.log(error)
+                dispatch(setIsCurrentPostLoaded(false));
             })
+        setInputPostTitle(currentPostData.title)
+        setInputPostContent(currentPostData.content)
     }, [params.postId]);
 
+
     // 로그인 상태가 아닐 때 로그인 페이지로 이동
-    if (!isLogined) {
-        return <Navigate to={'/pages/login'} />
+    if (!cookie.accessToken) {
+        return <Navigate to={'/pages/login'} />;
+    }
+
+    // 데이터 적용 + byte 용량 측정
+    const handleContentInput = (value) => {
+        setInputPostContent(value);
+        setByteLength(getByteLength(value));
+        if (byteLength > MAX_CONTENT_LENGTH) {
+            alert("글자수 제한을 초과하였습니다.")
+        }
     }
 
     // 글 저장버튼
     const handleSavePost = () => {
+        if (byteLength > MAX_CONTENT_LENGTH) {
+            alert("글자수 제한을 초과하였습니다.")
+            return;
+        }
         const currentTime = new Date().toISOString();
 
-        axios.put("http://localhost:8080/api/post/", {
-            id: params.postId,
+        axios.put(`http://localhost:8080/api/posts/${params.postId}`, {
             title: inputPostTitle,
             content: inputPostContent,
-            postTime: currentTime,
+            category: inputPostCategory,
+            member: userData,
+            postDate: currentTime,
         }, {
-            headers: {Authorization: `Bearer ${cookie.accessToken}`}
+            headers: { Authorization: `Bearer ${cookie.accessToken}` },
         })
-            .then(() => {
-                alert('수정 성공');
-                setIsPostChanged(true);
+            .then((res) => {
+                alert('작성 성공');
+                dispatch(setIsPostChanged(true));
                 navigate('/');
             })
-            .catch(() => {
-                alert('수정 실패');
+            .catch((error) => {
+                alert('작성 실패');
+                console.log(error)
             });
     };
 
     // 글 작성 취소버튼
     const handleCancelPost = ()=>{
-        if (window.confirm('글 수정을 취소하시겠습니까?')) {
+        if (window.confirm('글 작성을 취소하시겠습니까?')) {
             navigate('/');
         }
     }
 
-    if (!setIsDataLoaded) {
-        return <div>로딩중...</div>
-    }
-
-    if (!postData) {
-        return <div>post가 존재하지 않음</div>
-    }
-
     return(
         <Container>
-            <Col lg={12} xl={8} xxl={6}>
+            <Col lg={12} xl={8} xxl={6} className={"container__maxwidth"}>
                 <div className={"w-100"}>
                     <div className="post__header w-100 d-flex align-items-center">
                         <Col>
-                            <h5 className={"editpost__title"}> 글 수정하기</h5>
+                            <h5 className={"editpost__title"}>새로운 글 작성하기</h5>
                         </Col>
                         <div>
                             <Button className={"post__header__button"} variant="secondary" onClick={handleCancelPost}>
@@ -100,7 +142,7 @@ function EditPost (){
                         </div>
                     </div>
                     <div className={"w-100 editpost__body"}>
-                        <Form style={{width:'100%'}} onSubmit={(e)=>{
+                        <Form style={{width: '100%'}} onSubmit={(e) => {
                             e.preventDefault()
                         }}>
                             <Form.Group className="mb-6">
@@ -109,20 +151,29 @@ function EditPost (){
                                     style={{width:'100%'}}
                                     type="text"
                                     placeholder="Title"
+                                    value={inputPostTitle}
                                     onChange={(e)=>{
                                         setInputPostTitle(e.target.value);
-                                    }}
-                                    value={inputPostTitle}
-                                />
+                                    }}/>
+                                <br/>
+                                <Form.Label>글 카테고리</Form.Label>
+                                <Form.Control
+                                    style={{width:'100%'}}
+                                    type="text"
+                                    placeholder="Category"
+                                    onChange={(e)=>{
+                                        setInputPostCategory(e.target.value);
+                                    }}/>
                                 <br/>
                                 <Form.Label>글 내용</Form.Label>
-                                <ReactQuill
-                                    theme="snow"
-                                    value={inputPostContent}
-                                    onChange={(e)=>{
-                                        setInputPostContent(e.target.value)
-                                    }}
-                                />
+                                <div ref={quillRef}>
+                                    <ReactQuill
+                                        theme="snow"
+                                        value={inputPostContent}
+                                        onChange={handleContentInput}
+                                    />
+                                </div>
+                                <div>{byteLength} / {MAX_CONTENT_LENGTH} byte</div>
                             </Form.Group>
                         </Form>
                     </div>

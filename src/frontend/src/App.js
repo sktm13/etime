@@ -1,5 +1,5 @@
 import './style/App.css'
-import {Col, Container, Row} from 'react-bootstrap';
+import {Container, Row} from 'react-bootstrap';
 import { Routes, Route } from "react-router-dom";
 import {useSelector} from "react-redux";
 
@@ -19,19 +19,17 @@ import PaymentSucess from "./pages/payment/PaymentSuccess";
 import PaymentFail from "./pages/payment/PaymentFail";
 import License from "./pages/License";
 import Err404 from "./pages/Err404";
-import MakeCarousel from './common/MakeCarousel';
 
 
 function App() {
     // store 데이터 불러오기
     const isDataLoaded = useSelector(state => state.isDataLoaded)
+    const userData = useSelector(state => state.userData)
 
     return (
 <Container fluid className={"main"}>
-
     {/* 데이터 로드 */}
     <LoadData />
-    { !isDataLoaded && <Loading /> }
     {/* 네비게이션 바 */}
     <Navibar />
     <Row className={"main__body"}>

@@ -6,13 +6,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import eruo.v1.etimeapi.dto.PageRequestDTO;
@@ -57,7 +51,7 @@ public class PostController {
 
     //등록
     @PostMapping("/")
-    public Map<String, Long> register(PostDTO postDTO){
+    public Map<String, Long> register(@RequestBody PostDTO postDTO){
 
         List<MultipartFile> files = postDTO.getFiles();
 
@@ -74,7 +68,7 @@ public class PostController {
 
     //단건 수정
     @PutMapping("/{pid}")
-    public Map<String, String> modify(@PathVariable Long pid, PostDTO postDTO) {
+    public Map<String, String> modify(@PathVariable Long pid, @RequestBody PostDTO postDTO) {
         
         postDTO.setPid(pid);
         
