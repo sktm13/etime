@@ -2,7 +2,7 @@
 // 글 선택시 진입
 import '../../style/App.css'
 
-import {Container, Row, Col, Image, Card, Button, ListGroup, Form, FloatingLabel} from 'react-bootstrap';
+import {Container, Row, Col, Image, Button, Form} from 'react-bootstrap';
 import {Navigate, useNavigate, useParams} from 'react-router-dom';
 
 import {useDispatch, useSelector} from "react-redux";
@@ -10,14 +10,11 @@ import axios from "axios";
 import {
     setCurrentPostData,
     setIsCurrentPostLoaded,
-    setIsDataLoaded,
     setIsPostChanged,
-    setIsPostLoaded,
-    setPostData
 } from "../../store";
 import {useEffect, useState} from "react";
 import {useCookies} from "react-cookie";
-import ReactQuill from "react-quill";
+import {FaHeart} from "react-icons/fa";
 
 function getByteLength(str) {
     return new TextEncoder().encode(str).length;
@@ -30,7 +27,6 @@ function Post() {
     const [cookie, setCookie] = useCookies(['accessToken'])
 
     // store 데이터 불러오기
-    const isDataLoaded = useSelector(state => state.isDataLoaded);
     const currentPostData = useSelector(state => state.currentPostData);
     const userData = useSelector(state => state.userData);
 
@@ -39,6 +35,8 @@ function Post() {
     const [commentData, setCommentData] = useState();
     const [byteLength, setByteLength] = useState(0);
     const [commentCount, setCommentCount] = useState(0);
+    const [like, setLike] = useState(false);
+    const [likeCount, setLikeCount] = useState(0)
     const MAX_CONTENT_LENGTH = 1024;
 
 
@@ -86,6 +84,39 @@ function Post() {
         }
     }
 
+    // 추천 버튼
+    const handleClickLike = () => {
+        const newLike = !like;
+        const newLikeCount = newLike ? likeCount + 1 : likeCount - 1;
+
+        setLike(newLike)
+        setLikeCount(newLikeCount)
+
+        const updatedPostData = {
+            ...currentPostData, score: newLikeCount
+        }
+
+        axios.put(`http://localhost:8080/api/posts/${params.postId}`,
+            updatedPostData, {
+            headers: { Authorization: `Bearer ${cookie.accessToken}` },
+        })
+            .then((res) => {
+                if(res.status === 200) {
+                    dispatch(setIsPostChanged(true));
+                } else {
+                    setLike(!newLike);
+                    setLikeCount(newLike ? likeCount : likeCount + 1);
+                    console.log(res.staus)
+                }
+            })
+            .catch((error) => {
+                setLike(!newLike);
+                setLikeCount(newLike ? likeCount : likeCount + 1);
+                console.log(error)
+            });
+
+    }
+
 
     // 서버에서 글 데이터 로드
     useEffect(() => {
@@ -95,6 +126,7 @@ function Post() {
             .then((res) => {
                 dispatch(setCurrentPostData(res.data));
                 dispatch(setIsCurrentPostLoaded(true));
+                setLikeCount(res.data.score);
             })
             .catch((error)=>{
                 console.log(error)
@@ -146,12 +178,27 @@ function Post() {
                     </div>
                 </Row>
                 <Row className={"post__body"}>
-                    <Col>
-                        <Image src="http://via.placeholder.com/800x450" />
-                        <Row>
-                            <div dangerouslySetInnerHTML={{__html: currentPostData.content}} />
-                        </Row>
-                    </Col>
+                    <Row>
+                        <Col>
+                            <Image src="http://via.placeholder.com/800x450" />
+                            <Row>
+                                <div dangerouslySetInnerHTML={{__html: currentPostData.content}} />
+                            </Row>
+                        </Col>
+                    </Row>
+                    <Row className={"flex-column"}>
+                        <Col className={"d-flex justify-content-center"}>
+                            <Button
+                                className={"post__body__likebutton"}
+                                onClick={handleClickLike}
+                                variant={like ? "primary" : "outline-primary"}
+                            ><FaHeart style={{fontSize: "2rem"}}/>
+                            </Button>
+                        </Col>
+                        <Col className={"post__body__likescore d-flex justify-content-center"}>
+                            {likeCount}
+                        </Col>
+                    </Row>
                 </Row>
                 <Row className={"post__footer"}>
                     <Row>
