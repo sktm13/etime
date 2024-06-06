@@ -3,22 +3,22 @@
 import {Container, Row, Form, Button, Col} from 'react-bootstrap';
 import {useSelector} from "react-redux";
 import {Navigate} from "react-router-dom";
-import { useRef, useState} from "react";
+import {useState} from "react";
 
 
 //-수정---------------------------------------------------
-import {verifyAdd} from "../../api/verifyApi";
-import FetchingModal from "../commen/FetchingModal";
+// import {verifyAdd} from "../../api/verifyApi";
+// import FetchingModal from "../commen/FetchingModal";
 
-const [verify, setVerify] = useState({...initState})
+// const [verify, setVerify] = useState({...initState})
 
-const uploadRef = useRef()
+// const uploadRef = useRef()
 
-const [fetching, setFetching] = useState(false)
+// const [fetching, setFetching] = useState(false)
 
-const initState = {
-    files: []
-}
+// const initState = {
+//     files: []
+// }
 //---------------------------------------------------------
 
 function License() {
@@ -70,22 +70,22 @@ function License() {
     const handleSubmit = (e) => {
         // ajax요청로직 추가
 
-        const files = uploadRef.current.files
+        // const files = uploadRef.current.files
 
-        const formData = new FormData()
+        // const formData = new FormData()
 
-        for(let i = 0; i< files.length; i++){
-            formData.append("files", files[i]);
-        }
+        // for(let i = 0; i< files.length; i++){
+        //     formData.append("files", files[i]);
+        // }
 
-        postProduct(formData)
-        console.log('제출된 파일 목록 : ', formData);
+        // postProduct(formData)
+        console.log('제출된 파일 목록 : ', files);
         alert('파일이 성공적으로 제출되었습니다.');
 
-        setFetching(true)
-        verifyAdd(formData).then(data => {
-            setFetching(false)
-        })
+        // setFetching(true)
+        // verifyAdd(formData).then(data => {
+        //     setFetching(false)
+        // })
     }
     //-----------------------------------------------------------------
 
@@ -121,7 +121,7 @@ function License() {
                             onClick={()=>document.getElementById('fileInput').click()}
                             className={"license__body__dropzone"}
                             style={{backgroundColor: dragOver ? '#a1c0ea' : '#ededed'}}
-                            ref = {uploadRef}
+                            // ref = {uploadRef}
                         >
 
                             <h4><b>업로드할 파일 놓기</b></h4>
@@ -129,7 +129,7 @@ function License() {
 
                             <Button variant={"primary"}>파일 선택</Button>
                         </div>
-                        <Form.Control type="file" multiple id={"fileInput"} style={{display: 'none'}} ref = {uploadRef}/>
+                        <Form.Control type="file" multiple id={"fileInput"} style={{display: 'none'}} />
                     </Form.Group>
                 </Row>
 
