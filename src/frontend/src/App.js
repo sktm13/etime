@@ -30,7 +30,6 @@ function App() {
 <Container fluid className={"main"}>
     {/* 데이터 로드 */}
     <LoadData />
-    { !isDataLoaded && <Loading /> }
     {/* 네비게이션 바 */}
     <Navibar />
     <Row className={"main__body"}>

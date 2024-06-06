@@ -1,11 +1,12 @@
 // Setting.js
 // 마이페이지
-import {Container, Row, Col, Image, Nav, Tab, ProgressBar} from 'react-bootstrap';
+import {Col, Container, Image, Nav, ProgressBar, Row, Tab} from 'react-bootstrap';
 import {useDispatch, useSelector} from "react-redux";
 import {Navigate} from "react-router-dom";
-import {setIsDataLoaded, setIsLogined, setIsUserLoaded, setUserData} from "../../store";
+import {setIsDataLoaded, setIsLogined, setUserData} from "../../store";
 import {useCookies} from "react-cookie";
 import {jwtDecode} from "jwt-decode";
+import {useEffect} from "react";
 
 function Setting() {
 	const [cookie, setCookie] = useCookies();
@@ -14,8 +15,6 @@ function Setting() {
 	// store에서 데이터 불러오기
 	const userData = useSelector((state) => state.userData);
 	const isLogined = useSelector(state => state.isLogined);
-	const isUserLoaded = useSelector(state => state.isLogined);
-	const isDataLoaded = useSelector(state => state.isDataLoaded);
 
 
 	// 토큰을 디코드, userData에 저장
@@ -26,10 +25,12 @@ function Setting() {
 		dispatch(setIsDataLoaded(true))
 	}
 
-	if (cookie.accessToken) {
-		dispatch(setIsLogined(true));
-		saveUserData(cookie.accessToken);
-	}
+	useEffect(() => {
+		if (cookie.accessToken) {
+			dispatch(setIsLogined(true));
+			saveUserData(cookie.accessToken);
+		}
+	}, [cookie.accessToken, dispatch]);
 
 
 	// 로그인 상태가 아닐 때 로그인 페이지로 이동
@@ -89,8 +90,8 @@ function Setting() {
 									  <Col>
 										  <Row className={"m-4 setting__list__progressbar"}>
 											  <p className={"m-0 p-1"}>현재 레벨 : {userData.grade}</p>
-											  <p className={"m-0 p-1"}>다음 레벨까지 남은 경험치 : 40,000</p>
-											  <ProgressBar className={"setting__list__progressbar"} animated min={50000} max={100000} now={60000}></ProgressBar>
+											  <p className={"m-0 p-1"}>다음 레벨까지 남은 경험치 : 38,000</p>
+											  <ProgressBar className={"setting__list__progressbar"} animated min={50000} max={100000} now={62000}></ProgressBar>
 										  </Row>
 										  <Row className={"m-4 setting__list__progressbar"}>
 											  <Col className={"d-flex justify-content-between align-items-center"}>

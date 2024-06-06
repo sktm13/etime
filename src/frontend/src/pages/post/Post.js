@@ -7,7 +7,14 @@ import {useNavigate, useParams} from 'react-router-dom';
 
 import {useDispatch, useSelector} from "react-redux";
 import axios from "axios";
-import {setIsDataLoaded, setIsPostChanged, setIsPostLoaded, setPostData} from "../../store";
+import {
+    setCurrentPostData,
+    setIsCurrentPostLoaded,
+    setIsDataLoaded,
+    setIsPostChanged,
+    setIsPostLoaded,
+    setPostData
+} from "../../store";
 import {useEffect, useState} from "react";
 import {useCookies} from "react-cookie";
 
@@ -19,13 +26,8 @@ function Post() {
     const [cookie, setCookie] = useCookies(['accessToken'])
 
     // store 데이터 불러오기
-    const userData = useSelector(state => state.userData);
-    const commentData = useSelector((state) => state.commentData);
     const isDataLoaded = useSelector(state => state.isDataLoaded);
-    const categoryData = useSelector(state => state.categoryData);
-
-    // state 생성
-    const [postData, setPostData] = useState();
+    const currentPostData = useSelector(state => state.currentPostData);
 
     // 글 수정 버튼
     const handleModifyPost = () => {
@@ -52,24 +54,16 @@ function Post() {
             headers: {Authorization: `Bearer ${cookie.accessToken}`},
         })
             .then((res) => {
-                setPostData(res.data);
-                dispatch(setIsDataLoaded(true));
+                dispatch(setCurrentPostData(res.data));
+                dispatch(setIsCurrentPostLoaded(true));
             })
             .catch((error)=>{
                 console.log(error)
-                dispatch(setIsDataLoaded(false));
+                dispatch(setIsCurrentPostLoaded(false));
             })
     }, [params.postId]);
 
-    console.log(postData)
-
-
-
-    if (!isDataLoaded) {
-        return <div>로딩중...</div>
-    }
-
-    if (!postData) {
+    if (!setIsCurrentPostLoaded) {
         return <div>데이터가 존재하지 않음</div>
     }
 
@@ -81,7 +75,7 @@ function Post() {
                         <h6 className={"post__header__category"}>
                             카테고리
                         </h6>
-                        <h5>{postData.title}</h5>
+                        <h5>{currentPostData.title}</h5>
                     </Col>
                     <Col className={"d-flex justify-content-end align-items-center"}>
                         <Button onClick={handleModifyPost} className={"post__header__button"}>수정</Button>
@@ -95,16 +89,22 @@ function Post() {
                                 src="http://via.placeholder.com/200x200"
                                 roundedCircle
                                 style={{width: '50px', height: '50px'}}/>
-                            <h6 className={"post__header__author"}>{postData.member.nickname}</h6>
+                            {
+                                currentPostData.member ? (
+                                    <h6 className={"post__header__author"}>{currentPostData.member.nickname}</h6>
+                                ) : (
+                                    <h6 className={"post__header__author"}>작성자 정보 없음</h6>
+                                )
+                            }
                         </Col>
-                        <small><strong>작성일 : {postData.postDate}</strong></small>
+                        <small><strong>작성일 : {currentPostData.postDate}</strong></small>
                     </div>
                 </Row>
                 <Row className={"post__body"}>
                     <Col>
                         <Image src="http://via.placeholder.com/800x450" />
                         <Row>
-                            <p>{postData.content}</p>
+                            <div dangerouslySetInnerHTML={{__html: currentPostData.content}} />
                         </Row>
                     </Col>
                 </Row>

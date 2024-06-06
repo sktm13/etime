@@ -44,6 +44,7 @@
 .card-img {
 	border-radius: 10px;
 	margin-bottom: 3px;
+	width: 21rem;
 	}
 
 .card-body {
@@ -64,7 +65,7 @@
 	color: #212121;
 	font-size: 16px;
 	font-family: "Pretendard-medium";
-	font-weight: bold;
+	/*font-weight: bold;*/
 	margin-bottom: 3px;
 ;}
 
@@ -73,4 +74,15 @@
 	font-size: 14px;
 	font-family: "Pretendard-Light";
 	margin-bottom: 3px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 2;
+}
+
+.card-usergrade {
+	font-size: 18px;
+	font-weight: bold;
+	color: #0064d9;
 }

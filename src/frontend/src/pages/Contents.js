@@ -1,17 +1,16 @@
 // Contents.js
 // 메인 콘텐츠
-import {Col, Row, Button, ButtonGroup, Container, ToggleButton} from 'react-bootstrap';
-import { MakeCard } from '../common/MakeCard';
-import {useEffect, useState} from "react";
+import {Button, ButtonGroup, Col, Container, Row, ToggleButton} from 'react-bootstrap';
 import {useDispatch, useSelector} from "react-redux";
-import '../style/Contents.css';
-
-// store 함수 불러오기
-import MakeCarousel from "../common/MakeCarousel";
 import axios from "axios";
+import '../style/Contents.css';
+import {setIsDataLoaded, setIsPostLoaded, setPostData} from "../store";
+import {MakeCard} from '../common/MakeCard';
+import {useEffect, useState} from "react";
 import {useCookies} from "react-cookie";
-import {setIsPostLoaded, setPostData, setIsDataLoaded} from "../store";
 import {useNavigate} from "react-router-dom";
+import MakeCarousel from "../common/MakeCarousel";
+import Loading from "../common/Loading";
 
 function Contents() {
     const dispatch = useDispatch();
@@ -22,10 +21,9 @@ function Contents() {
     const isPostLoaded = useSelector(state => state.isPostLoaded);
     const isDataLoaded = useSelector(state => state.isDataLoaded);
     const postData = useSelector(state => state.postData);
-    const categoryData = useSelector(state => state.categoryData);
     const isLogined = useSelector(state => state.isLogined);
 
-    const [radioValue, setRadioValue] = useState('1');
+    const [pageSelect, setPageSelect] = useState('1');
     const radios = [
         { name: '1', value: '1' },
         { name: '2', value: '2' },
@@ -43,7 +41,7 @@ function Contents() {
         if (isLogined) {
             axios.get("http://localhost:8080/api/posts/list", {
                 headers: {Authorization: `Bearer ${cookie.accessToken}`},
-                params: {page: 1, size: 10}
+                params: {page: pageSelect, size: 12}
             })
                 .then((res) => {
                     if (!res.data.error) {
@@ -63,14 +61,13 @@ function Contents() {
                     console.log(err)
                     dispatch(setIsPostLoaded(false));
                 });
-        } else {
-            console.log("로그인안됨")
+        } else if (!cookie.accessToken) {
+            navigate('/pages/login');
         }
-    }, []);
-
+    }, [isLogined, cookie.accessToken, dispatch, navigate]);
 
     if (!isPostLoaded) {
-        return <div>post가 존재하지 않음</div>
+        return <Loading />
     }
 
     return (
@@ -80,14 +77,14 @@ function Contents() {
                 <MakeCarousel />
             </Container>
             <Col xl={12}>
-                <Row>
-                    <div className="d-flex justify-content-start">
-                        <ButtonGroup className="sort-button-group" >
-                            <Button className="sort-button" variant="light" onClick={() => {}}>최신순</Button>
-                            <Button className="sort-button" variant="light" onClick={() => {}}>오래된순</Button>
-                        </ButtonGroup>
-                    </div>
-                </Row>
+                {/*<Row>*/}
+                {/*    <div className="d-flex justify-content-start">*/}
+                {/*        <ButtonGroup className="sort-button-group" >*/}
+                {/*            <Button className="sort-button" variant="light" onClick={() => {}}>최신순</Button>*/}
+                {/*            <Button className="sort-button" variant="light" onClick={() => {}}>오래된순</Button>*/}
+                {/*        </ButtonGroup>*/}
+                {/*    </div>*/}
+                {/*</Row>*/}
                 <Row className="Content justify-content-center">
                     {
                         isPostLoaded &&
@@ -106,8 +103,8 @@ function Contents() {
                                 variant={'outline-secondary'}
                                 name="radio"
                                 value={radio.value}
-                                checked={radioValue === radio.value}
-                                onChange={(e) => setRadioValue(e.currentTarget.value)}
+                                checked={pageSelect === radio.value}
+                                onChange={(e) => setPageSelect(e.currentTarget.value)}
                             >
                                 {radio.name}
                             </ToggleButton>

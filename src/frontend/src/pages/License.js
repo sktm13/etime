@@ -5,7 +5,7 @@ import {useSelector} from "react-redux";
 import {Navigate} from "react-router-dom";
 import {useState} from "react";
 
-function Donate() {
+function License() {
     // store 데이터 불러오기
     const isLogined = useSelector(state => state.isLogined)
 
@@ -106,4 +106,4 @@ function Donate() {
     )
 }
 
-export default Donate;
+export default License;
