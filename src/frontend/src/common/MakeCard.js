@@ -95,11 +95,11 @@ function MakeCard(props) {
                             {
                                 postData.member.nickname ? (
                                     <Card.Text className="card-para">
-                                        {postData.member.nickname} : {postData.creatorScore}
+                                        {postData.member.nickname} : {postData.member.grade}
                                     </Card.Text>
                                 ) : (
                                     <Card.Text className="card-para">
-                                        작성자 정보 없음 : {postData.createScore}
+                                        작성자 정보 없음 : {postData.member.grade}
                                     </Card.Text>
                                 )
                             }
