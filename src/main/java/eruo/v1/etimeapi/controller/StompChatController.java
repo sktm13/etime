@@ -26,7 +26,7 @@ public class StompChatController {
     private final ChatRepository cr;
     private final ChatService cs;
 
-    @MessageMapping(value = "/chat/message")
+    @MessageMapping(value = "/chat/message")        //  '/pub/chat/message' 로 전송
     public void message(ChatMessageDetailDTO message) {
         template.convertAndSendToUser(message.getReceiver(), "/message", message);
 
@@ -38,7 +38,7 @@ public class StompChatController {
     @GetMapping("/chat/u1Mlist")        //user 한명으로 리스트 검색
     @ResponseBody
     public List<ChatMessageDetailDTO> getMessageList(@RequestParam String sender) {
-        List<ChatMessageEntity> messageEntities = cs.findAllMessagesByUser(sender);
+        List<ChatMessageEntity> messageEntities = cs.getAllMessagesByUser(sender);
         
         List<ChatMessageDetailDTO> messageList = new ArrayList<>();
         for (ChatMessageEntity entity : messageEntities) {
@@ -51,7 +51,7 @@ public class StompChatController {
     @GetMapping("/chat/u2Mlist")        //user 수신자, 송신자로 리스트 검색
     @ResponseBody
     public List<ChatMessageDetailDTO> getMessageList(@RequestParam String sender, @RequestParam String receiver) {
-        List<ChatMessageEntity> messageEntities = cs.findAllMessagesBetweenUsers(sender, receiver);
+        List<ChatMessageEntity> messageEntities = cs.getAllMessagesBetweenUsers(sender, receiver);
         
         List<ChatMessageDetailDTO> messageList = new ArrayList<>();
         for (ChatMessageEntity entity : messageEntities) {

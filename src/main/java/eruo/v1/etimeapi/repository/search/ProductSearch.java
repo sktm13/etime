@@ -1,10 +1,10 @@
-package eruo.v1.etimeapi.repository.search;
+    package eruo.v1.etimeapi.repository.search;
 
-import eruo.v1.etimeapi.dto.PageRequestDTO;
-import eruo.v1.etimeapi.dto.PageResponseDTO;
-import eruo.v1.etimeapi.dto.ProductDTO;
+    import eruo.v1.etimeapi.dto.PageRequestDTO;
+    import eruo.v1.etimeapi.dto.PageResponseDTO;
+    import eruo.v1.etimeapi.dto.ProductDTO;
 
-public interface ProductSearch {
-    
-    PageResponseDTO<ProductDTO> searchList (PageRequestDTO pageRequestDTO);
-}
+    public interface ProductSearch {
+        
+        PageResponseDTO<ProductDTO> searchList (PageRequestDTO pageRequestDTO);
+    }
